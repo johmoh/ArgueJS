@@ -62,13 +62,14 @@ define(function(require) {
     /** const */ var $ERR_ARGUEJS_PREFIX                                        = "parameter specification \"{1}\": ";
     /** const */ var $ERR_ARGUEJS_DefaultValueHasIncompatibleType               = $ERR_ARGUEJS_PREFIX + "default value is not compatible to parameter type";
     /** const */ var $ERR_ARGUEJS_InvalidTypeOfValue                            = $ERR_ARGUEJS_PREFIX + "value of \"{2}\" has incorrect type (must be {3})";
-    /** const */ var $ERR_ARGUEJS_InvalidTypeSpecificationOption                = $ERR_ARGUEJS_PREFIX + "option \"{2}\" in type specification is invalid.";
     /** const */ var $ERR_ARGUEJS_InvalidValue                                  = $ERR_ARGUEJS_PREFIX + "\"{2}\" is invalid.";
     /** const */ var $ERR_ARGUEJS_MissingTypeSpecification                      = $ERR_ARGUEJS_PREFIX + "type specification is missing.";
+    /** const */ var $ERR_ARGUEJS_ParameterSpecificationWithoutName             = "parameter specification: parameter #{1} has no name";
     /** const */ var $ERR_ARGUEJS_ParameterWithTooManyElements                  = $ERR_ARGUEJS_PREFIX + "specification contains more than one element.";
     /** const */ var $ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction         = $ERR_ARGUEJS_PREFIX + "\"{2}\" is {3} allowed for the tail-parameter in a variadic function";
     /** const */ var $ERR_ARGUEJS_TailParameterMustBeLastPastparameter          = "in a variadic function the tail-parameter must be the last parameter in the function specification.";
     /** const */ var $ERR_ARGUEJS_TypeSpecificationHasTooManyElements           = $ERR_ARGUEJS_PREFIX + "type specification has too many elements.";
+    /** const */ var $ERR_ARGUEJS_UnknownTypeSpecificationOption                = $ERR_ARGUEJS_PREFIX + "type specification contains unknown option \"{2}\".";
 
     /** const */ var $ERR_ARGUEJS_GetParameters_PREFIX                          = "Incompatible function call: ";
     /** const */ var $ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue  = $ERR_ARGUEJS_GetParameters_PREFIX + "mandatory argument \"{1}\" has no value.";
@@ -492,7 +493,7 @@ define(function(require) {
                                         if (!isBoolean(parameterParenthesizeTail)) { throw new Error(formatText($ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "parenthesizeTail", "boolean")); }
                                         break;
                                     default:
-                                        throw new Error(formatText($ERR_ARGUEJS_InvalidOption, parameterName, key));
+                                        throw new Error(formatText($ERR_ARGUEJS_UnknownTypeSpecificationOption, parameterName, key));
                                 }
                             }
                         }
@@ -506,7 +507,7 @@ define(function(require) {
             }
 
             // validate parameter name
-            if (!parameterName) { throw new Error(formatText($ERR_ARGUEJS_InvalidTypeSpecificationOption, parameterIdx)); }
+            if (!parameterName) { throw new Error(formatText($ERR_ARGUEJS_ParameterSpecificationWithoutName, parameterIdx)); }
 
             // validate type
             if (!isType(parameterType)) { throw new Error(formatText($ERR_ARGUEJS_InvalidValue, parameterName, "type")); }
