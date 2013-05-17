@@ -1,3 +1,11 @@
+## First things first...
+
+This repository is a fork of [ArgueJS](https://github.com/zvictor/ArgueJS).
+
+The intention for this fork is to prototype a kind of "version 2" of ArgueJS. That means: If the maintainer of ArgueJS accepts the new version the code will get merged back in the original repository and this repository gets deleted. I have no intention of build another library if there exists a good one that i only want to make better. Please keep that in mind.
+
+**To give credit...** The rest of this README is untouched. It is (as it is) from the original repository and not every information is correct for the "version 2". For further information read https://github.com/zvictor/ArgueJS/issues/14.
+
 <p align="center">
   <img src="https://raw.github.com/zvictor/ArgueJS/master/logo.png" alt="ArgueJs" />
 </p>
