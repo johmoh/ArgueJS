@@ -21,7 +21,7 @@ function formatText_TailDefault() {
 
 // a variadic function
 function formatText_TailWithParenthesizeTail() {
-    var signature = [{ formatString: String }, { replacements: {type: arguejs2.TAIL, parenthesizeTail: true}}]; // same same formatText_TailDefault but now, "parenthesizeTail" is explicitly set to "false"
+    var signature = [{ formatString: String }, { replacements: {type: arguejs2.TAIL, parenthesizeTail: true}}]; // same same formatText_TailDefault but now, "parenthesizeTail" is explicitly set to "true"
     var _args = arguejs2.getArguments(signature, arguments);
 
     if (_args.replacements === null)            { throw new Error("ArgueJS has a bug (case: null). This line should never be reached!"); }
@@ -39,7 +39,7 @@ function formatText_TailWithParenthesizeTail() {
 
 // a variadic function
 function formatText_TailWithoutParenthesizeTail() {
-    var signature = [{ formatString: String }, { replacements: {type: arguejs2.TAIL, parenthesizeTail: false}}]; // same same formatText_TailDefault but now "parenthesizeTail" is explicitly set to "true"
+    var signature = [{ formatString: String }, { replacements: {type: arguejs2.TAIL, parenthesizeTail: false}}]; // same same formatText_TailDefault but now "parenthesizeTail" is explicitly set to "false"
     var _args = arguejs2.getArguments(signature, arguments);
 
     if (_args.replacements === null)            { throw new Error("ArgueJS has a bug (case: null). This line should never be reached!"); }
