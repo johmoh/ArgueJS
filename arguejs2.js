@@ -401,6 +401,15 @@ define(function(require) {
         var resultingArguments = {};
 
         // process all parameters
+        var parameterName;              // the name of the parameter. that is the name of the property in the resulting list of argument values
+        var parameterType;              // the type of the parameter
+        var parameterIsOptional;        // undefined|false means "non-optional parameter"; true means "optional parameter"
+        var parameterHasDefaultValue;   // undefined|false means "has no default value"; true means "has default value"
+        var parameterDefaultValue;      // if parameterHasDefaultValue is true then the value of that variable is the default value - whatever that value is (undefined, null, a string, a function, an object, ...)
+        var parameterAllowUndefined;    // undefined means "default behavior or option forbidden (because parameter is tail-parameter)"; false means "explicitly not allowed"; true means "explicit allowed"
+        var parameterAllowNull;         // undefined means "default behavior or option forbidden (because parameter is tail-parameter)"; false means "explicitly not allowed"; true means "explicit allowed"
+        var parameterParenthesizeTail;  // undefined means "default behavior or option forbidden (because parameter is no tail-parameter)"; false means "explicitly do no parenthesize"; true means "explicitly do no parenthesize"
+
         var argumentNum   = _arguments.length;
         var argumentIdx   = 0;
         var argumentValue = _arguments[argumentIdx];
@@ -411,16 +420,14 @@ define(function(require) {
             if (typeof(parameterSpecification) !== "object") { throw new Error(formatText($ERR_BADCALL_InvalidTypeOfParameter, parameterIdx)); }
 
             // get parameter specification
-            // >>> irgnore jslint warnings. it is important that these variables get "initialized". - reason: to reset these variables when looping through parameter specifications
-            var parameterName             = undefined;  // the name of the parameter. that is the name of the property in the resulting list of argument values
-            var parameterType             = undefined;  // the type of the parameter
-            var parameterIsOptional       = undefined;  // undefined|false means "non-optional parameter"; true means "optional parameter"
-            var parameterHasDefaultValue  = undefined;  // undefined|false means "has no default value"; true means "has default value"
-            var parameterDefaultValue     = undefined;  // if parameterHasDefaultValue is true then the value of that variable is the default value - whatever that value is (undefined, null, a string, a function, an object, ...)
-            var parameterAllowUndefined   = undefined;  // undefined means "default behavior or option forbidden (because parameter is tail-parameter)"; false means "explicitly not allowed"; true means "explicit allowed"
-            var parameterAllowNull        = undefined;  // undefined means "default behavior or option forbidden (because parameter is tail-parameter)"; false means "explicitly not allowed"; true means "explicit allowed"
-            var parameterParenthesizeTail = undefined;  // undefined means "default behavior or option forbidden (because parameter is no tail-parameter)"; false means "explicitly do no parenthesize"; true means "explicitly do no parenthesize"
-            // <<< irgnore jslint warnings. it is important that these variables get "initialized". - reason: to reset these variables when looping through parameter specifications
+            parameterName             = undefined;  // the name of the parameter. that is the name of the property in the resulting list of argument values
+            parameterType             = undefined;  // the type of the parameter
+            parameterIsOptional       = undefined;  // undefined|false means "non-optional parameter"; true means "optional parameter"
+            parameterHasDefaultValue  = undefined;  // undefined|false means "has no default value"; true means "has default value"
+            parameterDefaultValue     = undefined;  // if parameterHasDefaultValue is true then the value of that variable is the default value - whatever that value is (undefined, null, a string, a function, an object, ...)
+            parameterAllowUndefined   = undefined;  // undefined means "default behavior or option forbidden (because parameter is tail-parameter)"; false means "explicitly not allowed"; true means "explicit allowed"
+            parameterAllowNull        = undefined;  // undefined means "default behavior or option forbidden (because parameter is tail-parameter)"; false means "explicitly not allowed"; true means "explicit allowed"
+            parameterParenthesizeTail = undefined;  // undefined means "default behavior or option forbidden (because parameter is no tail-parameter)"; false means "explicitly do no parenthesize"; true means "explicitly do no parenthesize"
             for(var parameterId in parameterSpecification) {
                 if (parameterSpecification.hasOwnProperty(parameterId)) {
 
