@@ -603,7 +603,7 @@ define(function(require) {
                 var defaultValue;
 
                 // get the default value
-                if (!isFunction(parameterDefaultValue) || isFunction(parameterType)) {
+                if ((parameterType === Function) || !isFunction(parameterDefaultValue)) {
 
                     // the default value of the parameter is no function OR the default value is a function and the type of the parameter is "Function" too
                     // in both cases we can directy try to use that value directly
