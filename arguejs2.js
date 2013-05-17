@@ -63,7 +63,6 @@ define(function(require) {
     /** const */ var $ERR_ARGUEJS_InvalidTypeSpecificationOption                = $ERR_ARGUEJS_PREFIX + "option \"{2}\" in type specification is invalid.";
     /** const */ var $ERR_ARGUEJS_InvalidValue                                  = $ERR_ARGUEJS_PREFIX + "\"{2}\" is invalid.";
     /** const */ var $ERR_ARGUEJS_MissingTypeSpecification                      = $ERR_ARGUEJS_PREFIX + "type specification is missing.";
-    /** const */ var $ERR_ARGUEJS_ParameterWithoutSpecification                 = "parameter specification #{1} is missing.";
     /** const */ var $ERR_ARGUEJS_ParameterWithTooManyElements                  = $ERR_ARGUEJS_PREFIX + "specification contains more than one element.";
     /** const */ var $ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction         = $ERR_ARGUEJS_PREFIX + "\"{2}\" is {3} allowed for the tail-parameter in a variadic function";
     /** const */ var $ERR_ARGUEJS_TailParameterMustBeLastPastparameter          = "in a variadic function the tail-parameter must be the last parameter in the function specification.";
