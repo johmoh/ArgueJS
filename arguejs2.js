@@ -603,7 +603,7 @@ define(function(require) {
                 var defaultValue;
 
                 // get the default value
-                if ((parameterType === Function) || !isFunction(parameterDefaultValue)) {
+                if ((parameterType === Function) || (parameterType === ArgueJS.ANYTYPE) || !isFunction(parameterDefaultValue)) {
 
                     // the default value of the parameter is no function OR the default value is a function and the type of the parameter is "Function" too
                     // in both cases we can directy try to use that value directly
