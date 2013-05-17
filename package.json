@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/zvictor/ArgueJS.git"
+    "url": "git://github.com/johmoh/ArgueJS.git"
   },
   "maintainers": [
     {
@@ -20,13 +20,17 @@
     }
   ],
   "contributors": [
-
+    {
+      "name": "Martin Lühring",
+      "url": "http://www.aitexnet.de/it-experte-martin-luehring"
+    }
   ],
   "bugs": {
     "url": "http://github.com/zvictor/ArgueJS/issues"
   },
   "devDependencies": {
-    "karma": "*"
+    "karma": "*",
+    "yuidocjs": "~0.3.44"
   },
   "keywords": [
     "arguejs",
@@ -35,9 +39,13 @@
     "parameters"
   ],
   "author": {
-    "name" : "José Victor Duarte",
-    "url" : "http://zvictor.net/"
+    "name": "José Victor Duarte",
+    "url": "http://zvictor.net/"
   },
   "license": "BSD",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "requirejs": "~2.1.6",
+    "amdefine": "0.0.5"
+  }
 }
