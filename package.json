@@ -45,7 +45,6 @@
   "license": "BSD",
   "readmeFilename": "README.md",
   "dependencies": {
-    "requirejs": "~2.1.6",
     "amdefine": "0.0.5"
   }
 }
