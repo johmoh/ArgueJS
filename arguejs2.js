@@ -13,11 +13,13 @@ define(function(require) {
     return function(module_exports_factory){
         return module_exports_factory(
             /* put some static configuration values here */
+            ((typeof(ARGUEJS_EXPORT_INTERNALS) !== "undefined") || (typeof(DEBUG) !== "undefined")) // ARGUEJS_EXPORT_INTERNALS
         );
     }(
 
     function(
         /* define variables for some static configuration values here */
+        ARGUEJS_EXPORT_INTERNALS /* Exporting internals for debugging and testing? true/false @see ArgueJS.__export_internals__ */
     ) {
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 // [[<<< make module available in node.js and the web (AMD - RequireJS)]]
@@ -150,7 +152,7 @@ define(function(require) {
     var isArguments = function() {
         var argumentsDetectionText = Object.prototype.toString.call(arguments);
         return function(_value) {
-            return _value && Object.prototype.toString.call(_value) === argumentsDetectionText;
+            return (Object.prototype.toString.call(_value) === argumentsDetectionText);
         };
     }();
 
@@ -626,6 +628,52 @@ define(function(require) {
 
         // FINISHED!
         return resultingArguments;
+    };
+
+    /**
+     * THIS FUNCTION EXPORTS INTERNAL INFORMATION ABOUT THE LIBRARY. THAT IS USEFUL FOR TESTING THE LIBRARY. TESTING ALL PARTS OF THE LIBRARY IS THE ONLY INTENTION FOR THIS FUNCTION.
+     *
+     * DO NOT USE THAT FUNCTION TO ACCESS SOME TO ACCESS INTERNAL STUFF. CHANGES IN THE SPECIFICATION OF THIS FUNTION ARE NOT REPORTED AND MAY OCCUR AT ANY TIME WITHOUT ANY WARNING!
+     * THESE CHANGES ARE NO BUGS AND WILL NOT GET THREATED AS BUGS. THESE CHANGES ARE PART OF IMPROVING THE FUNCTIONAL TESTS OF THIS LIBRARY!
+     *
+     * @for     ArgueJS
+     * @method  __export_internals__
+     */
+    if (ARGUEJS_EXPORT_INTERNALS)
+    ArgueJS.__export_internals__ = function(_arguejs) {
+        if ((typeof(_arguejs) !== "undefined") && !(_arguejs instanceof ArgueJS)) { throw new Error($ERR_BADCALL_PREFIX + "_arguejs type mismatch"); }
+
+        return {
+
+            // global privates
+            $ : {
+                    // Utility functions for handling types
+                isBoolean               : isBoolean,
+                isArray                 : isArray,
+                isFunction              : isFunction,
+                isObject                : isObject,
+                isArguments             : isArguments,
+                isType                  : isType,
+                getType                 : getType,
+
+                // Utility functions for generating error messages
+                formatText              : formatText,
+
+                // Utility functions for validating data
+                validateParameterName   : validateParameterName,
+                isCompatibleValue       : isCompatibleValue
+            },
+
+            // Class: ArgueJS
+            ArgueJS: {
+                /* nothing to export at the moment */
+            },
+
+            // current object _arguejs
+            _arguejs: _arguejs ? undefined : {
+                /* nothing to export at the moment */
+            }
+        };
     };
 
     /* ###############################################################################################
