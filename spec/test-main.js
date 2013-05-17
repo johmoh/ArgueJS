@@ -1,6 +1,12 @@
 var tests = Object.keys(window.__karma__.files).filter(function (file) {
-      return /Spec\.js$/.test(file);
+    return (
+        (/Spec\.js$/).test(file) ||
+        (/-spec\.js$/).test(file)
+    );
 });
+
+if (typeof(ARGUEJS_EXPORT_INTERNALS) === "undefined") { ARGUEJS_EXPORT_INTERNALS = true; }
+if (typeof(DEBUG) === "undefined")                    { DEBUG = true; }
 
 requirejs.config({
     // Karma serves files from '/base'
@@ -22,4 +28,3 @@ requirejs.config({
     // start test run, once Require.js is done
     callback: window.__karma__.start
 });
-

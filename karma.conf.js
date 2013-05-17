@@ -14,16 +14,22 @@ files = [
   REQUIRE_ADAPTER,
 
   {pattern: 'lib/**/*.js', included: false},
-  {pattern: 'argue.js', included: false},
-  {pattern: 'test/**/*Spec.js', included: false},
 
-  'test/test-main.js'
+  // Version 1
+  {pattern: 'argue.js', included: false},
+  {pattern: 'spec/ArgueJS1/**/*Spec.js', included: false},
+
+  // Version 2
+  {pattern: 'arguejs2.js', included: false},
+  {pattern: 'spec/ArgueJS2/**/*-spec.js', included: false},
+
+  // RequireJS-config
+  'spec/test-main.js'
 ];
 
 
 // list of files to exclude
 exclude = [
-  
 ];
 
 
@@ -61,7 +67,8 @@ autoWatch = true;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = ['Chrome', 'Firefox', 'PhantomJS'];
+//browsers = ['Chrome', 'Firefox', 'PhantomJS'];
+browsers = ['Chrome'];
 
 
 // If browser does not capture in given timeout [ms], kill it

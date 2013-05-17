@@ -3,7 +3,7 @@ define(['argue', 'chai'], function(__, chai) {
   var should = chai.should();
   var expect = chai.expect;
 
-  describe('utilities', function() {
+  describe('ArgueJS1: utilities', function() {
 
     describe('getType', function() {
 

@@ -2,7 +2,7 @@ define(['argue', 'chai'], function(__, chai) {
   chai.Assertion.includeStack = true;
   var should = chai.should();
 
-  describe('simple calls', function() {
+  describe('ArgueJS1: simple calls', function() {
 
     describe('when arguments exceed', function() {
 
@@ -47,14 +47,14 @@ define(['argue', 'chai'], function(__, chai) {
       });
 
     });
-    
+
     describe('without signature without upperArguments', function() {
       function upper() {
         return __();
       }
 
       it('should throw error when called', function() {
-        
+
         (function(){
           upper();
         }).should.throw("parameter 'signature' waiting for Object argument but received Undefined");
@@ -72,7 +72,7 @@ define(['argue', 'chai'], function(__, chai) {
         (function(){
           upper();
         }).should.throw("parameter 'signature' waiting for Object argument but received Arguments");
-        
+
       });
 
     });
@@ -82,13 +82,13 @@ define(['argue', 'chai'], function(__, chai) {
       }
 
       it('should return no arguments', function() {
-        
+
         var instance = upper();
 
         instance.should.be.an('object');
         instance.should.have.ownProperty('doc');
         instance.doc.should.be.a('function');
-        
+
         delete instance.doc
         instance.should.be.empty;
 
@@ -101,7 +101,7 @@ define(['argue', 'chai'], function(__, chai) {
       }
 
       it('should throw error when called', function() {
-        
+
         (function(){
           upper();
         }).should.throw("parameter 'upperArguments' waiting for Array or Arguments argument but received Boolean");
@@ -118,9 +118,9 @@ define(['argue', 'chai'], function(__, chai) {
         function upper2() {
           return __({foo: String});
         }
-        
+
         should.equal(upper('bar').foo, upper2('bar').foo);
-        
+
       });
 
     });

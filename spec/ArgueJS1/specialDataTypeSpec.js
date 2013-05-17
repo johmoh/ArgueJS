@@ -2,7 +2,7 @@ define(['argue', 'chai'], function(__, chai) {
   chai.Assertion.includeStack = true;
   var should = chai.should();
 
-  describe('special data types', function() {
+  describe('ArgueJS1: special data types', function() {
 
     describe('typage restriction', function() {
 
