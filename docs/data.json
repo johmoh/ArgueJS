@@ -1,0 +1,4282 @@
+{
+    "project": {},
+    "files": {
+        ".playground\\old-performance-test.js": {
+            "name": ".playground\\old-performance-test.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        ".playground\\performance-test.js": {
+            "name": ".playground\\performance-test.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib\\chai.js": {
+            "name": "lib\\chai.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib\\require.js": {
+            "name": "lib\\require.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "arguejs2.js": {
+            "name": "arguejs2.js",
+            "modules": {
+                "module-arguejs": 1
+            },
+            "classes": {
+                "ArgueJS": 1,
+                "ANYTYPE": 1,
+                "TAIL": 1
+            },
+            "fors": {
+                "module-arguejs": 1,
+                "ArgueJS": 1
+            },
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "module-arguejs": {
+            "name": "module-arguejs",
+            "submodules": {},
+            "classes": {
+                "module-arguejs": 1,
+                "ArgueJS": 1,
+                "ANYTYPE": 1,
+                "TAIL": 1
+            },
+            "fors": {
+                "module-arguejs": 1,
+                "ArgueJS": 1
+            },
+            "namespaces": {},
+            "tag": "module",
+            "file": "arguejs2.js",
+            "line": 348,
+            "description": "Module ArgueJS"
+        }
+    },
+    "classes": {
+        "module-arguejs": {
+            "name": "module-arguejs",
+            "shortname": "module-arguejs",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "module-arguejs",
+            "namespace": ""
+        },
+        "ArgueJS": {
+            "name": "ArgueJS",
+            "shortname": "ArgueJS",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "module-arguejs",
+            "namespace": "",
+            "file": "arguejs2.js",
+            "line": 305,
+            "description": "Constructor of class ArgueJS. At the moment it does not make any sense to create an object from that class.\n\nThis class is exported by the module.",
+            "is_constructor": 1,
+            "static": 1
+        },
+        "ANYTYPE": {
+            "name": "ANYTYPE",
+            "shortname": "ANYTYPE",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "module-arguejs",
+            "namespace": "",
+            "file": "arguejs2.js",
+            "line": 318,
+            "description": "Constructor of class ANYTYPE. That type is used to mark a parameter as \"any type execpt undefined and null allowed\".\n\nANYTYPE is a special type for marking an parameter type as \"any type\". That means any type is allowed for that parameter - but of course, \"undefined\" and \"null\" are not allowed.\nIf you want to specify an parameter that accepts values of any type and \"undefined\" and \"null\" you can do that. In such a case speficy \"allowUndefind: true\" and \"allowNull: true\"\nin the specification of the parameter.",
+            "example": [
+                "\nvar arguejs = require('arguejs');\n\nfunction example() {\n    var specification = [{canBeAnyTypeOrUndefinedOrNull: {type: arguejs.ANYTYPE, allowUndefined: true, allowNull: true}}];\n    var _args = arguejs.getArguments(specification, arguments);\n    return _args.canBeAnyTypeOrUndefinedOrNull;\n}\n\nexample(17);\nexample(\"Hello world!\");\nexample(true);\nexample(/^[a-z]*$/i);\nexample(new MyClass());"
+            ],
+            "is_constructor": 1,
+            "static": 1,
+            "final": 1
+        },
+        "TAIL": {
+            "name": "TAIL",
+            "shortname": "TAIL",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "module-arguejs",
+            "namespace": "",
+            "file": "arguejs2.js",
+            "line": 348,
+            "description": "Constructor of class TAIL. That type is used to mark a parameter as \"containing all remaining arguments of a variadic function\".\n\nTAIL is a special type for marking an parameter as \"array of remaining arguments\". TAIL is used to specify an parameter containing all remaining arguments in a variadic function.",
+            "example": [
+                "\nvar arguejs = require('arguejs');\n\nfunction example() {\n    var specification = [{obligatoryValue: Number}, {myTail: arguejs.TAIL}];\n    var _args = arguejs.getArguments(specification, arguments);\n    console.log(\"number=\" + _args.Number);\n    console.log(\"tail is \" + (_args.myTail === undefined ? \"undefined\" : \"defined and contains \" + _args.myTail));\n}\n\nexample(17); // myTail is undefined\nexample(1, \"Hallo world!\"); // myTail = [\"Hello world!\"]\nexample(39, 3, 1, 5, new MyClass(), false, true, [27,9,3,1]); // myTail = [3, 1, 5, new MyClass(), false, true, [27,9,3,1]]"
+            ],
+            "is_constructor": 1,
+            "static": 1,
+            "final": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": ".playground\\old-performance-test.js",
+            "line": 35,
+            "class": "module-arguejs"
+        },
+        {
+            "file": ".playground\\old-performance-test.js",
+            "line": 42,
+            "class": "module-arguejs"
+        },
+        {
+            "file": ".playground\\performance-test.js",
+            "line": 92,
+            "class": "module-arguejs"
+        },
+        {
+            "file": ".playground\\performance-test.js",
+            "line": 99,
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 97,
+            "description": "# .use(function)\n\nProvides a way to extend the internals of Chai",
+            "params": [
+                {
+                    "name": "UNKNOWN",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "for chaining",
+                "type": "This"
+            },
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 295,
+            "description": "### Language Chains\n\nThe following are provide as chainable getters to\nimprove the readability of your assertions. They\ndo not provide an testing capability unless they\nhave been overwritten by a plugin.\n\n**Chains**\n\n- to\n- be\n- been\n- is\n- that\n- and\n- have\n- with\n- at\n- of",
+            "name": "language chains",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 329,
+            "description": "### .not\n\nNegates any of assertions following in the chain.\n\n    expect(foo).to.not.equal('bar');\n    expect(goodFn).to.not.throw(Error);\n    expect({ foo: 'baz' }).to.have.property('foo')\n      .and.not.equal('bar');",
+            "name": "not",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 347,
+            "description": "### .deep\n\nSets the `deep` flag, later used by the `equal` and\n`property` assertions.\n\n    expect(foo).to.deep.equal({ bar: 'baz' });\n    expect({ foo: { bar: { baz: 'quux' } } })\n      .to.have.deep.property('foo.bar.baz', 'quux');",
+            "name": "deep",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 365,
+            "description": "### .a(type)\n\nThe `a` and `an` assertions are aliases that can be\nused either as language chains or to assert a value's\ntype.\n\n    // typeof\n    expect('test').to.be.a('string');\n    expect({ foo: 'bar' }).to.be.an('object');\n    expect(null).to.be.a('null');\n    expect(undefined).to.be.an('undefined');\n\n    // language chain\n    expect(foo).to.be.an.instanceof(Foo);",
+            "name": "a",
+            "alias": "an",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 404,
+            "description": "### .include(value)\n\nThe `include` and `contain` assertions can be used as either property\nbased language chains or as methods to assert the inclusion of an object\nin an array or a substring in a string. When used as language chains,\nthey toggle the `contain` flag for the `keys` assertion.\n\n    expect([1,2,3]).to.include(2);\n    expect('foobar').to.contain('foo');\n    expect({ foo: 'bar', hello: 'universe' }).to.include.keys('foo');",
+            "name": "include",
+            "alias": "contain",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "",
+                    "type": "Object|String|Number"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 439,
+            "description": "### .ok\n\nAsserts that the target is truthy.\n\n    expect('everthing').to.be.ok;\n    expect(1).to.be.ok;\n    expect(false).to.not.be.ok;\n    expect(undefined).to.not.be.ok;\n    expect(null).to.not.be.ok;",
+            "name": "ok",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 461,
+            "description": "### .true\n\nAsserts that the target is `true`.\n\n    expect(true).to.be.true;\n    expect(1).to.not.be.true;",
+            "name": "true",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 482,
+            "description": "### .false\n\nAsserts that the target is `false`.\n\n    expect(false).to.be.false;\n    expect(0).to.not.be.false;",
+            "name": "false",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 503,
+            "description": "### .null\n\nAsserts that the target is `null`.\n\n    expect(null).to.be.null;\n    expect(undefined).not.to.be.null;",
+            "name": "null",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 523,
+            "description": "### .undefined\n\nAsserts that the target is `undefined`.\n\n     expect(undefined).to.be.undefined;\n     expect(null).to.not.be.undefined;",
+            "name": "undefined",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 543,
+            "description": "### .exist\n\nAsserts that the target is neither `null` nor `undefined`.\n\n    var foo = 'hi'\n      , bar = null\n      , baz;\n\n    expect(foo).to.exist;\n    expect(bar).to.not.exist;\n    expect(baz).to.not.exist;",
+            "name": "exist",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 569,
+            "description": "### .empty\n\nAsserts that the target's length is `0`. For arrays, it checks\nthe `length` property. For objects, it gets the count of\nenumerable keys.\n\n    expect([]).to.be.empty;\n    expect('').to.be.empty;\n    expect({}).to.be.empty;",
+            "name": "empty",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 601,
+            "description": "### .arguments\n\nAsserts that the target is an arguments object.\n\n    function test () {\n      expect(arguments).to.be.arguments;\n    }",
+            "name": "arguments",
+            "alias": "Arguments",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 628,
+            "description": "### .equal(value)\n\nAsserts that the target is strictly equal (`===`) to `value`.\nAlternately, if the `deep` flag is set, asserts that\nthe target is deeply equal to `value`.\n\n    expect('hello').to.equal('hello');\n    expect(42).to.equal(42);\n    expect(1).to.not.equal(true);\n    expect({ foo: 'bar' }).to.not.equal({ foo: 'bar' });\n    expect({ foo: 'bar' }).to.deep.equal({ foo: 'bar' });",
+            "name": "equal",
+            "alias": "deep.equal",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 671,
+            "description": "### .eql(value)\n\nAsserts that the target is deeply equal to `value`.\n\n    expect({ foo: 'bar' }).to.eql({ foo: 'bar' });\n    expect([ 1, 2, 3 ]).to.eql([ 1, 2, 3 ]);",
+            "name": "eql",
+            "alias": "eqls",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 701,
+            "description": "### .above(value)\n\nAsserts that the target is greater than `value`.\n\n    expect(10).to.be.above(5);\n\nCan also be used in conjunction with `length` to\nassert a minimum length. The benefit being a\nmore informative error message than if the length\nwas supplied directly.\n\n    expect('foo').to.have.length.above(2);\n    expect([ 1, 2, 3 ]).to.have.length.above(2);",
+            "name": "above",
+            "alias": "greaterThan",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 750,
+            "description": "### .least(value)\n\nAsserts that the target is greater than or equal to `value`.\n\n    expect(10).to.be.at.least(10);\n\nCan also be used in conjunction with `length` to\nassert a minimum length. The benefit being a\nmore informative error message than if the length\nwas supplied directly.\n\n    expect('foo').to.have.length.of.at.least(2);\n    expect([ 1, 2, 3 ]).to.have.length.of.at.least(3);",
+            "name": "least",
+            "alias": "gte",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 797,
+            "description": "### .below(value)\n\nAsserts that the target is less than `value`.\n\n    expect(5).to.be.below(10);\n\nCan also be used in conjunction with `length` to\nassert a maximum length. The benefit being a\nmore informative error message than if the length\nwas supplied directly.\n\n    expect('foo').to.have.length.below(4);\n    expect([ 1, 2, 3 ]).to.have.length.below(4);",
+            "name": "below",
+            "alias": "lessThan",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 846,
+            "description": "### .most(value)\n\nAsserts that the target is less than or equal to `value`.\n\n    expect(5).to.be.at.most(5);\n\nCan also be used in conjunction with `length` to\nassert a maximum length. The benefit being a\nmore informative error message than if the length\nwas supplied directly.\n\n    expect('foo').to.have.length.of.at.most(4);\n    expect([ 1, 2, 3 ]).to.have.length.of.at.most(3);",
+            "name": "most",
+            "alias": "lte",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 893,
+            "description": "### .within(start, finish)\n\nAsserts that the target is within a range.\n\n    expect(7).to.be.within(5,10);\n\nCan also be used in conjunction with `length` to\nassert a length range. The benefit being a\nmore informative error message than if the length\nwas supplied directly.\n\n    expect('foo').to.have.length.within(2,4);\n    expect([ 1, 2, 3 ]).to.have.length.within(2,4);",
+            "name": "within",
+            "params": [
+                {
+                    "name": "start",
+                    "description": "lowerbound inclusive",
+                    "type": "Number"
+                },
+                {
+                    "name": "finish",
+                    "description": "upperbound inclusive",
+                    "type": "Number"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 936,
+            "description": "### .instanceof(constructor)\n\nAsserts that the target is an instance of `constructor`.\n\n    var Tea = function (name) { this.name = name; }\n      , Chai = new Tea('chai');\n\n    expect(Chai).to.be.an.instanceof(Tea);\n    expect([ 1, 2, 3 ]).to.be.instanceof(Array);",
+            "name": "instanceof",
+            "params": [
+                {
+                    "name": "constructor",
+                    "description": "",
+                    "type": "Constructor"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "alias": "instanceOf",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 967,
+            "description": "### .property(name, [value])\n\nAsserts that the target has a property `name`, optionally asserting that\nthe value of that property is strictly equal to  `value`.\nIf the `deep` flag is set, you can use dot- and bracket-notation for deep\nreferences into objects and arrays.\n\n    // simple referencing\n    var obj = { foo: 'bar' };\n    expect(obj).to.have.property('foo');\n    expect(obj).to.have.property('foo', 'bar');\n\n    // deep referencing\n    var deepObj = {\n        green: { tea: 'matcha' }\n      , teas: [ 'chai', 'matcha', { tea: 'konacha' } ]\n    };\n\n    expect(deepObj).to.have.deep.property('green.tea', 'matcha');\n    expect(deepObj).to.have.deep.property('teas[1]', 'matcha');\n    expect(deepObj).to.have.deep.property('teas[2].tea', 'konacha');\n\nYou can also use an array as the starting point of a `deep.property`\nassertion, or traverse nested arrays.\n\n    var arr = [\n        [ 'chai', 'matcha', 'konacha' ]\n      , [ { tea: 'chai' }\n        , { tea: 'matcha' }\n        , { tea: 'konacha' } ]\n    ];\n\n    expect(arr).to.have.deep.property('[0][1]', 'matcha');\n    expect(arr).to.have.deep.property('[1][2].tea', 'konacha');\n\nFurthermore, `property` changes the subject of the assertion\nto be the value of that property from the original object. This\npermits for further chainable assertions on that property.\n\n    expect(obj).to.have.property('foo')\n      .that.is.a('string');\n    expect(deepObj).to.have.property('green')\n      .that.is.an('object')\n      .that.deep.equals({ tea: 'matcha' });\n    expect(deepObj).to.have.property('teas')\n      .that.is.an('array')\n      .with.deep.property('[2]')\n        .that.deep.equals({ tea: 'konacha' });",
+            "name": "property",
+            "alias": "deep.property",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "(optional)",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "value of property for chaining"
+            },
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1062,
+            "description": "### .ownProperty(name)\n\nAsserts that the target has an own property `name`.\n\n    expect('test').to.have.ownProperty('length');",
+            "name": "ownProperty",
+            "alias": "haveOwnProperty",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1089,
+            "description": "### .length(value)\n\nAsserts that the target's `length` property has\nthe expected value.\n\n    expect([ 1, 2, 3]).to.have.length(3);\n    expect('foobar').to.have.length(6);\n\nCan also be used as a chain precursor to a value\ncomparison for the length property.\n\n    expect('foo').to.have.length.above(2);\n    expect([ 1, 2, 3 ]).to.have.length.above(2);\n    expect('foo').to.have.length.below(4);\n    expect([ 1, 2, 3 ]).to.have.length.below(4);\n    expect('foo').to.have.length.within(2,4);\n    expect([ 1, 2, 3 ]).to.have.length.within(2,4);",
+            "name": "length",
+            "alias": "lengthOf",
+            "params": [
+                {
+                    "name": "length",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1137,
+            "description": "### .match(regexp)\n\nAsserts that the target matches a regular expression.\n\n    expect('foobar').to.match(/^foo/);",
+            "name": "match",
+            "params": [
+                {
+                    "name": "RegularExpression",
+                    "description": "",
+                    "type": "RegExp"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1160,
+            "description": "### .string(string)\n\nAsserts that the string target contains another string.\n\n    expect('foobar').to.have.string('bar');",
+            "name": "string",
+            "params": [
+                {
+                    "name": "string",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1186,
+            "description": "### .keys(key1, [key2], [...])\n\nAsserts that the target has exactly the given keys, or\nasserts the inclusion of some keys when using the\n`include` or `contain` modifiers.\n\n    expect({ foo: 1, bar: 2 }).to.have.keys(['foo', 'bar']);\n    expect({ foo: 1, bar: 2, baz: 3 }).to.contain.keys('foo', 'bar');",
+            "name": "keys",
+            "alias": "key",
+            "params": [
+                {
+                    "name": "keys",
+                    "description": "",
+                    "type": "String...|Array"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1254,
+            "description": "### .throw(constructor)\n\nAsserts that the function target will throw a specific error, or specific type of error\n(as determined using `instanceof`), optionally with a RegExp or string inclusion test\nfor the error's message.\n\n    var err = new ReferenceError('This is a bad function.');\n    var fn = function () { throw err; }\n    expect(fn).to.throw(ReferenceError);\n    expect(fn).to.throw(Error);\n    expect(fn).to.throw(/bad function/);\n    expect(fn).to.not.throw('good function');\n    expect(fn).to.throw(ReferenceError, /bad function/);\n    expect(fn).to.throw(err);\n    expect(fn).to.not.throw(new RangeError('Out of range.'));\n\nPlease note that when a throw expectation is negated, it will check each\nparameter independently, starting with error constructor type. The appropriate way\nto check for the existence of a type of error but for a message that does not match\nis to use `and`.\n\n    expect(fn).to.throw(ReferenceError)\n       .and.not.throw(/good function/);",
+            "name": "throw",
+            "alias": "Throw",
+            "params": [
+                {
+                    "name": "constructor",
+                    "description": "",
+                    "type": "ErrorConstructor"
+                },
+                {
+                    "name": "expected",
+                    "description": "error message",
+                    "type": "String|RegExp"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "see": [
+                "https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Error#Error_types"
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1397,
+            "description": "### .respondTo(method)\n\nAsserts that the object or class target will respond to a method.\n\n    Klass.prototype.bar = function(){};\n    expect(Klass).to.respondTo('bar');\n    expect(obj).to.respondTo('bar');\n\nTo check if a constructor will respond to a static function,\nset the `itself` flag.\n\n   Klass.baz = function(){};\n   expect(Klass).itself.to.respondTo('baz');",
+            "name": "respondTo",
+            "params": [
+                {
+                    "name": "method",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1433,
+            "description": "### .itself\n\nSets the `itself` flag, later used by the `respondTo` assertion.\n\n   function Foo() {}\n   Foo.bar = function() {}\n   Foo.prototype.baz = function() {}\n\n   expect(Foo).itself.to.respondTo('bar');\n   expect(Foo).itself.not.to.respondTo('baz');",
+            "name": "itself",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1453,
+            "description": "### .satisfy(method)\n\nAsserts that the target passes a given truth test.\n\n    expect(1).to.satisfy(function(num) { return num > 0; });",
+            "name": "satisfy",
+            "params": [
+                {
+                    "name": "matcher",
+                    "description": "",
+                    "type": "Function"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1478,
+            "description": "### .closeTo(expected, delta)\n\nAsserts that the target is equal `expected`, to within a +/- `delta` range.\n\n    expect(1.5).to.be.closeTo(1, 0.5);",
+            "name": "closeTo",
+            "params": [
+                {
+                    "name": "expected",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "delta",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "message",
+                    "description": "_optional_",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1519,
+            "description": "# AssertionError (constructor)\n\nCreate a new assertion error based on the Javascript\n`Error` prototype.\n\n**Options**\n- message\n- actual\n- expected\n- operator\n- startStackFunction",
+            "params": [
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1558,
+            "description": "# toString()\n\nOverride default to string method",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1591,
+            "description": "### assert(expression, message)\n\nWrite your own test expressions.\n\n    assert('foo' !== 'bar', 'foo is not bar');\n    assert(Array.isArray([]), 'empty arrays are arrays');",
+            "params": [
+                {
+                    "name": "expression",
+                    "description": "to test for truthiness",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "to display on error",
+                    "type": "String"
+                }
+            ],
+            "name": "assert",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1614,
+            "description": "### .fail(actual, expected, [message], [operator])\n\nThrow a failure. Node.js `assert` module-compatible.",
+            "name": "fail",
+            "params": [
+                {
+                    "name": "actual",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "expected",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "operator",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1637,
+            "description": "### .ok(object, [message])\n\nAsserts that `object` is truthy.\n\n    assert.ok('everything', 'everything is ok');\n    assert.ok(false, 'this will fail');",
+            "name": "ok",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "to test",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1655,
+            "description": "### .equal(actual, expected, [message])\n\nAsserts non-strict equality (`==`) of `actual` and `expected`.\n\n    assert.equal(3, '3', '== coerces values to strings');",
+            "name": "equal",
+            "params": [
+                {
+                    "name": "actual",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "expected",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1681,
+            "description": "### .notEqual(actual, expected, [message])\n\nAsserts non-strict inequality (`!=`) of `actual` and `expected`.\n\n    assert.notEqual(3, 4, 'these numbers are not equal');",
+            "name": "notEqual",
+            "params": [
+                {
+                    "name": "actual",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "expected",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1707,
+            "description": "### .strictEqual(actual, expected, [message])\n\nAsserts strict equality (`===`) of `actual` and `expected`.\n\n    assert.strictEqual(true, true, 'these booleans are strictly equal');",
+            "name": "strictEqual",
+            "params": [
+                {
+                    "name": "actual",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "expected",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1725,
+            "description": "### .notStrictEqual(actual, expected, [message])\n\nAsserts strict inequality (`!==`) of `actual` and `expected`.\n\n    assert.notStrictEqual(3, '3', 'no coercion for strict equality');",
+            "name": "notStrictEqual",
+            "params": [
+                {
+                    "name": "actual",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "expected",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1743,
+            "description": "### .deepEqual(actual, expected, [message])\n\nAsserts that `actual` is deeply equal to `expected`.\n\n    assert.deepEqual({ tea: 'green' }, { tea: 'green' });",
+            "name": "deepEqual",
+            "params": [
+                {
+                    "name": "actual",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "expected",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1761,
+            "description": "### .notDeepEqual(actual, expected, [message])\n\nAssert that `actual` is not deeply equal to `expected`.\n\n    assert.notDeepEqual({ tea: 'green' }, { tea: 'jasmine' });",
+            "name": "notDeepEqual",
+            "params": [
+                {
+                    "name": "actual",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "expected",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1779,
+            "description": "### .isTrue(value, [message])\n\nAsserts that `value` is true.\n\n    var teaServed = true;\n    assert.isTrue(teaServed, 'the tea has been served');",
+            "name": "isTrue",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1797,
+            "description": "### .isFalse(value, [message])\n\nAsserts that `value` is false.\n\n    var teaServed = false;\n    assert.isFalse(teaServed, 'no tea yet? hmm...');",
+            "name": "isFalse",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1815,
+            "description": "### .isNull(value, [message])\n\nAsserts that `value` is null.\n\n    assert.isNull(err, 'there was no error');",
+            "name": "isNull",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1832,
+            "description": "### .isNotNull(value, [message])\n\nAsserts that `value` is not null.\n\n    var tea = 'tasty chai';\n    assert.isNotNull(tea, 'great, time for tea!');",
+            "name": "isNotNull",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1850,
+            "description": "### .isUndefined(value, [message])\n\nAsserts that `value` is `undefined`.\n\n    var tea;\n    assert.isUndefined(tea, 'no tea defined');",
+            "name": "isUndefined",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1868,
+            "description": "### .isDefined(value, [message])\n\nAsserts that `value` is not `undefined`.\n\n    var tea = 'cup of chai';\n    assert.isDefined(tea, 'tea has been defined');",
+            "name": "isUndefined",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1886,
+            "description": "### .isFunction(value, [message])\n\nAsserts that `value` is a function.\n\n    function serveTea() { return 'cup of tea'; };\n    assert.isFunction(serveTea, 'great, we can have tea now');",
+            "name": "isFunction",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1904,
+            "description": "### .isNotFunction(value, [message])\n\nAsserts that `value` is _not_ a function.\n\n    var serveTea = [ 'heat', 'pour', 'sip' ];\n    assert.isNotFunction(serveTea, 'great, we have listed the steps');",
+            "name": "isNotFunction",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1922,
+            "description": "### .isObject(value, [message])\n\nAsserts that `value` is an object (as revealed by\n`Object.prototype.toString`).\n\n    var selection = { name: 'Chai', serve: 'with spices' };\n    assert.isObject(selection, 'tea selection is an object');",
+            "name": "isObject",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1941,
+            "description": "### .isNotObject(value, [message])\n\nAsserts that `value` is _not_ an object.\n\n    var selection = 'chai'\n    assert.isObject(selection, 'tea selection is not an object');\n    assert.isObject(null, 'null is not an object');",
+            "name": "isNotObject",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1960,
+            "description": "### .isArray(value, [message])\n\nAsserts that `value` is an array.\n\n    var menu = [ 'green', 'chai', 'oolong' ];\n    assert.isArray(menu, 'what kind of tea do we want?');",
+            "name": "isArray",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1978,
+            "description": "### .isNotArray(value, [message])\n\nAsserts that `value` is _not_ an array.\n\n    var menu = 'green|chai|oolong';\n    assert.isNotArray(menu, 'what kind of tea do we want?');",
+            "name": "isNotArray",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 1996,
+            "description": "### .isString(value, [message])\n\nAsserts that `value` is a string.\n\n    var teaOrder = 'chai';\n    assert.isString(teaOrder, 'order placed');",
+            "name": "isString",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2014,
+            "description": "### .isNotString(value, [message])\n\nAsserts that `value` is _not_ a string.\n\n    var teaOrder = 4;\n    assert.isNotString(teaOrder, 'order placed');",
+            "name": "isNotString",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2032,
+            "description": "### .isNumber(value, [message])\n\nAsserts that `value` is a number.\n\n    var cups = 2;\n    assert.isNumber(cups, 'how many cups');",
+            "name": "isNumber",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2050,
+            "description": "### .isNotNumber(value, [message])\n\nAsserts that `value` is _not_ a number.\n\n    var cups = '2 cups please';\n    assert.isNotNumber(cups, 'how many cups');",
+            "name": "isNotNumber",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2068,
+            "description": "### .isBoolean(value, [message])\n\nAsserts that `value` is a boolean.\n\n    var teaReady = true\n      , teaServed = false;\n\n    assert.isBoolean(teaReady, 'is the tea ready');\n    assert.isBoolean(teaServed, 'has tea been served');",
+            "name": "isBoolean",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2089,
+            "description": "### .isNotBoolean(value, [message])\n\nAsserts that `value` is _not_ a boolean.\n\n    var teaReady = 'yep'\n      , teaServed = 'nope';\n\n    assert.isNotBoolean(teaReady, 'is the tea ready');\n    assert.isNotBoolean(teaServed, 'has tea been served');",
+            "name": "isNotBoolean",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2110,
+            "description": "### .typeOf(value, name, [message])\n\nAsserts that `value`'s type is `name`, as determined by\n`Object.prototype.toString`.\n\n    assert.typeOf({ tea: 'chai' }, 'object', 'we have an object');\n    assert.typeOf(['chai', 'jasmine'], 'array', 'we have an array');\n    assert.typeOf('tea', 'string', 'we have a string');\n    assert.typeOf(/tea/, 'regexp', 'we have a regular expression');\n    assert.typeOf(null, 'null', 'we have a null');\n    assert.typeOf(undefined, 'undefined', 'we have an undefined');",
+            "name": "typeOf",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2134,
+            "description": "### .notTypeOf(value, name, [message])\n\nAsserts that `value`'s type is _not_ `name`, as determined by\n`Object.prototype.toString`.\n\n    assert.notTypeOf('tea', 'number', 'strings are not numbers');",
+            "name": "notTypeOf",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "typeof",
+                    "description": "name",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2153,
+            "description": "### .instanceOf(object, constructor, [message])\n\nAsserts that `value` is an instance of `constructor`.\n\n    var Tea = function (name) { this.name = name; }\n      , chai = new Tea('chai');\n\n    assert.instanceOf(chai, Tea, 'chai is an instance of tea');",
+            "name": "instanceOf",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "constructor",
+                    "description": "",
+                    "type": "Constructor"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2174,
+            "description": "### .notInstanceOf(object, constructor, [message])\n\nAsserts `value` is not an instance of `constructor`.\n\n    var Tea = function (name) { this.name = name; }\n      , chai = new String('chai');\n\n    assert.notInstanceOf(chai, Tea, 'chai is not an instance of tea');",
+            "name": "notInstanceOf",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "constructor",
+                    "description": "",
+                    "type": "Constructor"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2195,
+            "description": "### .include(haystack, needle, [message])\n\nAsserts that `haystack` includes `needle`. Works\nfor strings and arrays.\n\n    assert.include('foobar', 'bar', 'foobar contains string \"bar\"');\n    assert.include([ 1, 2, 3 ], 3, 'array contains value');",
+            "name": "include",
+            "params": [
+                {
+                    "name": "haystack",
+                    "description": "",
+                    "type": "Array|String"
+                },
+                {
+                    "name": "needle",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2221,
+            "description": "### .match(value, regexp, [message])\n\nAsserts that `value` matches the regular expression `regexp`.\n\n    assert.match('foobar', /^foo/, 'regexp matches');",
+            "name": "match",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "regexp",
+                    "description": "",
+                    "type": "RegExp"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2239,
+            "description": "### .notMatch(value, regexp, [message])\n\nAsserts that `value` does not match the regular expression `regexp`.\n\n    assert.notMatch('foobar', /^foo/, 'regexp does not match');",
+            "name": "notMatch",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "regexp",
+                    "description": "",
+                    "type": "RegExp"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2257,
+            "description": "### .property(object, property, [message])\n\nAsserts that `object` has a property named by `property`.\n\n    assert.property({ tea: { green: 'matcha' }}, 'tea');",
+            "name": "property",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "property",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2275,
+            "description": "### .notProperty(object, property, [message])\n\nAsserts that `object` does _not_ have a property named by `property`.\n\n    assert.notProperty({ tea: { green: 'matcha' }}, 'coffee');",
+            "name": "notProperty",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "property",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2293,
+            "description": "### .deepProperty(object, property, [message])\n\nAsserts that `object` has a property named by `property`, which can be a\nstring using dot- and bracket-notation for deep reference.\n\n    assert.deepProperty({ tea: { green: 'matcha' }}, 'tea.green');",
+            "name": "deepProperty",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "property",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2312,
+            "description": "### .notDeepProperty(object, property, [message])\n\nAsserts that `object` does _not_ have a property named by `property`, which\ncan be a string using dot- and bracket-notation for deep reference.\n\n    assert.notDeepProperty({ tea: { green: 'matcha' }}, 'tea.oolong');",
+            "name": "notDeepProperty",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "property",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2331,
+            "description": "### .propertyVal(object, property, value, [message])\n\nAsserts that `object` has a property named by `property` with value given\nby `value`.\n\n    assert.propertyVal({ tea: 'is good' }, 'tea', 'is good');",
+            "name": "propertyVal",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "property",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2351,
+            "description": "### .propertyNotVal(object, property, value, [message])\n\nAsserts that `object` has a property named by `property`, but with a value\ndifferent from that given by `value`.\n\n    assert.propertyNotVal({ tea: 'is good' }, 'tea', 'is bad');",
+            "name": "propertyNotVal",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "property",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2371,
+            "description": "### .deepPropertyVal(object, property, value, [message])\n\nAsserts that `object` has a property named by `property` with value given\nby `value`. `property` can use dot- and bracket-notation for deep\nreference.\n\n    assert.deepPropertyVal({ tea: { green: 'matcha' }}, 'tea.green', 'matcha');",
+            "name": "deepPropertyVal",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "property",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2392,
+            "description": "### .deepPropertyNotVal(object, property, value, [message])\n\nAsserts that `object` has a property named by `property`, but with a value\ndifferent from that given by `value`. `property` can use dot- and\nbracket-notation for deep reference.\n\n    assert.deepPropertyNotVal({ tea: { green: 'matcha' }}, 'tea.green', 'konacha');",
+            "name": "deepPropertyNotVal",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "property",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2413,
+            "description": "### .lengthOf(object, length, [message])\n\nAsserts that `object` has a `length` property with the expected value.\n\n    assert.lengthOf([1,2,3], 3, 'array has length of 3');\n    assert.lengthOf('foobar', 5, 'string has length of 6');",
+            "name": "lengthOf",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "length",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2432,
+            "description": "### .throws(function, [constructor/string/regexp], [string/regexp], [message])\n\nAsserts that `function` will throw an error that is an instance of\n`constructor`, or alternately that it will throw an error with message\nmatching `regexp`.\n\n    assert.throw(fn, 'function throws a reference error');\n    assert.throw(fn, /function throws a reference error/);\n    assert.throw(fn, ReferenceError);\n    assert.throw(fn, ReferenceError, 'function throws a reference error');\n    assert.throw(fn, ReferenceError, /function throws a reference error/);",
+            "name": "throws",
+            "alias": "Throw",
+            "params": [
+                {
+                    "name": "function",
+                    "description": "",
+                    "type": "Function"
+                },
+                {
+                    "name": "constructor",
+                    "description": "",
+                    "type": "ErrorConstructor"
+                },
+                {
+                    "name": "regexp",
+                    "description": "",
+                    "type": "RegExp"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "see": [
+                "https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Error#Error_types"
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2465,
+            "description": "### .doesNotThrow(function, [constructor/regexp], [message])\n\nAsserts that `function` will _not_ throw an error that is an instance of\n`constructor`, or alternately that it will not throw an error with message\nmatching `regexp`.\n\n    assert.doesNotThrow(fn, Error, 'function does not throw');",
+            "name": "doesNotThrow",
+            "params": [
+                {
+                    "name": "function",
+                    "description": "",
+                    "type": "Function"
+                },
+                {
+                    "name": "constructor",
+                    "description": "",
+                    "type": "ErrorConstructor"
+                },
+                {
+                    "name": "regexp",
+                    "description": "",
+                    "type": "RegExp"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "see": [
+                "https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Error#Error_types"
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2492,
+            "description": "### .operator(val1, operator, val2, [message])\n\nCompares two values using `operator`.\n\n    assert.operator(1, '<', 2, 'everything is ok');\n    assert.operator(1, '>', 2, 'this will fail');",
+            "name": "operator",
+            "params": [
+                {
+                    "name": "val1",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "operator",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "val2",
+                    "description": "",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2519,
+            "description": "### .closeTo(actual, expected, delta, [message])\n\nAsserts that the target is equal `expected`, to within a +/- `delta` range.\n\n    assert.closeTo(1.5, 1, 0.5, 'numbers are close');",
+            "name": "closeTo",
+            "params": [
+                {
+                    "name": "actual",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "expected",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "delta",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "message",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2681,
+            "description": "### addChainableMethod (ctx, name, method, chainingBehavior)\n\nAdds a method to an object, such that the method can also be chained.\n\n    utils.addChainableMethod(chai.Assertion.prototype, 'foo', function (str) {\n      var obj = utils.flag(this, 'object');\n      new chai.Assertion(obj).to.be.equal(str);\n    });\n\nCan also be accessed directly from `chai.Assertion`.\n\n    chai.Assertion.addChainableMethod('foo', fn, chainingBehavior);\n\nThe result can then be used as both a method assertion, executing both `method` and\n`chainingBehavior`, or as a language chain, which only executes `chainingBehavior`.\n\n    expect(fooStr).to.be.foo('bar');\n    expect(fooStr).to.be.foo.equal('foo');",
+            "params": [
+                {
+                    "name": "ctx",
+                    "description": "object to which the method is added",
+                    "type": "Object"
+                },
+                {
+                    "name": "name",
+                    "description": "of method to add",
+                    "type": "String"
+                },
+                {
+                    "name": "method",
+                    "description": "function to be used for `name`, when called",
+                    "type": "Function"
+                },
+                {
+                    "name": "chainingBehavior",
+                    "description": "function to be called every time the property is accessed",
+                    "type": "Function"
+                }
+            ],
+            "name": "addChainableMethod",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2753,
+            "description": "### .addMethod (ctx, name, method)\n\nAdds a method to the prototype of an object.\n\n    utils.addMethod(chai.Assertion.prototype, 'foo', function (str) {\n      var obj = utils.flag(this, 'object');\n      new chai.Assertion(obj).to.be.equal(str);\n    });\n\nCan also be accessed directly from `chai.Assertion`.\n\n    chai.Assertion.addMethod('foo', fn);\n\nThen can be used as any other assertion.\n\n    expect(fooStr).to.be.foo('bar');",
+            "params": [
+                {
+                    "name": "ctx",
+                    "description": "object to which the method is added",
+                    "type": "Object"
+                },
+                {
+                    "name": "name",
+                    "description": "of method to add",
+                    "type": "String"
+                },
+                {
+                    "name": "method",
+                    "description": "function to be used for name",
+                    "type": "Function"
+                }
+            ],
+            "name": "addMethod",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2794,
+            "description": "### addProperty (ctx, name, getter)\n\nAdds a property to the prototype of an object.\n\n    utils.addProperty(chai.Assertion.prototype, 'foo', function () {\n      var obj = utils.flag(this, 'object');\n      new chai.Assertion(obj).to.be.instanceof(Foo);\n    });\n\nCan also be accessed directly from `chai.Assertion`.\n\n    chai.Assertion.addProperty('foo', fn);\n\nThen can be used as any other assertion.\n\n    expect(myFoo).to.be.foo;",
+            "params": [
+                {
+                    "name": "ctx",
+                    "description": "object to which the property is added",
+                    "type": "Object"
+                },
+                {
+                    "name": "name",
+                    "description": "of property to add",
+                    "type": "String"
+                },
+                {
+                    "name": "getter",
+                    "description": "function to be used for name",
+                    "type": "Function"
+                }
+            ],
+            "name": "addProperty",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 2966,
+            "description": "### flag(object ,key, [value])\n\nGet or set a flag value on an object. If a\nvalue is provided it will be set, else it will\nreturn the currently set value or `undefined` if\nthe value is not set.\n\n    utils.flag(this, 'foo', 'bar'); // setter\n    utils.flag(this, 'foo'); // getter, returns `bar`",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "(constructed Assertion",
+                    "type": "Object"
+                },
+                {
+                    "name": "key",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "(optional)",
+                    "type": "Mixed"
+                }
+            ],
+            "name": "flag",
+            "api": "private",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3002,
+            "description": "# getActual(object, [actual])\n\nReturns the `actual` value for an Assertion",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "(constructed Assertion)",
+                    "type": "Object"
+                },
+                {
+                    "name": "chai.Assertion.prototype.assert",
+                    "description": "arguments",
+                    "type": "Arguments"
+                }
+            ],
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3025,
+            "description": "### .getEnumerableProperties(object)\n\nThis allows the retrieval of enumerable property names of an object,\ninherited or not.",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "name": "getEnumerableProperties",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3063,
+            "description": "### .getMessage(object, message, negateMessage)\n\nConstruct the error message based on flags\nand template tags. Template tags will return\na stringified inspection of the object referenced.\n\nMesssage template tags:\n- `#{this}` current asserted object\n- `#{act}` actual value\n- `#{exp}` expected value",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "(constructed Assertion)",
+                    "type": "Object"
+                },
+                {
+                    "name": "chai.Assertion.prototype.assert",
+                    "description": "arguments",
+                    "type": "Arguments"
+                }
+            ],
+            "name": "getMessage",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3107,
+            "description": "# getName(func)\n\nGets the name of a function, in a cross-browser way.",
+            "params": [
+                {
+                    "name": "a",
+                    "description": "function (usually a constructor)",
+                    "type": "Function"
+                }
+            ],
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3132,
+            "description": "### .getPathValue(path, object)\n\nThis allows the retrieval of values in an\nobject given a string path.\n\n    var obj = {\n        prop1: {\n            arr: ['a', 'b', 'c']\n          , str: 'Hello'\n        }\n      , prop2: {\n            arr: [ { nested: 'Universe' } ]\n          , str: 'Hello again!'\n        }\n    }\n\nThe following would be the results.\n\n    getPathValue('prop1.str', obj); // Hello\n    getPathValue('prop1.att[2]', obj); // b\n    getPathValue('prop2.arr[0].nested', obj); // Universe",
+            "params": [
+                {
+                    "name": "path",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "value or `undefined`",
+                "type": "Object"
+            },
+            "name": "getPathValue",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3237,
+            "description": "### .getProperties(object)\n\nThis allows the retrieval of property names of an object, enumerable or not,\ninherited or not.",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "name": "getProperties",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3391,
+            "description": "Echos the value of a value. Trys to print the value out\nin the best way possible given the different types.",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "The object to print out.",
+                    "type": "Object"
+                },
+                {
+                    "name": "showHidden",
+                    "description": "Flag that shows hidden (not enumerable)\n   properties of objects.",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "depth",
+                    "description": "Depth in which to descend in object. Default is 2.",
+                    "type": "Number"
+                },
+                {
+                    "name": "colors",
+                    "description": "Flag to turn on ANSI escape codes to color the\n   output. Default is false (no coloring).",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3714,
+            "description": "### .objDisplay (object)\n\nDetermines if an object or an array matches\ncriteria to be inspected in-line for error\nmessages or should be truncated.",
+            "params": [
+                {
+                    "name": "javascript",
+                    "description": "object to inspect",
+                    "type": "Mixed"
+                }
+            ],
+            "name": "objDisplay",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3760,
+            "description": "### overwriteMethod (ctx, name, fn)\n\nOverwites an already existing method and provides\naccess to previous function. Must return function\nto be used for name.\n\n    utils.overwriteMethod(chai.Assertion.prototype, 'equal', function (_super) {\n      return function (str) {\n        var obj = utils.flag(this, 'object');\n        if (obj instanceof Foo) {\n          new chai.Assertion(obj.value).to.equal(str);\n        } else {\n          _super.apply(this, arguments);\n        }\n      }\n    });\n\nCan also be accessed directly from `chai.Assertion`.\n\n    chai.Assertion.overwriteMethod('foo', fn);\n\nThen can be used as any other assertion.\n\n    expect(myFoo).to.equal('bar');",
+            "params": [
+                {
+                    "name": "ctx",
+                    "description": "object whose method is to be overwritten",
+                    "type": "Object"
+                },
+                {
+                    "name": "name",
+                    "description": "of method to overwrite",
+                    "type": "String"
+                },
+                {
+                    "name": "method",
+                    "description": "function that returns a function to be used for name",
+                    "type": "Function"
+                }
+            ],
+            "name": "overwriteMethod",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3815,
+            "description": "### overwriteProperty (ctx, name, fn)\n\nOverwites an already existing property getter and provides\naccess to previous value. Must return function to use as getter.\n\n    utils.overwriteProperty(chai.Assertion.prototype, 'ok', function (_super) {\n      return function () {\n        var obj = utils.flag(this, 'object');\n        if (obj instanceof Foo) {\n          new chai.Assertion(obj.name).to.equal('bar');\n        } else {\n          _super.call(this);\n        }\n      }\n    });\n\n\nCan also be accessed directly from `chai.Assertion`.\n\n    chai.Assertion.overwriteProperty('foo', fn);\n\nThen can be used as any other assertion.\n\n    expect(myFoo).to.be.ok;",
+            "params": [
+                {
+                    "name": "ctx",
+                    "description": "object whose property is to be overwritten",
+                    "type": "Object"
+                },
+                {
+                    "name": "name",
+                    "description": "of property to overwrite",
+                    "type": "String"
+                },
+                {
+                    "name": "getter",
+                    "description": "function that returns a getter function to be used for name",
+                    "type": "Function"
+                }
+            ],
+            "name": "overwriteProperty",
+            "api": "public",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3879,
+            "description": "# test(object, expression)\n\nTest and object for expression.",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "(constructed Assertion)",
+                    "type": "Object"
+                },
+                {
+                    "name": "chai.Assertion.prototype.assert",
+                    "description": "arguments",
+                    "type": "Arguments"
+                }
+            ],
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3903,
+            "description": "### transferFlags(assertion, object, includeAll = true)\n\nTransfer all the flags for `assertion` to `object`. If\n`includeAll` is set to `false`, then the base Chai\nassertion flags (namely `object`, `ssfi`, and `message`)\nwill not be transferred.\n\n\n    var newAssertion = new Assertion();\n    utils.transferFlags(assertion, newAssertion);\n\n    var anotherAsseriton = new Assertion(myObj);\n    utils.transferFlags(assertion, anotherAssertion, false);",
+            "params": [
+                {
+                    "name": "assertion",
+                    "description": "the assertion to transfer the flags from",
+                    "type": "Assertion"
+                },
+                {
+                    "name": "object",
+                    "description": "the object to transfer the flags too; usually a new assertion",
+                    "type": "Object"
+                },
+                {
+                    "name": "includeAll",
+                    "description": "",
+                    "type": "Boolean"
+                }
+            ],
+            "name": "getAllFlags",
+            "api": "private",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\chai.js",
+            "line": 3965,
+            "description": "### type(object)\n\nBetter implementation of `typeof` detection that can\nbe used cross-browser. Handles the inconsistencies of\nArray, `null`, and `undefined` detection.\n\n    utils.type({}) // 'object'\n    utils.type(null) // `null'\n    utils.type(undefined) // `undefined`\n    utils.type([]) // `array`",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "to detect type of",
+                    "type": "Mixed"
+                }
+            ],
+            "name": "type",
+            "api": "private",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1,
+            "license": "RequireJS 2.1.5 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.\nAvailable via the MIT or new BSD license.\nsee: http://github.com/jrburke/requirejs for details",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 49,
+            "description": "Helper function for iterating over an array. If the func returns\na true value, it will break out of the loop.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 64,
+            "description": "Helper function for iterating over an array backwards. If the func\nreturns a true value, it will break out of the loop.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 87,
+            "description": "Cycles over properties in an object and calls a function for each\nproperty value. If the function returns a truthy value, then the\niteration is stopped.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 103,
+            "description": "Simple function to mix in properties from source into target,\nbut only if target does not already have a property of the same name.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 150,
+            "description": "Constructs an error with a pointer to an URL with more information.",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "the error ID that maps to an ID on a web page.",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "human readable error.",
+                    "type": "String"
+                },
+                {
+                    "name": "err",
+                    "description": "the original error, if there is one.",
+                    "type": "Error",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Error"
+            },
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 216,
+            "description": "Trims the . and .. from an array of path segments.\nIt will keep a leading path segment if a .. will become\nthe first path segment, to help with module name lookups,\nwhich act like paths, but can be remapped. But the end result,\nall paths that use this function should look normalized.\nNOTE: this method MODIFIES the input array.",
+            "params": [
+                {
+                    "name": "ary",
+                    "description": "the array of path segments.",
+                    "type": "Array"
+                }
+            ],
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 249,
+            "description": "Given a relative module name, like ./something, normalize it to\na real name that can be mapped to a path.",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "the relative name",
+                    "type": "String"
+                },
+                {
+                    "name": "baseName",
+                    "description": "a real name that the name arg is relative\nto.",
+                    "type": "String"
+                },
+                {
+                    "name": "applyMap",
+                    "description": "apply the map config to the value. Should\nonly be done if this normalization is for a dependency ID.",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "normalized name",
+                "type": "String"
+            },
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 395,
+            "description": "Creates a module mapping that includes plugin prefix, module\nname, and path. If parentModuleMap is provided it will\nalso normalize the name via require.normalize()",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "the module name",
+                    "type": "String"
+                },
+                {
+                    "name": "parentModuleMap",
+                    "description": "parent module map\nfor the module name, used to resolve relative names.",
+                    "type": "String",
+                    "optional": true
+                },
+                {
+                    "name": "isNormalized:",
+                    "description": "is the ID already normalized.\nThis is true if this call is done for a define() module ID.",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "applyMap:",
+                    "description": "apply the map config to the ID.\nShould only be true if this map is for a dependency.",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 532,
+            "description": "Internal method to transfer globalQueue items to this context's\ndefQueue.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 814,
+            "description": "Checks if the module is ready to define itself, and if so,\ndefine it.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1168,
+            "description": "Given an event from a script node, get the requirejs info from it,\nand then removes the event listeners on the node.",
+            "params": [
+                {
+                    "name": "evt",
+                    "description": "",
+                    "type": "Event"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1221,
+            "description": "Set a configuration for the context.",
+            "params": [
+                {
+                    "name": "cfg",
+                    "description": "config object to integrate.",
+                    "type": "Object"
+                }
+            ],
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1405,
+            "description": "Converts a module name + .extension into an URL path.\n*Requires* the use of a module name. It does not support using\nplain URLs like nameToUrl.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1467,
+            "description": "Called to enable a module if it is still in the registry\nawaiting enablement. A second arg, parent, the parent module,\nis passed in for context, when this method is overriden by\nthe optimizer. Not shown here to keep code compact.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1480,
+            "description": "Internal method used by environment adapters to complete a load event.\nA load event could be a script load or just a load pass from a synchronous\nload call.",
+            "params": [
+                {
+                    "name": "moduleName",
+                    "description": "the name of the module to potentially complete.",
+                    "type": "String"
+                }
+            ],
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1536,
+            "description": "Converts a module name to a file path. Supports cases where\nmoduleName may actually be just an URL.\nNote that it **does not** call normalize on the moduleName,\nit is assumed to have already been normalized. This is an\ninternal API, not a public one. Use toUrl for the public API.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1607,
+            "description": "Executes a module callack function. Broken out as a separate function\nsolely to allow the build system to sequence the files in the built\nlayer in the right sequence.",
+            "access": "private",
+            "tagname": "",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1618,
+            "description": "callback for script loads, used to check status of loading.",
+            "params": [
+                {
+                    "name": "evt",
+                    "description": "the event from the browser for the script\nthat was loaded.",
+                    "type": "Event"
+                }
+            ],
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1640,
+            "description": "Callback for script errors.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1655,
+            "description": "Main entry point.\n\nIf the only argument to require is a string, then the module that\nis represented by that string is fetched for the appropriate context.\n\nIf the first argument is an array, then it will be treated as an array\nof dependency string names to fetch. An optional function callback can\nbe specified to execute when all of those dependencies are available.\n\nMake a local req variable to help Caja compliance (it assumes things\non a require that are not standardized), and to give a short\nname for minification/local scope use.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1705,
+            "description": "Support require.config() to make it easier to cooperate with other\nAMD loaders on globally agreed names.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1713,
+            "description": "Execute something after the current tick\nof the event loop. Override for other envs\nthat have a better solution than setTimeout.",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "function to execute later.",
+                    "type": "Function"
+                }
+            ],
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1723,
+            "description": "Export require as a global, but only if it does not already exist.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1770,
+            "description": "Any errors that require explicitly generates will be passed to this\nfunction. Intercept/override it if you want custom error handling.",
+            "params": [
+                {
+                    "name": "err",
+                    "description": "the error object.",
+                    "type": "Error"
+                }
+            ],
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1779,
+            "description": "Does the request to load a module for the browser case.\nMake this a separate function to allow other environments\nto override it.",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "the require context to find state.",
+                    "type": "Object"
+                },
+                {
+                    "name": "moduleName",
+                    "description": "the name of the module.",
+                    "type": "String"
+                },
+                {
+                    "name": "url",
+                    "description": "the URL to the module.",
+                    "type": "Object"
+                }
+            ],
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 1933,
+            "description": "The function that handles definitions of modules. Differs from\nrequire() in that a string for the module should be the first argument,\nand the function to execute after dependencies are loaded should\nreturn a value to define the module corresponding to the first argument's\nname.",
+            "class": "module-arguejs"
+        },
+        {
+            "file": "lib\\require.js",
+            "line": 2006,
+            "description": "Executes the text. Normally just uses eval, but can be modified\nto use a better, environment-specific call. Only used for transpiling\nloader plugins, not for plain JS modules.",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "the text to execute/evaluate.",
+                    "type": "String"
+                }
+            ],
+            "class": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 41,
+            "description": "/** const */ var DEFAULT_OPTION_VALUE_ALLOWUNDEFINED                = false;\n/** const */ var DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL     = true;\n\n/* ###############################################################################################\n *\n * Error texts\n *\n * These texts are private to this module.\n *\n * ###############################################################################################",
+            "class": "module-arguejs",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 54,
+            "description": "/** const */ var $ERR_BADCALL_InvalidTypeOfArgument                         = $ERR_BADCALL_PREFIX + \"type of \\\"{1}\\\" is invalid.\";\n/** const */ var $ERR_BADCALL_NoArguments                                   = $ERR_BADCALL_PREFIX + \"no arguments. function call is not compatible with function specification.\";\n/** const */ var $ERR_BADCALL_TooManyArguments                              = $ERR_BADCALL_PREFIX + \"too many arguments. function call is not compatible with function specification.\";\n/** const */ var $ERR_BADCALL_InvalidTypeOfParameter                        = $ERR_BADCALL_PREFIX + \"parameter specification #{1} is not an object structure.\";\n\n/** const */ var $ERR_ARGUEJS_PREFIX                                        = \"parameter specification \\\"{1}\\\": \";\n/** const */ var $ERR_ARGUEJS_DefaultValueHasIncompatibleType               = $ERR_ARGUEJS_PREFIX + \"default value is not compatible to parameter type\";\n/** const */ var $ERR_ARGUEJS_InvalidTypeOfValue                            = $ERR_ARGUEJS_PREFIX + \"value of \\\"{2}\\\" has incorrect type (must be {3})\";\n/** const */ var $ERR_ARGUEJS_InvalidTypeSpecificationOption                = $ERR_ARGUEJS_PREFIX + \"option \\\"{2}\\\" in type specification is invalid.\";\n/** const */ var $ERR_ARGUEJS_InvalidValue                                  = $ERR_ARGUEJS_PREFIX + \"\\\"{2}\\\" is invalid.\";\n/** const */ var $ERR_ARGUEJS_MissingTypeSpecification                      = $ERR_ARGUEJS_PREFIX + \"type specification is missing.\";\n/** const */ var $ERR_ARGUEJS_ParameterWithoutSpecification                 = \"parameter specification #{1} is missing.\";\n/** const */ var $ERR_ARGUEJS_ParameterWithTooManyElements                  = $ERR_ARGUEJS_PREFIX + \"specification contains more than one element.\";\n/** const */ var $ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction         = $ERR_ARGUEJS_PREFIX + \"\\\"{2}\\\" is {3} allowed for the tail-parameter in a variadic function\";\n/** const */ var $ERR_ARGUEJS_TailParameterMustBeLastPastparameter          = \"in a variadic function the tail-parameter must be the last parameter in the function specification.\";\n/** const */ var $ERR_ARGUEJS_TypeSpecificationHasTooManyElements           = $ERR_ARGUEJS_PREFIX + \"type specification has too many elements.\";\n\n/** const */ var $ERR_ARGUEJS_GetParameters_PREFIX                          = \"Incompatible function call: \";\n/** const */ var $ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue  = $ERR_ARGUEJS_GetParameters_PREFIX + \"mandatory argument \\\"{1}\\\" has no value.\";\n/** const */ var $ERR_ARGUEJS_GetParameters_TooManyArguments                = $ERR_ARGUEJS_GetParameters_PREFIX + \"too many arguments. {1}\";\n\n/* ###############################################################################################\n *\n * Utility functions for handling types\n *\n * These functions are private to the module.\n *\n * ###############################################################################################",
+            "class": "module-arguejs",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 85,
+            "description": "Tests, if a value is a Boolean.",
+            "itemtype": "method",
+            "name": "isBoolean",
+            "params": [
+                {
+                    "name": "_value",
+                    "description": "The value to test.",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "True, if the value is a Boolean. False, otherwise.",
+                "type": "Boolean"
+            },
+            "class": "module-arguejs",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 99,
+            "description": "Tests, if a value is a Array.",
+            "itemtype": "method",
+            "name": "isArray",
+            "params": [
+                {
+                    "name": "_value",
+                    "description": "The value to test.",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "True, if the value is a Array. False, otherwise.",
+                "type": "Boolean"
+            },
+            "class": "module-arguejs",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 113,
+            "description": "Tests, if a value is a Function.",
+            "itemtype": "method",
+            "name": "isFunction",
+            "params": [
+                {
+                    "name": "_value",
+                    "description": "The value to test.",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "True, if the value is a Function. False, otherwise.",
+                "type": "Boolean"
+            },
+            "class": "module-arguejs",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 127,
+            "description": "Tests, if a value is a Object.",
+            "itemtype": "method",
+            "name": "isObject",
+            "params": [
+                {
+                    "name": "_value",
+                    "description": "The value to test.",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "True, if the value is a Object. False, otherwise.",
+                "type": "Boolean"
+            },
+            "class": "module-arguejs",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 141,
+            "description": "Tests, if a value is an Arguments-object.",
+            "itemtype": "method",
+            "name": "isArguments",
+            "params": [
+                {
+                    "name": "_value",
+                    "description": "The value to test.",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "True, if the value is an Arguments object. False, otherwise.",
+                "type": "Boolean"
+            },
+            "class": "module-arguejs",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 158,
+            "description": "Tests, if a value is a \"Type\". This function summarizes logic for detecting, if a value is a type. In JavaScript does not exist anything like a \"Type\"-type.\nSo, some logic is needed to distinguish between a value/object/function and a type.",
+            "itemtype": "method",
+            "name": "isType",
+            "params": [
+                {
+                    "name": "_value",
+                    "description": "The value to test.",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "True, if the value is a \"Type\". False, otherwise.",
+                "type": "Boolean"
+            },
+            "class": "module-arguejs",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 173,
+            "description": "Returns the type of a value.",
+            "itemtype": "method",
+            "name": "getType",
+            "params": [
+                {
+                    "name": "_value",
+                    "description": "A value.",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The type of _value. It is not a string representation. It is the type. For \"text\" it returns String, and so on...",
+                "type": "Type"
+            },
+            "example": [
+                "\n\nvar a = 17;\nvar b = getType(a);\nvar c = b(20);\n\nconsole.log(a); // OUTPUT: 17\nconsole.log(b); // OUTPUT: [Function: Number]\nconsole.log(c); // OUTPUT: 20"
+            ],
+            "class": "module-arguejs",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 208,
+            "description": "Formats a string and returns the result.\n\nThis is a variadic function. Placeholders are delivered as normal arguments after the _formatString argument. In the _formatString occurrences of \"{X}\" - where \"X\" is\na number beginning with 1 - are replaced by the argument at position \"X\".",
+            "itemtype": "method",
+            "name": "formatText",
+            "params": [
+                {
+                    "name": "_formatString",
+                    "description": "Format string containing placeholders.",
+                    "type": "String"
+                },
+                {
+                    "name": "...",
+                    "description": "Optional: Arguments: Arguments to use in this variadic function. These arguments are used to fill in placeholder in the format string.",
+                    "type": "[...*]",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "Resulting, formatted text.",
+                "type": "String"
+            },
+            "example": [
+                "\n\nvar text = Utilities.formatString(\"{1}{3}, {2} {1}\", \"!!!\", \"folks\", \" hi\");  // text = \"!!! hi, folks !!!\""
+            ],
+            "class": "module-arguejs",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 247,
+            "description": "Validates a parameter name.",
+            "itemtype": "method",
+            "name": "validateParameterName",
+            "params": [
+                {
+                    "name": "_parameterName",
+                    "description": "Name of a parameter.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "True, if the",
+                "type": "Boolean"
+            },
+            "class": "module-arguejs",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 264,
+            "description": "Tests, if a value is compatible to a type and some options and if the value can be used as a default value or as a normal argument value.",
+            "itemtype": "method",
+            "name": "isCompatibleValue",
+            "params": [
+                {
+                    "name": "_value",
+                    "description": "A value.",
+                    "type": "*"
+                },
+                {
+                    "name": "_type",
+                    "description": "A type the value should be compatible with.",
+                    "type": "Type"
+                },
+                {
+                    "name": "_allowUndefined",
+                    "description": "True, if an undefined value can be treated compatible. False, otherwise.",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "_allowNull",
+                    "description": "True, if a null value can be treated compatible. False, otherwise.",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "_asDefaultValue",
+                    "description": "True, if the test is for testing a default value. False, otherwise. The reason for this parameter is simple: A value of any type \n                                    can be part of the tail-parameter of a variadic function. But that parameter is an array. So only an array can be a default parameter.",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "True, if a value is compatible to a type and some options. False, otherwise.",
+                "type": "Boolean"
+            },
+            "class": "module-arguejs",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 375,
+            "description": "Gets all arguments based on a programmatic function specification an a list of argument values.",
+            "itemtype": "method",
+            "name": "getArguments",
+            "static": 1,
+            "params": [
+                {
+                    "name": "_functionSpecification",
+                    "description": "Optional: Programmatic function specification.",
+                    "type": "Array",
+                    "optional": true
+                },
+                {
+                    "name": "_arguments",
+                    "description": "Concrete Argument values of a function call.",
+                    "type": "Array|Arguments"
+                }
+            ],
+            "return": {
+                "description": "Returns a new object containing all arguments.",
+                "type": "Object"
+            },
+            "class": "ArgueJS",
+            "module": "module-arguejs"
+        },
+        {
+            "file": "arguejs2.js",
+            "line": 632,
+            "exports": "{ArgueJS}  Export the class.",
+            "class": "ArgueJS",
+            "module": "module-arguejs"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "param name missing: {Function}",
+            "line": " lib\\chai.js:97"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib\\chai.js:97"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:97"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:295"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:295"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:329"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:329"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:347"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:347"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:365"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:365"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:365"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:404"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:404"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:404"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:439"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:439"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:461"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:461"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:482"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:482"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:503"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:503"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:523"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:523"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:543"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:543"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:569"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:569"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:601"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:601"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:601"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:628"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:628"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:628"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:628"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:628"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:671"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:671"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:671"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:701"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:701"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:701"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:701"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:750"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:750"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:750"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:797"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:797"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:797"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:797"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:846"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:846"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:846"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:893"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:893"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:936"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:936"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:936"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:967"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:967"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib\\chai.js:967"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:967"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1062"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:1062"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1062"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1089"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:1089"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1089"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1137"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1137"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1160"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1160"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1186"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:1186"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1186"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1254"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:1254"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:1254"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1254"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1397"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1397"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1433"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1433"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1453"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1453"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1478"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1478"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1519"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1591"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1591"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1614"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1614"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1637"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1637"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1655"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1655"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1681"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1681"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1707"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1707"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1725"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1725"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1743"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1743"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1761"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1761"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1779"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1779"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1797"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1797"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1815"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1815"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1832"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1832"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1850"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1850"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1868"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1868"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1886"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1886"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1904"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1904"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1922"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1922"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1941"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1941"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1960"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1960"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1978"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1978"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:1996"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:1996"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2014"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2014"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2032"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2032"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2050"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2050"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2068"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2068"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2089"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2089"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2110"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2110"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2134"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2134"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2153"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2153"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2174"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2174"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2195"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2195"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2221"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2221"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2239"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2239"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2257"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2257"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2275"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2275"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2293"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2293"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2312"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2312"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2331"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2331"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2351"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2351"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2371"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2371"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2392"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2392"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2413"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2413"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2432"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:2432"
+        },
+        {
+            "message": "unknown tag: alias",
+            "line": " lib\\chai.js:2432"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2432"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2465"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2465"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2492"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2492"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2519"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2519"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2681"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2681"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2753"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2753"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2794"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2794"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:2966"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:2966"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib\\chai.js:3025"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:3025"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:3025"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:3063"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:3063"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib\\chai.js:3132"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:3132"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:3132"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib\\chai.js:3237"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:3237"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:3237"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:3714"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:3714"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:3760"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:3760"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:3815"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:3815"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:3903"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:3903"
+        },
+        {
+            "message": "unknown tag: name",
+            "line": " lib\\chai.js:3965"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " lib\\chai.js:3965"
+        },
+        {
+            "message": "unknown tag: license",
+            "line": " lib\\require.js:1"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib\\require.js:150"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib\\require.js:249"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib\\require.js:395"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " lib\\require.js:1168"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " arguejs2.js:85"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " arguejs2.js:99"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " arguejs2.js:113"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " arguejs2.js:127"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " arguejs2.js:141"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " arguejs2.js:158"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " arguejs2.js:173"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " arguejs2.js:208"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " arguejs2.js:247"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " arguejs2.js:264"
+        },
+        {
+            "message": "unknown tag: exports",
+            "line": " arguejs2.js:632"
+        },
+        {
+            "message": "Missing item type",
+            "line": " .playground\\old-performance-test.js:35"
+        },
+        {
+            "message": "Missing item type",
+            "line": " .playground\\old-performance-test.js:42"
+        },
+        {
+            "message": "Missing item type",
+            "line": " .playground\\performance-test.js:92"
+        },
+        {
+            "message": "Missing item type",
+            "line": " .playground\\performance-test.js:99"
+        },
+        {
+            "message": "Missing item type\n# .use(function)\n\nProvides a way to extend the internals of Chai",
+            "line": " lib\\chai.js:97"
+        },
+        {
+            "message": "Missing item type\n### Language Chains\n\nThe following are provide as chainable getters to\nimprove the readability of your assertions. They\ndo not provide an testing capability unless they\nhave been overwritten by a plugin.\n\n**Chains**\n\n- to\n- be\n- been\n- is\n- that\n- and\n- have\n- with\n- at\n- of",
+            "line": " lib\\chai.js:295"
+        },
+        {
+            "message": "Missing item type\n### .not\n\nNegates any of assertions following in the chain.\n\n    expect(foo).to.not.equal('bar');\n    expect(goodFn).to.not.throw(Error);\n    expect({ foo: 'baz' }).to.have.property('foo')\n      .and.not.equal('bar');",
+            "line": " lib\\chai.js:329"
+        },
+        {
+            "message": "Missing item type\n### .deep\n\nSets the `deep` flag, later used by the `equal` and\n`property` assertions.\n\n    expect(foo).to.deep.equal({ bar: 'baz' });\n    expect({ foo: { bar: { baz: 'quux' } } })\n      .to.have.deep.property('foo.bar.baz', 'quux');",
+            "line": " lib\\chai.js:347"
+        },
+        {
+            "message": "Missing item type\n### .a(type)\n\nThe `a` and `an` assertions are aliases that can be\nused either as language chains or to assert a value's\ntype.\n\n    // typeof\n    expect('test').to.be.a('string');\n    expect({ foo: 'bar' }).to.be.an('object');\n    expect(null).to.be.a('null');\n    expect(undefined).to.be.an('undefined');\n\n    // language chain\n    expect(foo).to.be.an.instanceof(Foo);",
+            "line": " lib\\chai.js:365"
+        },
+        {
+            "message": "Missing item type\n### .include(value)\n\nThe `include` and `contain` assertions can be used as either property\nbased language chains or as methods to assert the inclusion of an object\nin an array or a substring in a string. When used as language chains,\nthey toggle the `contain` flag for the `keys` assertion.\n\n    expect([1,2,3]).to.include(2);\n    expect('foobar').to.contain('foo');\n    expect({ foo: 'bar', hello: 'universe' }).to.include.keys('foo');",
+            "line": " lib\\chai.js:404"
+        },
+        {
+            "message": "Missing item type\n### .ok\n\nAsserts that the target is truthy.\n\n    expect('everthing').to.be.ok;\n    expect(1).to.be.ok;\n    expect(false).to.not.be.ok;\n    expect(undefined).to.not.be.ok;\n    expect(null).to.not.be.ok;",
+            "line": " lib\\chai.js:439"
+        },
+        {
+            "message": "Missing item type\n### .true\n\nAsserts that the target is `true`.\n\n    expect(true).to.be.true;\n    expect(1).to.not.be.true;",
+            "line": " lib\\chai.js:461"
+        },
+        {
+            "message": "Missing item type\n### .false\n\nAsserts that the target is `false`.\n\n    expect(false).to.be.false;\n    expect(0).to.not.be.false;",
+            "line": " lib\\chai.js:482"
+        },
+        {
+            "message": "Missing item type\n### .null\n\nAsserts that the target is `null`.\n\n    expect(null).to.be.null;\n    expect(undefined).not.to.be.null;",
+            "line": " lib\\chai.js:503"
+        },
+        {
+            "message": "Missing item type\n### .undefined\n\nAsserts that the target is `undefined`.\n\n     expect(undefined).to.be.undefined;\n     expect(null).to.not.be.undefined;",
+            "line": " lib\\chai.js:523"
+        },
+        {
+            "message": "Missing item type\n### .exist\n\nAsserts that the target is neither `null` nor `undefined`.\n\n    var foo = 'hi'\n      , bar = null\n      , baz;\n\n    expect(foo).to.exist;\n    expect(bar).to.not.exist;\n    expect(baz).to.not.exist;",
+            "line": " lib\\chai.js:543"
+        },
+        {
+            "message": "Missing item type\n### .empty\n\nAsserts that the target's length is `0`. For arrays, it checks\nthe `length` property. For objects, it gets the count of\nenumerable keys.\n\n    expect([]).to.be.empty;\n    expect('').to.be.empty;\n    expect({}).to.be.empty;",
+            "line": " lib\\chai.js:569"
+        },
+        {
+            "message": "Missing item type\n### .arguments\n\nAsserts that the target is an arguments object.\n\n    function test () {\n      expect(arguments).to.be.arguments;\n    }",
+            "line": " lib\\chai.js:601"
+        },
+        {
+            "message": "Missing item type\n### .equal(value)\n\nAsserts that the target is strictly equal (`===`) to `value`.\nAlternately, if the `deep` flag is set, asserts that\nthe target is deeply equal to `value`.\n\n    expect('hello').to.equal('hello');\n    expect(42).to.equal(42);\n    expect(1).to.not.equal(true);\n    expect({ foo: 'bar' }).to.not.equal({ foo: 'bar' });\n    expect({ foo: 'bar' }).to.deep.equal({ foo: 'bar' });",
+            "line": " lib\\chai.js:628"
+        },
+        {
+            "message": "Missing item type\n### .eql(value)\n\nAsserts that the target is deeply equal to `value`.\n\n    expect({ foo: 'bar' }).to.eql({ foo: 'bar' });\n    expect([ 1, 2, 3 ]).to.eql([ 1, 2, 3 ]);",
+            "line": " lib\\chai.js:671"
+        },
+        {
+            "message": "Missing item type\n### .above(value)\n\nAsserts that the target is greater than `value`.\n\n    expect(10).to.be.above(5);\n\nCan also be used in conjunction with `length` to\nassert a minimum length. The benefit being a\nmore informative error message than if the length\nwas supplied directly.\n\n    expect('foo').to.have.length.above(2);\n    expect([ 1, 2, 3 ]).to.have.length.above(2);",
+            "line": " lib\\chai.js:701"
+        },
+        {
+            "message": "Missing item type\n### .least(value)\n\nAsserts that the target is greater than or equal to `value`.\n\n    expect(10).to.be.at.least(10);\n\nCan also be used in conjunction with `length` to\nassert a minimum length. The benefit being a\nmore informative error message than if the length\nwas supplied directly.\n\n    expect('foo').to.have.length.of.at.least(2);\n    expect([ 1, 2, 3 ]).to.have.length.of.at.least(3);",
+            "line": " lib\\chai.js:750"
+        },
+        {
+            "message": "Missing item type\n### .below(value)\n\nAsserts that the target is less than `value`.\n\n    expect(5).to.be.below(10);\n\nCan also be used in conjunction with `length` to\nassert a maximum length. The benefit being a\nmore informative error message than if the length\nwas supplied directly.\n\n    expect('foo').to.have.length.below(4);\n    expect([ 1, 2, 3 ]).to.have.length.below(4);",
+            "line": " lib\\chai.js:797"
+        },
+        {
+            "message": "Missing item type\n### .most(value)\n\nAsserts that the target is less than or equal to `value`.\n\n    expect(5).to.be.at.most(5);\n\nCan also be used in conjunction with `length` to\nassert a maximum length. The benefit being a\nmore informative error message than if the length\nwas supplied directly.\n\n    expect('foo').to.have.length.of.at.most(4);\n    expect([ 1, 2, 3 ]).to.have.length.of.at.most(3);",
+            "line": " lib\\chai.js:846"
+        },
+        {
+            "message": "Missing item type\n### .within(start, finish)\n\nAsserts that the target is within a range.\n\n    expect(7).to.be.within(5,10);\n\nCan also be used in conjunction with `length` to\nassert a length range. The benefit being a\nmore informative error message than if the length\nwas supplied directly.\n\n    expect('foo').to.have.length.within(2,4);\n    expect([ 1, 2, 3 ]).to.have.length.within(2,4);",
+            "line": " lib\\chai.js:893"
+        },
+        {
+            "message": "Missing item type\n### .instanceof(constructor)\n\nAsserts that the target is an instance of `constructor`.\n\n    var Tea = function (name) { this.name = name; }\n      , Chai = new Tea('chai');\n\n    expect(Chai).to.be.an.instanceof(Tea);\n    expect([ 1, 2, 3 ]).to.be.instanceof(Array);",
+            "line": " lib\\chai.js:936"
+        },
+        {
+            "message": "Missing item type\n### .property(name, [value])\n\nAsserts that the target has a property `name`, optionally asserting that\nthe value of that property is strictly equal to  `value`.\nIf the `deep` flag is set, you can use dot- and bracket-notation for deep\nreferences into objects and arrays.\n\n    // simple referencing\n    var obj = { foo: 'bar' };\n    expect(obj).to.have.property('foo');\n    expect(obj).to.have.property('foo', 'bar');\n\n    // deep referencing\n    var deepObj = {\n        green: { tea: 'matcha' }\n      , teas: [ 'chai', 'matcha', { tea: 'konacha' } ]\n    };\n\n    expect(deepObj).to.have.deep.property('green.tea', 'matcha');\n    expect(deepObj).to.have.deep.property('teas[1]', 'matcha');\n    expect(deepObj).to.have.deep.property('teas[2].tea', 'konacha');\n\nYou can also use an array as the starting point of a `deep.property`\nassertion, or traverse nested arrays.\n\n    var arr = [\n        [ 'chai', 'matcha', 'konacha' ]\n      , [ { tea: 'chai' }\n        , { tea: 'matcha' }\n        , { tea: 'konacha' } ]\n    ];\n\n    expect(arr).to.have.deep.property('[0][1]', 'matcha');\n    expect(arr).to.have.deep.property('[1][2].tea', 'konacha');\n\nFurthermore, `property` changes the subject of the assertion\nto be the value of that property from the original object. This\npermits for further chainable assertions on that property.\n\n    expect(obj).to.have.property('foo')\n      .that.is.a('string');\n    expect(deepObj).to.have.property('green')\n      .that.is.an('object')\n      .that.deep.equals({ tea: 'matcha' });\n    expect(deepObj).to.have.property('teas')\n      .that.is.an('array')\n      .with.deep.property('[2]')\n        .that.deep.equals({ tea: 'konacha' });",
+            "line": " lib\\chai.js:967"
+        },
+        {
+            "message": "Missing item type\n### .ownProperty(name)\n\nAsserts that the target has an own property `name`.\n\n    expect('test').to.have.ownProperty('length');",
+            "line": " lib\\chai.js:1062"
+        },
+        {
+            "message": "Missing item type\n### .length(value)\n\nAsserts that the target's `length` property has\nthe expected value.\n\n    expect([ 1, 2, 3]).to.have.length(3);\n    expect('foobar').to.have.length(6);\n\nCan also be used as a chain precursor to a value\ncomparison for the length property.\n\n    expect('foo').to.have.length.above(2);\n    expect([ 1, 2, 3 ]).to.have.length.above(2);\n    expect('foo').to.have.length.below(4);\n    expect([ 1, 2, 3 ]).to.have.length.below(4);\n    expect('foo').to.have.length.within(2,4);\n    expect([ 1, 2, 3 ]).to.have.length.within(2,4);",
+            "line": " lib\\chai.js:1089"
+        },
+        {
+            "message": "Missing item type\n### .match(regexp)\n\nAsserts that the target matches a regular expression.\n\n    expect('foobar').to.match(/^foo/);",
+            "line": " lib\\chai.js:1137"
+        },
+        {
+            "message": "Missing item type\n### .string(string)\n\nAsserts that the string target contains another string.\n\n    expect('foobar').to.have.string('bar');",
+            "line": " lib\\chai.js:1160"
+        },
+        {
+            "message": "Missing item type\n### .keys(key1, [key2], [...])\n\nAsserts that the target has exactly the given keys, or\nasserts the inclusion of some keys when using the\n`include` or `contain` modifiers.\n\n    expect({ foo: 1, bar: 2 }).to.have.keys(['foo', 'bar']);\n    expect({ foo: 1, bar: 2, baz: 3 }).to.contain.keys('foo', 'bar');",
+            "line": " lib\\chai.js:1186"
+        },
+        {
+            "message": "Missing item type\n### .throw(constructor)\n\nAsserts that the function target will throw a specific error, or specific type of error\n(as determined using `instanceof`), optionally with a RegExp or string inclusion test\nfor the error's message.\n\n    var err = new ReferenceError('This is a bad function.');\n    var fn = function () { throw err; }\n    expect(fn).to.throw(ReferenceError);\n    expect(fn).to.throw(Error);\n    expect(fn).to.throw(/bad function/);\n    expect(fn).to.not.throw('good function');\n    expect(fn).to.throw(ReferenceError, /bad function/);\n    expect(fn).to.throw(err);\n    expect(fn).to.not.throw(new RangeError('Out of range.'));\n\nPlease note that when a throw expectation is negated, it will check each\nparameter independently, starting with error constructor type. The appropriate way\nto check for the existence of a type of error but for a message that does not match\nis to use `and`.\n\n    expect(fn).to.throw(ReferenceError)\n       .and.not.throw(/good function/);",
+            "line": " lib\\chai.js:1254"
+        },
+        {
+            "message": "Missing item type\n### .respondTo(method)\n\nAsserts that the object or class target will respond to a method.\n\n    Klass.prototype.bar = function(){};\n    expect(Klass).to.respondTo('bar');\n    expect(obj).to.respondTo('bar');\n\nTo check if a constructor will respond to a static function,\nset the `itself` flag.\n\n   Klass.baz = function(){};\n   expect(Klass).itself.to.respondTo('baz');",
+            "line": " lib\\chai.js:1397"
+        },
+        {
+            "message": "Missing item type\n### .itself\n\nSets the `itself` flag, later used by the `respondTo` assertion.\n\n   function Foo() {}\n   Foo.bar = function() {}\n   Foo.prototype.baz = function() {}\n\n   expect(Foo).itself.to.respondTo('bar');\n   expect(Foo).itself.not.to.respondTo('baz');",
+            "line": " lib\\chai.js:1433"
+        },
+        {
+            "message": "Missing item type\n### .satisfy(method)\n\nAsserts that the target passes a given truth test.\n\n    expect(1).to.satisfy(function(num) { return num > 0; });",
+            "line": " lib\\chai.js:1453"
+        },
+        {
+            "message": "Missing item type\n### .closeTo(expected, delta)\n\nAsserts that the target is equal `expected`, to within a +/- `delta` range.\n\n    expect(1.5).to.be.closeTo(1, 0.5);",
+            "line": " lib\\chai.js:1478"
+        },
+        {
+            "message": "Missing item type\n# AssertionError (constructor)\n\nCreate a new assertion error based on the Javascript\n`Error` prototype.\n\n**Options**\n- message\n- actual\n- expected\n- operator\n- startStackFunction",
+            "line": " lib\\chai.js:1519"
+        },
+        {
+            "message": "Missing item type\n# toString()\n\nOverride default to string method",
+            "line": " lib\\chai.js:1558"
+        },
+        {
+            "message": "Missing item type\n### assert(expression, message)\n\nWrite your own test expressions.\n\n    assert('foo' !== 'bar', 'foo is not bar');\n    assert(Array.isArray([]), 'empty arrays are arrays');",
+            "line": " lib\\chai.js:1591"
+        },
+        {
+            "message": "Missing item type\n### .fail(actual, expected, [message], [operator])\n\nThrow a failure. Node.js `assert` module-compatible.",
+            "line": " lib\\chai.js:1614"
+        },
+        {
+            "message": "Missing item type\n### .ok(object, [message])\n\nAsserts that `object` is truthy.\n\n    assert.ok('everything', 'everything is ok');\n    assert.ok(false, 'this will fail');",
+            "line": " lib\\chai.js:1637"
+        },
+        {
+            "message": "Missing item type\n### .equal(actual, expected, [message])\n\nAsserts non-strict equality (`==`) of `actual` and `expected`.\n\n    assert.equal(3, '3', '== coerces values to strings');",
+            "line": " lib\\chai.js:1655"
+        },
+        {
+            "message": "Missing item type\n### .notEqual(actual, expected, [message])\n\nAsserts non-strict inequality (`!=`) of `actual` and `expected`.\n\n    assert.notEqual(3, 4, 'these numbers are not equal');",
+            "line": " lib\\chai.js:1681"
+        },
+        {
+            "message": "Missing item type\n### .strictEqual(actual, expected, [message])\n\nAsserts strict equality (`===`) of `actual` and `expected`.\n\n    assert.strictEqual(true, true, 'these booleans are strictly equal');",
+            "line": " lib\\chai.js:1707"
+        },
+        {
+            "message": "Missing item type\n### .notStrictEqual(actual, expected, [message])\n\nAsserts strict inequality (`!==`) of `actual` and `expected`.\n\n    assert.notStrictEqual(3, '3', 'no coercion for strict equality');",
+            "line": " lib\\chai.js:1725"
+        },
+        {
+            "message": "Missing item type\n### .deepEqual(actual, expected, [message])\n\nAsserts that `actual` is deeply equal to `expected`.\n\n    assert.deepEqual({ tea: 'green' }, { tea: 'green' });",
+            "line": " lib\\chai.js:1743"
+        },
+        {
+            "message": "Missing item type\n### .notDeepEqual(actual, expected, [message])\n\nAssert that `actual` is not deeply equal to `expected`.\n\n    assert.notDeepEqual({ tea: 'green' }, { tea: 'jasmine' });",
+            "line": " lib\\chai.js:1761"
+        },
+        {
+            "message": "Missing item type\n### .isTrue(value, [message])\n\nAsserts that `value` is true.\n\n    var teaServed = true;\n    assert.isTrue(teaServed, 'the tea has been served');",
+            "line": " lib\\chai.js:1779"
+        },
+        {
+            "message": "Missing item type\n### .isFalse(value, [message])\n\nAsserts that `value` is false.\n\n    var teaServed = false;\n    assert.isFalse(teaServed, 'no tea yet? hmm...');",
+            "line": " lib\\chai.js:1797"
+        },
+        {
+            "message": "Missing item type\n### .isNull(value, [message])\n\nAsserts that `value` is null.\n\n    assert.isNull(err, 'there was no error');",
+            "line": " lib\\chai.js:1815"
+        },
+        {
+            "message": "Missing item type\n### .isNotNull(value, [message])\n\nAsserts that `value` is not null.\n\n    var tea = 'tasty chai';\n    assert.isNotNull(tea, 'great, time for tea!');",
+            "line": " lib\\chai.js:1832"
+        },
+        {
+            "message": "Missing item type\n### .isUndefined(value, [message])\n\nAsserts that `value` is `undefined`.\n\n    var tea;\n    assert.isUndefined(tea, 'no tea defined');",
+            "line": " lib\\chai.js:1850"
+        },
+        {
+            "message": "Missing item type\n### .isDefined(value, [message])\n\nAsserts that `value` is not `undefined`.\n\n    var tea = 'cup of chai';\n    assert.isDefined(tea, 'tea has been defined');",
+            "line": " lib\\chai.js:1868"
+        },
+        {
+            "message": "Missing item type\n### .isFunction(value, [message])\n\nAsserts that `value` is a function.\n\n    function serveTea() { return 'cup of tea'; };\n    assert.isFunction(serveTea, 'great, we can have tea now');",
+            "line": " lib\\chai.js:1886"
+        },
+        {
+            "message": "Missing item type\n### .isNotFunction(value, [message])\n\nAsserts that `value` is _not_ a function.\n\n    var serveTea = [ 'heat', 'pour', 'sip' ];\n    assert.isNotFunction(serveTea, 'great, we have listed the steps');",
+            "line": " lib\\chai.js:1904"
+        },
+        {
+            "message": "Missing item type\n### .isObject(value, [message])\n\nAsserts that `value` is an object (as revealed by\n`Object.prototype.toString`).\n\n    var selection = { name: 'Chai', serve: 'with spices' };\n    assert.isObject(selection, 'tea selection is an object');",
+            "line": " lib\\chai.js:1922"
+        },
+        {
+            "message": "Missing item type\n### .isNotObject(value, [message])\n\nAsserts that `value` is _not_ an object.\n\n    var selection = 'chai'\n    assert.isObject(selection, 'tea selection is not an object');\n    assert.isObject(null, 'null is not an object');",
+            "line": " lib\\chai.js:1941"
+        },
+        {
+            "message": "Missing item type\n### .isArray(value, [message])\n\nAsserts that `value` is an array.\n\n    var menu = [ 'green', 'chai', 'oolong' ];\n    assert.isArray(menu, 'what kind of tea do we want?');",
+            "line": " lib\\chai.js:1960"
+        },
+        {
+            "message": "Missing item type\n### .isNotArray(value, [message])\n\nAsserts that `value` is _not_ an array.\n\n    var menu = 'green|chai|oolong';\n    assert.isNotArray(menu, 'what kind of tea do we want?');",
+            "line": " lib\\chai.js:1978"
+        },
+        {
+            "message": "Missing item type\n### .isString(value, [message])\n\nAsserts that `value` is a string.\n\n    var teaOrder = 'chai';\n    assert.isString(teaOrder, 'order placed');",
+            "line": " lib\\chai.js:1996"
+        },
+        {
+            "message": "Missing item type\n### .isNotString(value, [message])\n\nAsserts that `value` is _not_ a string.\n\n    var teaOrder = 4;\n    assert.isNotString(teaOrder, 'order placed');",
+            "line": " lib\\chai.js:2014"
+        },
+        {
+            "message": "Missing item type\n### .isNumber(value, [message])\n\nAsserts that `value` is a number.\n\n    var cups = 2;\n    assert.isNumber(cups, 'how many cups');",
+            "line": " lib\\chai.js:2032"
+        },
+        {
+            "message": "Missing item type\n### .isNotNumber(value, [message])\n\nAsserts that `value` is _not_ a number.\n\n    var cups = '2 cups please';\n    assert.isNotNumber(cups, 'how many cups');",
+            "line": " lib\\chai.js:2050"
+        },
+        {
+            "message": "Missing item type\n### .isBoolean(value, [message])\n\nAsserts that `value` is a boolean.\n\n    var teaReady = true\n      , teaServed = false;\n\n    assert.isBoolean(teaReady, 'is the tea ready');\n    assert.isBoolean(teaServed, 'has tea been served');",
+            "line": " lib\\chai.js:2068"
+        },
+        {
+            "message": "Missing item type\n### .isNotBoolean(value, [message])\n\nAsserts that `value` is _not_ a boolean.\n\n    var teaReady = 'yep'\n      , teaServed = 'nope';\n\n    assert.isNotBoolean(teaReady, 'is the tea ready');\n    assert.isNotBoolean(teaServed, 'has tea been served');",
+            "line": " lib\\chai.js:2089"
+        },
+        {
+            "message": "Missing item type\n### .typeOf(value, name, [message])\n\nAsserts that `value`'s type is `name`, as determined by\n`Object.prototype.toString`.\n\n    assert.typeOf({ tea: 'chai' }, 'object', 'we have an object');\n    assert.typeOf(['chai', 'jasmine'], 'array', 'we have an array');\n    assert.typeOf('tea', 'string', 'we have a string');\n    assert.typeOf(/tea/, 'regexp', 'we have a regular expression');\n    assert.typeOf(null, 'null', 'we have a null');\n    assert.typeOf(undefined, 'undefined', 'we have an undefined');",
+            "line": " lib\\chai.js:2110"
+        },
+        {
+            "message": "Missing item type\n### .notTypeOf(value, name, [message])\n\nAsserts that `value`'s type is _not_ `name`, as determined by\n`Object.prototype.toString`.\n\n    assert.notTypeOf('tea', 'number', 'strings are not numbers');",
+            "line": " lib\\chai.js:2134"
+        },
+        {
+            "message": "Missing item type\n### .instanceOf(object, constructor, [message])\n\nAsserts that `value` is an instance of `constructor`.\n\n    var Tea = function (name) { this.name = name; }\n      , chai = new Tea('chai');\n\n    assert.instanceOf(chai, Tea, 'chai is an instance of tea');",
+            "line": " lib\\chai.js:2153"
+        },
+        {
+            "message": "Missing item type\n### .notInstanceOf(object, constructor, [message])\n\nAsserts `value` is not an instance of `constructor`.\n\n    var Tea = function (name) { this.name = name; }\n      , chai = new String('chai');\n\n    assert.notInstanceOf(chai, Tea, 'chai is not an instance of tea');",
+            "line": " lib\\chai.js:2174"
+        },
+        {
+            "message": "Missing item type\n### .include(haystack, needle, [message])\n\nAsserts that `haystack` includes `needle`. Works\nfor strings and arrays.\n\n    assert.include('foobar', 'bar', 'foobar contains string \"bar\"');\n    assert.include([ 1, 2, 3 ], 3, 'array contains value');",
+            "line": " lib\\chai.js:2195"
+        },
+        {
+            "message": "Missing item type\n### .match(value, regexp, [message])\n\nAsserts that `value` matches the regular expression `regexp`.\n\n    assert.match('foobar', /^foo/, 'regexp matches');",
+            "line": " lib\\chai.js:2221"
+        },
+        {
+            "message": "Missing item type\n### .notMatch(value, regexp, [message])\n\nAsserts that `value` does not match the regular expression `regexp`.\n\n    assert.notMatch('foobar', /^foo/, 'regexp does not match');",
+            "line": " lib\\chai.js:2239"
+        },
+        {
+            "message": "Missing item type\n### .property(object, property, [message])\n\nAsserts that `object` has a property named by `property`.\n\n    assert.property({ tea: { green: 'matcha' }}, 'tea');",
+            "line": " lib\\chai.js:2257"
+        },
+        {
+            "message": "Missing item type\n### .notProperty(object, property, [message])\n\nAsserts that `object` does _not_ have a property named by `property`.\n\n    assert.notProperty({ tea: { green: 'matcha' }}, 'coffee');",
+            "line": " lib\\chai.js:2275"
+        },
+        {
+            "message": "Missing item type\n### .deepProperty(object, property, [message])\n\nAsserts that `object` has a property named by `property`, which can be a\nstring using dot- and bracket-notation for deep reference.\n\n    assert.deepProperty({ tea: { green: 'matcha' }}, 'tea.green');",
+            "line": " lib\\chai.js:2293"
+        },
+        {
+            "message": "Missing item type\n### .notDeepProperty(object, property, [message])\n\nAsserts that `object` does _not_ have a property named by `property`, which\ncan be a string using dot- and bracket-notation for deep reference.\n\n    assert.notDeepProperty({ tea: { green: 'matcha' }}, 'tea.oolong');",
+            "line": " lib\\chai.js:2312"
+        },
+        {
+            "message": "Missing item type\n### .propertyVal(object, property, value, [message])\n\nAsserts that `object` has a property named by `property` with value given\nby `value`.\n\n    assert.propertyVal({ tea: 'is good' }, 'tea', 'is good');",
+            "line": " lib\\chai.js:2331"
+        },
+        {
+            "message": "Missing item type\n### .propertyNotVal(object, property, value, [message])\n\nAsserts that `object` has a property named by `property`, but with a value\ndifferent from that given by `value`.\n\n    assert.propertyNotVal({ tea: 'is good' }, 'tea', 'is bad');",
+            "line": " lib\\chai.js:2351"
+        },
+        {
+            "message": "Missing item type\n### .deepPropertyVal(object, property, value, [message])\n\nAsserts that `object` has a property named by `property` with value given\nby `value`. `property` can use dot- and bracket-notation for deep\nreference.\n\n    assert.deepPropertyVal({ tea: { green: 'matcha' }}, 'tea.green', 'matcha');",
+            "line": " lib\\chai.js:2371"
+        },
+        {
+            "message": "Missing item type\n### .deepPropertyNotVal(object, property, value, [message])\n\nAsserts that `object` has a property named by `property`, but with a value\ndifferent from that given by `value`. `property` can use dot- and\nbracket-notation for deep reference.\n\n    assert.deepPropertyNotVal({ tea: { green: 'matcha' }}, 'tea.green', 'konacha');",
+            "line": " lib\\chai.js:2392"
+        },
+        {
+            "message": "Missing item type\n### .lengthOf(object, length, [message])\n\nAsserts that `object` has a `length` property with the expected value.\n\n    assert.lengthOf([1,2,3], 3, 'array has length of 3');\n    assert.lengthOf('foobar', 5, 'string has length of 6');",
+            "line": " lib\\chai.js:2413"
+        },
+        {
+            "message": "Missing item type\n### .throws(function, [constructor/string/regexp], [string/regexp], [message])\n\nAsserts that `function` will throw an error that is an instance of\n`constructor`, or alternately that it will throw an error with message\nmatching `regexp`.\n\n    assert.throw(fn, 'function throws a reference error');\n    assert.throw(fn, /function throws a reference error/);\n    assert.throw(fn, ReferenceError);\n    assert.throw(fn, ReferenceError, 'function throws a reference error');\n    assert.throw(fn, ReferenceError, /function throws a reference error/);",
+            "line": " lib\\chai.js:2432"
+        },
+        {
+            "message": "Missing item type\n### .doesNotThrow(function, [constructor/regexp], [message])\n\nAsserts that `function` will _not_ throw an error that is an instance of\n`constructor`, or alternately that it will not throw an error with message\nmatching `regexp`.\n\n    assert.doesNotThrow(fn, Error, 'function does not throw');",
+            "line": " lib\\chai.js:2465"
+        },
+        {
+            "message": "Missing item type\n### .operator(val1, operator, val2, [message])\n\nCompares two values using `operator`.\n\n    assert.operator(1, '<', 2, 'everything is ok');\n    assert.operator(1, '>', 2, 'this will fail');",
+            "line": " lib\\chai.js:2492"
+        },
+        {
+            "message": "Missing item type\n### .closeTo(actual, expected, delta, [message])\n\nAsserts that the target is equal `expected`, to within a +/- `delta` range.\n\n    assert.closeTo(1.5, 1, 0.5, 'numbers are close');",
+            "line": " lib\\chai.js:2519"
+        },
+        {
+            "message": "Missing item type\n### addChainableMethod (ctx, name, method, chainingBehavior)\n\nAdds a method to an object, such that the method can also be chained.\n\n    utils.addChainableMethod(chai.Assertion.prototype, 'foo', function (str) {\n      var obj = utils.flag(this, 'object');\n      new chai.Assertion(obj).to.be.equal(str);\n    });\n\nCan also be accessed directly from `chai.Assertion`.\n\n    chai.Assertion.addChainableMethod('foo', fn, chainingBehavior);\n\nThe result can then be used as both a method assertion, executing both `method` and\n`chainingBehavior`, or as a language chain, which only executes `chainingBehavior`.\n\n    expect(fooStr).to.be.foo('bar');\n    expect(fooStr).to.be.foo.equal('foo');",
+            "line": " lib\\chai.js:2681"
+        },
+        {
+            "message": "Missing item type\n### .addMethod (ctx, name, method)\n\nAdds a method to the prototype of an object.\n\n    utils.addMethod(chai.Assertion.prototype, 'foo', function (str) {\n      var obj = utils.flag(this, 'object');\n      new chai.Assertion(obj).to.be.equal(str);\n    });\n\nCan also be accessed directly from `chai.Assertion`.\n\n    chai.Assertion.addMethod('foo', fn);\n\nThen can be used as any other assertion.\n\n    expect(fooStr).to.be.foo('bar');",
+            "line": " lib\\chai.js:2753"
+        },
+        {
+            "message": "Missing item type\n### addProperty (ctx, name, getter)\n\nAdds a property to the prototype of an object.\n\n    utils.addProperty(chai.Assertion.prototype, 'foo', function () {\n      var obj = utils.flag(this, 'object');\n      new chai.Assertion(obj).to.be.instanceof(Foo);\n    });\n\nCan also be accessed directly from `chai.Assertion`.\n\n    chai.Assertion.addProperty('foo', fn);\n\nThen can be used as any other assertion.\n\n    expect(myFoo).to.be.foo;",
+            "line": " lib\\chai.js:2794"
+        },
+        {
+            "message": "Missing item type\n### flag(object ,key, [value])\n\nGet or set a flag value on an object. If a\nvalue is provided it will be set, else it will\nreturn the currently set value or `undefined` if\nthe value is not set.\n\n    utils.flag(this, 'foo', 'bar'); // setter\n    utils.flag(this, 'foo'); // getter, returns `bar`",
+            "line": " lib\\chai.js:2966"
+        },
+        {
+            "message": "Missing item type\n# getActual(object, [actual])\n\nReturns the `actual` value for an Assertion",
+            "line": " lib\\chai.js:3002"
+        },
+        {
+            "message": "Missing item type\n### .getEnumerableProperties(object)\n\nThis allows the retrieval of enumerable property names of an object,\ninherited or not.",
+            "line": " lib\\chai.js:3025"
+        },
+        {
+            "message": "Missing item type\n### .getMessage(object, message, negateMessage)\n\nConstruct the error message based on flags\nand template tags. Template tags will return\na stringified inspection of the object referenced.\n\nMesssage template tags:\n- `#{this}` current asserted object\n- `#{act}` actual value\n- `#{exp}` expected value",
+            "line": " lib\\chai.js:3063"
+        },
+        {
+            "message": "Missing item type\n# getName(func)\n\nGets the name of a function, in a cross-browser way.",
+            "line": " lib\\chai.js:3107"
+        },
+        {
+            "message": "Missing item type\n### .getPathValue(path, object)\n\nThis allows the retrieval of values in an\nobject given a string path.\n\n    var obj = {\n        prop1: {\n            arr: ['a', 'b', 'c']\n          , str: 'Hello'\n        }\n      , prop2: {\n            arr: [ { nested: 'Universe' } ]\n          , str: 'Hello again!'\n        }\n    }\n\nThe following would be the results.\n\n    getPathValue('prop1.str', obj); // Hello\n    getPathValue('prop1.att[2]', obj); // b\n    getPathValue('prop2.arr[0].nested', obj); // Universe",
+            "line": " lib\\chai.js:3132"
+        },
+        {
+            "message": "Missing item type\n### .getProperties(object)\n\nThis allows the retrieval of property names of an object, enumerable or not,\ninherited or not.",
+            "line": " lib\\chai.js:3237"
+        },
+        {
+            "message": "Missing item type\nEchos the value of a value. Trys to print the value out\nin the best way possible given the different types.",
+            "line": " lib\\chai.js:3391"
+        },
+        {
+            "message": "Missing item type\n### .objDisplay (object)\n\nDetermines if an object or an array matches\ncriteria to be inspected in-line for error\nmessages or should be truncated.",
+            "line": " lib\\chai.js:3714"
+        },
+        {
+            "message": "Missing item type\n### overwriteMethod (ctx, name, fn)\n\nOverwites an already existing method and provides\naccess to previous function. Must return function\nto be used for name.\n\n    utils.overwriteMethod(chai.Assertion.prototype, 'equal', function (_super) {\n      return function (str) {\n        var obj = utils.flag(this, 'object');\n        if (obj instanceof Foo) {\n          new chai.Assertion(obj.value).to.equal(str);\n        } else {\n          _super.apply(this, arguments);\n        }\n      }\n    });\n\nCan also be accessed directly from `chai.Assertion`.\n\n    chai.Assertion.overwriteMethod('foo', fn);\n\nThen can be used as any other assertion.\n\n    expect(myFoo).to.equal('bar');",
+            "line": " lib\\chai.js:3760"
+        },
+        {
+            "message": "Missing item type\n### overwriteProperty (ctx, name, fn)\n\nOverwites an already existing property getter and provides\naccess to previous value. Must return function to use as getter.\n\n    utils.overwriteProperty(chai.Assertion.prototype, 'ok', function (_super) {\n      return function () {\n        var obj = utils.flag(this, 'object');\n        if (obj instanceof Foo) {\n          new chai.Assertion(obj.name).to.equal('bar');\n        } else {\n          _super.call(this);\n        }\n      }\n    });\n\n\nCan also be accessed directly from `chai.Assertion`.\n\n    chai.Assertion.overwriteProperty('foo', fn);\n\nThen can be used as any other assertion.\n\n    expect(myFoo).to.be.ok;",
+            "line": " lib\\chai.js:3815"
+        },
+        {
+            "message": "Missing item type\n# test(object, expression)\n\nTest and object for expression.",
+            "line": " lib\\chai.js:3879"
+        },
+        {
+            "message": "Missing item type\n### transferFlags(assertion, object, includeAll = true)\n\nTransfer all the flags for `assertion` to `object`. If\n`includeAll` is set to `false`, then the base Chai\nassertion flags (namely `object`, `ssfi`, and `message`)\nwill not be transferred.\n\n\n    var newAssertion = new Assertion();\n    utils.transferFlags(assertion, newAssertion);\n\n    var anotherAsseriton = new Assertion(myObj);\n    utils.transferFlags(assertion, anotherAssertion, false);",
+            "line": " lib\\chai.js:3903"
+        },
+        {
+            "message": "Missing item type\n### type(object)\n\nBetter implementation of `typeof` detection that can\nbe used cross-browser. Handles the inconsistencies of\nArray, `null`, and `undefined` detection.\n\n    utils.type({}) // 'object'\n    utils.type(null) // `null'\n    utils.type(undefined) // `undefined`\n    utils.type([]) // `array`",
+            "line": " lib\\chai.js:3965"
+        },
+        {
+            "message": "Missing item type",
+            "line": " lib\\require.js:1"
+        },
+        {
+            "message": "Missing item type\nHelper function for iterating over an array. If the func returns\na true value, it will break out of the loop.",
+            "line": " lib\\require.js:49"
+        },
+        {
+            "message": "Missing item type\nHelper function for iterating over an array backwards. If the func\nreturns a true value, it will break out of the loop.",
+            "line": " lib\\require.js:64"
+        },
+        {
+            "message": "Missing item type\nCycles over properties in an object and calls a function for each\nproperty value. If the function returns a truthy value, then the\niteration is stopped.",
+            "line": " lib\\require.js:87"
+        },
+        {
+            "message": "Missing item type\nSimple function to mix in properties from source into target,\nbut only if target does not already have a property of the same name.",
+            "line": " lib\\require.js:103"
+        },
+        {
+            "message": "Missing item type\nConstructs an error with a pointer to an URL with more information.",
+            "line": " lib\\require.js:150"
+        },
+        {
+            "message": "Missing item type\nTrims the . and .. from an array of path segments.\nIt will keep a leading path segment if a .. will become\nthe first path segment, to help with module name lookups,\nwhich act like paths, but can be remapped. But the end result,\nall paths that use this function should look normalized.\nNOTE: this method MODIFIES the input array.",
+            "line": " lib\\require.js:216"
+        },
+        {
+            "message": "Missing item type\nGiven a relative module name, like ./something, normalize it to\na real name that can be mapped to a path.",
+            "line": " lib\\require.js:249"
+        },
+        {
+            "message": "Missing item type\nCreates a module mapping that includes plugin prefix, module\nname, and path. If parentModuleMap is provided it will\nalso normalize the name via require.normalize()",
+            "line": " lib\\require.js:395"
+        },
+        {
+            "message": "Missing item type\nInternal method to transfer globalQueue items to this context's\ndefQueue.",
+            "line": " lib\\require.js:532"
+        },
+        {
+            "message": "Missing item type\nChecks if the module is ready to define itself, and if so,\ndefine it.",
+            "line": " lib\\require.js:814"
+        },
+        {
+            "message": "Missing item type\nGiven an event from a script node, get the requirejs info from it,\nand then removes the event listeners on the node.",
+            "line": " lib\\require.js:1168"
+        },
+        {
+            "message": "Missing item type\nSet a configuration for the context.",
+            "line": " lib\\require.js:1221"
+        },
+        {
+            "message": "Missing item type\nConverts a module name + .extension into an URL path.\n*Requires* the use of a module name. It does not support using\nplain URLs like nameToUrl.",
+            "line": " lib\\require.js:1405"
+        },
+        {
+            "message": "Missing item type\nCalled to enable a module if it is still in the registry\nawaiting enablement. A second arg, parent, the parent module,\nis passed in for context, when this method is overriden by\nthe optimizer. Not shown here to keep code compact.",
+            "line": " lib\\require.js:1467"
+        },
+        {
+            "message": "Missing item type\nInternal method used by environment adapters to complete a load event.\nA load event could be a script load or just a load pass from a synchronous\nload call.",
+            "line": " lib\\require.js:1480"
+        },
+        {
+            "message": "Missing item type\nConverts a module name to a file path. Supports cases where\nmoduleName may actually be just an URL.\nNote that it **does not** call normalize on the moduleName,\nit is assumed to have already been normalized. This is an\ninternal API, not a public one. Use toUrl for the public API.",
+            "line": " lib\\require.js:1536"
+        },
+        {
+            "message": "Missing item type\nExecutes a module callack function. Broken out as a separate function\nsolely to allow the build system to sequence the files in the built\nlayer in the right sequence.",
+            "line": " lib\\require.js:1607"
+        },
+        {
+            "message": "Missing item type\ncallback for script loads, used to check status of loading.",
+            "line": " lib\\require.js:1618"
+        },
+        {
+            "message": "Missing item type\nCallback for script errors.",
+            "line": " lib\\require.js:1640"
+        },
+        {
+            "message": "Missing item type\nMain entry point.\n\nIf the only argument to require is a string, then the module that\nis represented by that string is fetched for the appropriate context.\n\nIf the first argument is an array, then it will be treated as an array\nof dependency string names to fetch. An optional function callback can\nbe specified to execute when all of those dependencies are available.\n\nMake a local req variable to help Caja compliance (it assumes things\non a require that are not standardized), and to give a short\nname for minification/local scope use.",
+            "line": " lib\\require.js:1655"
+        },
+        {
+            "message": "Missing item type\nSupport require.config() to make it easier to cooperate with other\nAMD loaders on globally agreed names.",
+            "line": " lib\\require.js:1705"
+        },
+        {
+            "message": "Missing item type\nExecute something after the current tick\nof the event loop. Override for other envs\nthat have a better solution than setTimeout.",
+            "line": " lib\\require.js:1713"
+        },
+        {
+            "message": "Missing item type\nExport require as a global, but only if it does not already exist.",
+            "line": " lib\\require.js:1723"
+        },
+        {
+            "message": "Missing item type\nAny errors that require explicitly generates will be passed to this\nfunction. Intercept/override it if you want custom error handling.",
+            "line": " lib\\require.js:1770"
+        },
+        {
+            "message": "Missing item type\nDoes the request to load a module for the browser case.\nMake this a separate function to allow other environments\nto override it.",
+            "line": " lib\\require.js:1779"
+        },
+        {
+            "message": "Missing item type\nThe function that handles definitions of modules. Differs from\nrequire() in that a string for the module should be the first argument,\nand the function to execute after dependencies are loaded should\nreturn a value to define the module corresponding to the first argument's\nname.",
+            "line": " lib\\require.js:1933"
+        },
+        {
+            "message": "Missing item type\nExecutes the text. Normally just uses eval, but can be modified\nto use a better, environment-specific call. Only used for transpiling\nloader plugins, not for plain JS modules.",
+            "line": " lib\\require.js:2006"
+        },
+        {
+            "message": "Missing item type\n/** const */ var DEFAULT_OPTION_VALUE_ALLOWUNDEFINED                = false;\n/** const */ var DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL     = true;\n\n/* ###############################################################################################\n *\n * Error texts\n *\n * These texts are private to this module.\n *\n * ###############################################################################################",
+            "line": " arguejs2.js:41"
+        },
+        {
+            "message": "Missing item type\n/** const */ var $ERR_BADCALL_InvalidTypeOfArgument                         = $ERR_BADCALL_PREFIX + \"type of \\\"{1}\\\" is invalid.\";\n/** const */ var $ERR_BADCALL_NoArguments                                   = $ERR_BADCALL_PREFIX + \"no arguments. function call is not compatible with function specification.\";\n/** const */ var $ERR_BADCALL_TooManyArguments                              = $ERR_BADCALL_PREFIX + \"too many arguments. function call is not compatible with function specification.\";\n/** const */ var $ERR_BADCALL_InvalidTypeOfParameter                        = $ERR_BADCALL_PREFIX + \"parameter specification #{1} is not an object structure.\";\n\n/** const */ var $ERR_ARGUEJS_PREFIX                                        = \"parameter specification \\\"{1}\\\": \";\n/** const */ var $ERR_ARGUEJS_DefaultValueHasIncompatibleType               = $ERR_ARGUEJS_PREFIX + \"default value is not compatible to parameter type\";\n/** const */ var $ERR_ARGUEJS_InvalidTypeOfValue                            = $ERR_ARGUEJS_PREFIX + \"value of \\\"{2}\\\" has incorrect type (must be {3})\";\n/** const */ var $ERR_ARGUEJS_InvalidTypeSpecificationOption                = $ERR_ARGUEJS_PREFIX + \"option \\\"{2}\\\" in type specification is invalid.\";\n/** const */ var $ERR_ARGUEJS_InvalidValue                                  = $ERR_ARGUEJS_PREFIX + \"\\\"{2}\\\" is invalid.\";\n/** const */ var $ERR_ARGUEJS_MissingTypeSpecification                      = $ERR_ARGUEJS_PREFIX + \"type specification is missing.\";\n/** const */ var $ERR_ARGUEJS_ParameterWithoutSpecification                 = \"parameter specification #{1} is missing.\";\n/** const */ var $ERR_ARGUEJS_ParameterWithTooManyElements                  = $ERR_ARGUEJS_PREFIX + \"specification contains more than one element.\";\n/** const */ var $ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction         = $ERR_ARGUEJS_PREFIX + \"\\\"{2}\\\" is {3} allowed for the tail-parameter in a variadic function\";\n/** const */ var $ERR_ARGUEJS_TailParameterMustBeLastPastparameter          = \"in a variadic function the tail-parameter must be the last parameter in the function specification.\";\n/** const */ var $ERR_ARGUEJS_TypeSpecificationHasTooManyElements           = $ERR_ARGUEJS_PREFIX + \"type specification has too many elements.\";\n\n/** const */ var $ERR_ARGUEJS_GetParameters_PREFIX                          = \"Incompatible function call: \";\n/** const */ var $ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue  = $ERR_ARGUEJS_GetParameters_PREFIX + \"mandatory argument \\\"{1}\\\" has no value.\";\n/** const */ var $ERR_ARGUEJS_GetParameters_TooManyArguments                = $ERR_ARGUEJS_GetParameters_PREFIX + \"too many arguments. {1}\";\n\n/* ###############################################################################################\n *\n * Utility functions for handling types\n *\n * These functions are private to the module.\n *\n * ###############################################################################################",
+            "line": " arguejs2.js:54"
+        },
+        {
+            "message": "Missing item type",
+            "line": " arguejs2.js:632"
+        }
+    ]
+}
