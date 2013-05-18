@@ -45,6 +45,7 @@
   "license": "BSD",
   "readmeFilename": "README.md",
   "dependencies": {
-    "amdefine": "0.0.5"
+    "amdefine": "0.0.5",
+    "uglify-js": "~2.3.4"
   }
 }
