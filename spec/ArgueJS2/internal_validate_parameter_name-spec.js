@@ -20,10 +20,29 @@ define(['argue2', 'chai'], function(arguejs2, chai) {
             describe("construct some texts", function() {
 
                 var testCases = [ {name: null,                  isName: false },
-
                                   {name: undefined,             isName: false },
 
                                   {name: "",                    isName: false },
+
+                                  {name: " ",                   isName: false },
+                                  {name: "a ",                  isName: false },
+
+                                  {name: "\t",                  isName: false },
+                                  {name: "a\t",                 isName: false },
+
+                                  {name: "\n",                  isName: false },
+                                  {name: "a\n",                 isName: false },
+
+                                  {name: "\r",                  isName: false },
+                                  {name: "a\r",                 isName: false },
+
+                                  {name: "'",                   isName: false },
+                                  {name: "a'",                  isName: false },
+                                  {name: "'a'",                 isName: false },
+
+                                  {name: "\"",                  isName: false },
+                                  {name: "a\"",                 isName: false },
+                                  {name: "\"a\"",               isName: false },
 
                                   {name: "$",                   isName: true },
                                   {name: "$$",                  isName: true },
