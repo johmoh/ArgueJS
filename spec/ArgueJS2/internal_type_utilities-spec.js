@@ -1,4 +1,4 @@
-define(['arguejs2', 'chai'], function(arguejs2, chai) {
+define(['argue2', 'chai'], function(arguejs2, chai) {
 
     'use strict';
 
