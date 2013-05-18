@@ -8,7 +8,7 @@ define(['argue2', 'chai'], function(arguejs2, chai) {
     // Tests...
     describe("internal type utilities", function() {
 
-        var ArgueJS2_internals = arguejs2.__export_internals__();
+        var arguejs2_internals = arguejs2.__export_internals__();
 
         function myFunction() {
         }
@@ -57,7 +57,7 @@ define(['argue2', 'chai'], function(arguejs2, chai) {
                                 {description: "Array",                          isType: true,   isValue: false,     value: Array,                                       expectedValue: _defaultExpectedValue},
                                 {description: "Function",                       isType: true,   isValue: false,     value: Function,                                    expectedValue: _defaultExpectedValue},
                                 {description: "Object",                         isType: true,   isValue: false,     value: Object,                                      expectedValue: _defaultExpectedValue},
-                                {description: "Arguments",                      isType: true,   isValue: false,     value: ArgueJS2_internals.$.getType(arguments),     expectedValue: _defaultExpectedValue},
+                                {description: "Arguments",                      isType: true,   isValue: false,     value: arguejs2_internals.$.getType(arguments),     expectedValue: _defaultExpectedValue},
                                 {description: "MyClass",                        isType: true,   isValue: false,     value: MyClass,                                     expectedValue: _defaultExpectedValue},
 
                                 {description: "String: \"{1}\"",                isType: false,  isValue: true,      value: '',                                          expectedValue: _defaultExpectedValue},
@@ -130,7 +130,7 @@ define(['argue2', 'chai'], function(arguejs2, chai) {
                 describe(_functionName, function() {
                     it("is a function", function() {
 
-                        expect(ArgueJS2_internals.$[_functionName]).to.be.a("function");
+                        expect(arguejs2_internals.$[_functionName]).to.be.a("function");
                     });
 
                     var testCaseMap = new TestCaseMap(false);
@@ -141,7 +141,7 @@ define(['argue2', 'chai'], function(arguejs2, chai) {
                         var testCaseDescriptionText = "" +
                             "expect " + testCase.expectedValue +
                             " if called with " + testCase.description.replace("{1}", (((testCase.value instanceof Array) && (testCase.value.length === 0)) ? "[]" : testCase.value));
-                        it(testCaseDescriptionText, generateTestFunction(ArgueJS2_internals.$[_functionName], testCase));
+                        it(testCaseDescriptionText, generateTestFunction(arguejs2_internals.$[_functionName], testCase));
                     }
                 });
             }
@@ -193,7 +193,7 @@ define(['argue2', 'chai'], function(arguejs2, chai) {
 
             it("is a function", function() {
 
-                expect(ArgueJS2_internals.$["getType"]).to.be.a("function");
+                expect(arguejs2_internals.$["getType"]).to.be.a("function");
             });
 
             var testCaseMap = new TestCaseMap(undefined);
@@ -238,7 +238,7 @@ define(['argue2', 'chai'], function(arguejs2, chai) {
                 var testCaseDescriptionText = "" +
                         "expect " + getTestTypeName(testCase.expectedValue) +
                         " if called with " + (testCase.isType ? testCase.isValue ? "type/value" : "type" : "value") + testCase.description.replace("{1}", (((testCase.value instanceof Array) && (testCase.value.length === 0)) ? "[]" : testCase.value));
-                it(testCaseDescriptionText, generateTestFunction(ArgueJS2_internals.$["getType"], testCase));
+                it(testCaseDescriptionText, generateTestFunction(arguejs2_internals.$["getType"], testCase));
             }
         });
     });
