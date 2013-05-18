@@ -28,10 +28,6 @@
   "bugs": {
     "url": "http://github.com/zvictor/ArgueJS/issues"
   },
-  "devDependencies": {
-    "karma": "*",
-    "yuidocjs": "~0.3.44"
-  },
   "keywords": [
     "arguejs",
     "argue",
@@ -45,7 +41,11 @@
   "license": "BSD",
   "readmeFilename": "README.md",
   "dependencies": {
-    "amdefine": "0.0.5",
+    "amdefine": "0.0.5"
+  },
+  "devDependencies": {
+    "karma": "*",
+    "yuidocjs": "~0.3.44",
     "uglify-js": "~2.3.4"
   }
 }
