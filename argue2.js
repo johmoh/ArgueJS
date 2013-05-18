@@ -292,7 +292,7 @@ define(function(require) {
     var validateParameterName = function() {
         var regExp = /^[_a-z$]{1}[_a-z0-9$]*$/i;
         return function(_parameterName) {
-            return _parameterName && regExp.test(_parameterName);
+            return (_parameterName ? regExp.test(_parameterName) : false);
         };
     }();
 
