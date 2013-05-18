@@ -6,7 +6,7 @@ define(['argue2', 'chai'], function(arguejs2, chai) {
     var expect = chai.expect;
 
     // Tests...
-    describe("internal type utilities", function() {
+    describe("internal string utilities", function() {
 
         var arguejs2_internals = arguejs2.__export_internals__();
 
