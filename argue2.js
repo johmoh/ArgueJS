@@ -5,6 +5,17 @@ if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
+/* ARGUEJS_EXPORT_INTERNALS
+ *
+ * Exporting internals for debugging and testing? true/false @see ArgueJS.__export_internals__
+ *
+ * for production   : do not define ARGUEJS_EXPORT_INTERNALS or set value to false
+ * for development  : do not define ARGUEJS_EXPORT_INTERNALS or set value to false
+ * for minification : do not define ARGUEJS_EXPORT_INTERNALS or set value to false; special note for minification with UglifyJS: add --define "ARGUEJS_EXPORT_INTERNALS=false" to command line options
+ * for unittesting  : unit tests of this library require "ARGUEJS_EXPORT_INTERNALS = true" because some tests test internal functionality of that library or need internal functions/variables to work
+ */
+// /** const */ var ARGUEJS_EXPORT_INTERNALS = false;
+
 define(function(require) {
 
     "use strict";
@@ -13,13 +24,11 @@ define(function(require) {
     return function(module_exports_factory){
         return module_exports_factory(
             /* put some static configuration values here */
-            ((typeof(ARGUEJS_EXPORT_INTERNALS) !== "undefined") || (typeof(DEBUG) !== "undefined")) // ARGUEJS_EXPORT_INTERNALS
         );
     }(
 
     function(
         /* define variables for some static configuration values here */
-        ARGUEJS_EXPORT_INTERNALS /* Exporting internals for debugging and testing? true/false @see ArgueJS.__export_internals__ */
     ) {
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 // [[<<< make module available in node.js and the web (AMD - RequireJS)]]
@@ -33,7 +42,7 @@ define(function(require) {
 
     /* ###############################################################################################
      *
-     * Some configuration values for this module.
+     * Some constant configuration values for this module.
      *
      * These configuration values are private to this module.
      *
@@ -53,27 +62,27 @@ define(function(require) {
      * ###############################################################################################
      */
 
-    /** const */ var $ERR_BADCALL_PREFIX                                        = "bad call: ";
-    /** const */ var $ERR_BADCALL_InvalidTypeOfArgument                         = $ERR_BADCALL_PREFIX + "type of \"{1}\" is invalid.";
-    /** const */ var $ERR_BADCALL_NoArguments                                   = $ERR_BADCALL_PREFIX + "no arguments. function call is not compatible with function specification.";
-    /** const */ var $ERR_BADCALL_TooManyArguments                              = $ERR_BADCALL_PREFIX + "too many arguments. function call is not compatible with function specification.";
-    /** const */ var $ERR_BADCALL_InvalidTypeOfParameter                        = $ERR_BADCALL_PREFIX + "parameter specification #{1} is not an object structure.";
+    /** const */ var ERR_BADCALL_PREFIX                                         = "bad call: ";
+    /** const */ var ERR_BADCALL_InvalidTypeOfArgument                          = ERR_BADCALL_PREFIX + "type of \"{1}\" is invalid.";
+    /** const */ var ERR_BADCALL_NoArguments                                    = ERR_BADCALL_PREFIX + "no arguments. function call is not compatible with function specification.";
+    /** const */ var ERR_BADCALL_TooManyArguments                               = ERR_BADCALL_PREFIX + "too many arguments. function call is not compatible with function specification.";
+    /** const */ var ERR_BADCALL_InvalidTypeOfParameter                         = ERR_BADCALL_PREFIX + "parameter specification #{1} is not an object structure.";
 
-    /** const */ var $ERR_ARGUEJS_PREFIX                                        = "parameter specification \"{1}\": ";
-    /** const */ var $ERR_ARGUEJS_DefaultValueHasIncompatibleType               = $ERR_ARGUEJS_PREFIX + "default value is not compatible to parameter type";
-    /** const */ var $ERR_ARGUEJS_InvalidTypeOfValue                            = $ERR_ARGUEJS_PREFIX + "value of \"{2}\" has incorrect type (must be {3})";
-    /** const */ var $ERR_ARGUEJS_InvalidValue                                  = $ERR_ARGUEJS_PREFIX + "\"{2}\" is invalid.";
-    /** const */ var $ERR_ARGUEJS_MissingTypeSpecification                      = $ERR_ARGUEJS_PREFIX + "type specification is missing.";
-    /** const */ var $ERR_ARGUEJS_ParameterSpecificationWithoutName             = "parameter specification: parameter #{1} has no name";
-    /** const */ var $ERR_ARGUEJS_ParameterWithTooManyElements                  = $ERR_ARGUEJS_PREFIX + "specification contains more than one element.";
-    /** const */ var $ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction         = $ERR_ARGUEJS_PREFIX + "\"{2}\" is {3} allowed for the tail-parameter in a variadic function";
-    /** const */ var $ERR_ARGUEJS_TailParameterMustBeLastPastparameter          = "in a variadic function the tail-parameter must be the last parameter in the function specification.";
-    /** const */ var $ERR_ARGUEJS_TypeSpecificationHasTooManyElements           = $ERR_ARGUEJS_PREFIX + "type specification has too many elements.";
-    /** const */ var $ERR_ARGUEJS_UnknownTypeSpecificationOption                = $ERR_ARGUEJS_PREFIX + "type specification contains unknown option \"{2}\".";
+    /** const */ var ERR_ARGUEJS_PREFIX                                         = "parameter specification \"{1}\": ";
+    /** const */ var ERR_ARGUEJS_DefaultValueHasIncompatibleType                = ERR_ARGUEJS_PREFIX + "default value is not compatible to parameter type";
+    /** const */ var ERR_ARGUEJS_InvalidTypeOfValue                             = ERR_ARGUEJS_PREFIX + "value of \"{2}\" has incorrect type (must be {3})";
+    /** const */ var ERR_ARGUEJS_InvalidValue                                   = ERR_ARGUEJS_PREFIX + "\"{2}\" is invalid.";
+    /** const */ var ERR_ARGUEJS_MissingTypeSpecification                       = ERR_ARGUEJS_PREFIX + "type specification is missing.";
+    /** const */ var ERR_ARGUEJS_ParameterSpecificationWithoutName              = "parameter specification: parameter #{1} has no name";
+    /** const */ var ERR_ARGUEJS_ParameterWithTooManyElements                   = ERR_ARGUEJS_PREFIX + "specification contains more than one element.";
+    /** const */ var ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction          = ERR_ARGUEJS_PREFIX + "\"{2}\" is {3} allowed for the tail-parameter in a variadic function";
+    /** const */ var ERR_ARGUEJS_TailParameterMustBeLastPastparameter           = "in a variadic function the tail-parameter must be the last parameter in the function specification.";
+    /** const */ var ERR_ARGUEJS_TypeSpecificationHasTooManyElements            = ERR_ARGUEJS_PREFIX + "type specification has too many elements.";
+    /** const */ var ERR_ARGUEJS_UnknownTypeSpecificationOption                 = ERR_ARGUEJS_PREFIX + "type specification contains unknown option \"{2}\".";
 
-    /** const */ var $ERR_ARGUEJS_GetParameters_PREFIX                          = "Incompatible function call: ";
-    /** const */ var $ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue  = $ERR_ARGUEJS_GetParameters_PREFIX + "mandatory argument \"{1}\" has no value.";
-    /** const */ var $ERR_ARGUEJS_GetParameters_TooManyArguments                = $ERR_ARGUEJS_GetParameters_PREFIX + "too many arguments. {1}";
+    /** const */ var ERR_ARGUEJS_GetParameters_PREFIX                           = "Incompatible function call: ";
+    /** const */ var ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue   = ERR_ARGUEJS_GetParameters_PREFIX + "mandatory argument \"{1}\" has no value.";
+    /** const */ var ERR_ARGUEJS_GetParameters_TooManyArguments                 = ERR_ARGUEJS_GetParameters_PREFIX + "too many arguments. {1}";
 
     /* ###############################################################################################
      *
@@ -92,7 +101,7 @@ define(function(require) {
      *
      * @param  {*}  _value  The value to test.
      *
-     * @return {Boolean}  True, if the value is a Boolean. False, otherwise.
+     * @return {boolean}  True, if the value is a Boolean. False, otherwise.
      */
     function isBoolean(_value) {
         return (typeof(_value) === 'boolean');
@@ -106,7 +115,7 @@ define(function(require) {
      *
      * @param  {*}  _value  The value to test.
      *
-     * @return {Boolean}  True, if the value is a Array. False, otherwise.
+     * @return {boolean}  True, if the value is a Array. False, otherwise.
      */
     function isArray(_value) {
         return (_value instanceof Array);
@@ -120,7 +129,7 @@ define(function(require) {
      *
      * @param  {*}  _value  The value to test.
      *
-     * @return {Boolean}  True, if the value is a Function. False, otherwise.
+     * @return {boolean}  True, if the value is a Function. False, otherwise.
      */
     function isFunction(_value) {
         return (typeof(_value) === 'function');
@@ -134,7 +143,7 @@ define(function(require) {
      *
      * @param  {*}  _value  The value to test.
      *
-     * @return {Boolean}  True, if the value is a Object. False, otherwise.
+     * @return {boolean}  True, if the value is a Object. False, otherwise.
      */
     function isObject(_value) {
         return (_value instanceof Object);
@@ -148,7 +157,7 @@ define(function(require) {
      *
      * @param  {*}  _value  The value to test.
      *
-     * @return {Boolean}  True, if the value is an Arguments object. False, otherwise.
+     * @return {boolean}  True, if the value is an Arguments object. False, otherwise.
      */
     var isArguments = function() {
         var argumentsDetectionText = Object.prototype.toString.call(arguments);
@@ -166,7 +175,7 @@ define(function(require) {
      *
      * @param  {*}  _value  The value to test.
      *
-     * @return {Boolean}  True, if the value is a "Type". False, otherwise.
+     * @return {boolean}  True, if the value is a "Type". False, otherwise.
      */
     function isType(_value) {
         return isFunction(_value); // @TODO: maybe that can be improved.
@@ -217,18 +226,18 @@ define(function(require) {
      * @function  formatText
      *
      * @param {string}  _formatString  Format string containing placeholders.
-     * @param {[...*]}  [...]          Optional: Arguments: Arguments to use in this variadic function. These arguments are used to fill in placeholder in the format string.
+     * @param {...*}    _replacements  Optional: Arguments: Arguments to use in this variadic function. These arguments are used to fill in placeholder in the format string.
      *
      * @return {string}  Resulting, formatted text.
      *
      * @example
      *
-     * var text = Utilities.formatString("{1}{3}, {2} {1}", "!!!", "folks", " hi");  // text = "!!! hi, folks !!!"
+     * var text = formatText("{1}{3}, {2} {1}", "!!!", "folks", " hi");  // text = "!!! hi, folks !!!"
      */
-    function formatText(_formatString, _arguments) {
+    function formatText(_formatString) {
         var result = _formatString;
         if (result) {
-                var argumentsLength = arguments.length;
+            var argumentsLength = arguments.length;
             for (var idx = 1; idx < argumentsLength; ++idx) {
                 var replacement = arguments[idx];
                 result = result.replace(new RegExp("\\{"+idx+"\\}", "g"), replacement);
@@ -252,9 +261,9 @@ define(function(require) {
      * @for       module-arguejs
      * @function  validateParameterName
      *
-     * @param {String}  _parameterName  Name of a parameter.
+     * @param {string}  _parameterName  Name of a parameter.
      *
-     * @return {Boolean}  True, if the
+     * @return {boolean}  True, if the
      */
     var validateParameterName = function() {
         var regExp = /^[_a-z$]{1}[_a-z0-9$]*$/i;
@@ -271,12 +280,12 @@ define(function(require) {
      *
      * @param  {*}        _value           A value.
      * @param  {Type}     _type            A type the value should be compatible with.
-     * @param  {Boolean}  _allowUndefined  True, if an undefined value can be treated compatible. False, otherwise.
-     * @param  {Boolean}  _allowNull       True, if a null value can be treated compatible. False, otherwise.
-     * @param  {Boolean}  _asDefaultValue  True, if the test is for testing a default value. False, otherwise. The reason for this parameter is simple: A value of any type
+     * @param  {boolean}  _allowUndefined  True, if an undefined value can be treated compatible. False, otherwise.
+     * @param  {boolean}  _allowNull       True, if a null value can be treated compatible. False, otherwise.
+     * @param  {boolean}  _asDefaultValue  True, if the test is for testing a default value. False, otherwise. The reason for this parameter is simple: A value of any type
      *                                     can be part of the tail-parameter of a variadic function. But that parameter is an array. So only an array can be a default parameter.
      *
-     * @return {Boolean}  True, if a value is compatible to a type and some options. False, otherwise.
+     * @return {boolean}  True, if a value is compatible to a type and some options. False, otherwise.
      */
     function isCompatibleValue(_value, _type, _allowUndefined, _allowNull, _asDefaultValue) {
         if (_asDefaultValue) {
@@ -390,12 +399,12 @@ define(function(require) {
         // checks and maps input parameters because this function is part of the public interface
         if (arguments.length === 1) {
             _arguments = arguments[0];
-            if (!_arguments || _arguments.length > 0) { throw new Error(formatText($ERR_ARGUEJS_GetParameters_TooManyArguments, "no parameters defined but arguments given")); }
+            if (!_arguments || _arguments.length > 0) { throw new Error(formatText(ERR_ARGUEJS_GetParameters_TooManyArguments, "no parameters defined but arguments given")); }
             return {}; // EARLY EXIT: no function specification given (means: no arguments allowed) and no arguments given -> _arguments validated!
         }
-        if (arguments.length != 2) { throw new Error(arguments.length < 1 ? $ERR_BADCALL_NoArguments : $ERR_BADCALL_TooManyArguments); }
-        if (!isArray(_functionSpecification)) { throw new Error(formatText($ERR_BADCALL_InvalidTypeOfArgument, "_functionSpecification")); }
-        if (!isArguments(_arguments) && !isArray(_arguments)) { throw new Error(formatText($ERR_BADCALL_InvalidTypeOfArgument, "_arguments")); }
+        if (arguments.length != 2) { throw new Error(arguments.length < 1 ? ERR_BADCALL_NoArguments : ERR_BADCALL_TooManyArguments); }
+        if (!isArray(_functionSpecification)) { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfArgument, "_functionSpecification")); }
+        if (!isArguments(_arguments) && !isArray(_arguments)) { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfArgument, "_arguments")); }
 
         // safe some parameter
         var parameterNum = _functionSpecification.length;
@@ -420,7 +429,7 @@ define(function(require) {
 
             // get current parameter info
             var parameterSpecification = _functionSpecification[parameterIdx];
-            if (typeof(parameterSpecification) !== "object") { throw new Error(formatText($ERR_BADCALL_InvalidTypeOfParameter, parameterIdx)); }
+            if (typeof(parameterSpecification) !== "object") { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfParameter, parameterIdx)); }
 
             // get parameter specification
             parameterName             = undefined;  // the name of the parameter. that is the name of the property in the resulting list of argument values
@@ -435,11 +444,11 @@ define(function(require) {
                 if (parameterSpecification.hasOwnProperty(parameterId)) {
 
                     // check that not more than one element is in the object because the object (to be exact: the first element in the object) defines the parameter completely
-                    if (parameterName) { throw new Error(formatText($ERR_ARGUEJS_ParameterWithTooManyElements, parameterName)); }
+                    if (parameterName) { throw new Error(formatText(ERR_ARGUEJS_ParameterWithTooManyElements, parameterName)); }
 
                     // get parameter name
                     parameterName = parameterId;
-                    if (!validateParameterName(parameterName)) { throw new Error(formatText($ERR_ARGUEJS_InvalidValue, parameterName, "name")); }
+                    if (!validateParameterName(parameterName)) { throw new Error(formatText(ERR_ARGUEJS_InvalidValue, parameterName, "name")); }
 
                     // get data of type specification
                     var parameterTypeData = parameterSpecification[parameterId];
@@ -454,12 +463,12 @@ define(function(require) {
                     // get parameter type specification from simple optional parameter specification (examples: {message: [String]}, {myValue: [Number, 17]})
                     else if (isArray(parameterTypeData)) {
 
-                        if (parameterTypeData.length < 1) { throw new Error(formatText($ERR_ARGUEJS_MissingTypeSpecification, parameterName)); }
+                        if (parameterTypeData.length < 1) { throw new Error(formatText(ERR_ARGUEJS_MissingTypeSpecification, parameterName)); }
                         parameterIsOptional = true;
                         parameterType       = parameterTypeData[0];
 
                         if (parameterTypeData.length >= 2) {
-                            if (parameterTypeData.length > 2) { throw new Error(formatText($ERR_ARGUEJS_TypeSpecificationHasTooManyElements, parameterName)); }
+                            if (parameterTypeData.length > 2) { throw new Error(formatText(ERR_ARGUEJS_TypeSpecificationHasTooManyElements, parameterName)); }
                             parameterHasDefaultValue = true;
                             parameterDefaultValue    = parameterTypeData[1];
                         }
@@ -482,18 +491,18 @@ define(function(require) {
                                         break;
                                     case("allowUndefined"):
                                         parameterAllowUndefined  = parameterTypeData[key];
-                                        if (!isBoolean(parameterAllowUndefined)) { throw new Error(formatText($ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "allowUndefined", "boolean")); }
+                                        if (!isBoolean(parameterAllowUndefined)) { throw new Error(formatText(ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "allowUndefined", "boolean")); }
                                         break;
                                     case("allowNull"):
                                         parameterAllowNull = parameterTypeData[key];
-                                        if (!isBoolean(parameterAllowNull)) { throw new Error(formatText($ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "allowNull", "boolean")); }
+                                        if (!isBoolean(parameterAllowNull)) { throw new Error(formatText(ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "allowNull", "boolean")); }
                                         break;
                                     case("parenthesizeTail"):
                                         parameterParenthesizeTail = parameterTypeData[key];
-                                        if (!isBoolean(parameterParenthesizeTail)) { throw new Error(formatText($ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "parenthesizeTail", "boolean")); }
+                                        if (!isBoolean(parameterParenthesizeTail)) { throw new Error(formatText(ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "parenthesizeTail", "boolean")); }
                                         break;
                                     default:
-                                        throw new Error(formatText($ERR_ARGUEJS_UnknownTypeSpecificationOption, parameterName, key));
+                                        throw new Error(formatText(ERR_ARGUEJS_UnknownTypeSpecificationOption, parameterName, key));
                                 }
                             }
                         }
@@ -501,22 +510,22 @@ define(function(require) {
                     else {
 
                         // it is a type or a value; however we do not accept the parameter type specification (examples: 17, "hello", false, undefined, null)
-                        throw new Error(formatText($ERR_ARGUEJS_InvalidValue, parameterName, "type"));
+                        throw new Error(formatText(ERR_ARGUEJS_InvalidValue, parameterName, "type"));
                     }
                 }
             }
 
             // validate parameter name
-            if (!parameterName) { throw new Error(formatText($ERR_ARGUEJS_ParameterSpecificationWithoutName, parameterIdx)); }
+            if (!parameterName) { throw new Error(formatText(ERR_ARGUEJS_ParameterSpecificationWithoutName, parameterIdx)); }
 
             // validate type
-            if (!isType(parameterType)) { throw new Error(formatText($ERR_ARGUEJS_InvalidValue, parameterName, "type")); }
+            if (!isType(parameterType)) { throw new Error(formatText(ERR_ARGUEJS_InvalidValue, parameterName, "type")); }
 
             // validate: special checks for variadic or non-variadic functions
             if (parameterType !== ArgueJS.TAIL) {
 
                 // "parenthesizeTail" can only be used for the tail-parameter in a variadic function
-                if (parameterParenthesizeTail !== undefined) { throw new Error(formatText($ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "parenthesizeTail", "only")); }
+                if (parameterParenthesizeTail !== undefined) { throw new Error(formatText(ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "parenthesizeTail", "only")); }
 
                 // set default values for allowUndefined and allowNull, if options are undefined
                 if (parameterAllowUndefined === undefined) { parameterAllowUndefined = DEFAULT_OPTION_VALUE_ALLOWUNDEFINED; }
@@ -525,13 +534,13 @@ define(function(require) {
             else {
 
                 // "allowUndefined" cannot be used for the tail-parameter in a variadic function
-                if (parameterAllowUndefined !== undefined) { throw new Error(formatText($ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "allowUndefined", "not")); }
+                if (parameterAllowUndefined !== undefined) { throw new Error(formatText(ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "allowUndefined", "not")); }
 
                 // "allowNull" cannot be used for the tail-parameter in a variadic function
-                if (parameterAllowNull !== undefined) { throw new Error(formatText($ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "allowNull", "not")); }
+                if (parameterAllowNull !== undefined) { throw new Error(formatText(ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "allowNull", "not")); }
 
                 // we found the tail-parameter of a variadic function. that parameter must be the last parameter in the function specification, because that parameter consumes all remaining values
-                if (parameterIdx != (parameterNum-1)) { throw new Error($ERR_ARGUEJS_TailParameterMustBeLastPastparameter); }
+                if (parameterIdx != (parameterNum-1)) { throw new Error(ERR_ARGUEJS_TailParameterMustBeLastPastparameter); }
 
                 // set default value for parenthesizeTail, if option is undefined
                 if (parameterParenthesizeTail === undefined) { parameterParenthesizeTail = DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL; }
@@ -594,7 +603,7 @@ define(function(require) {
             // no, all arguments are already processed. no arguments are remaing otherwise we would never reach this line of code
 
             // if the current parameter is not optional then there were too less arguments given in the function call
-            if (!parameterIsOptional) { throw new Error(formatText($ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue, parameterName)); }
+            if (!parameterIsOptional) { throw new Error(formatText(ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue, parameterName)); }
 
             // the parameter is optional. does the parameter specification define a default value?
             if (parameterHasDefaultValue) {
@@ -617,7 +626,7 @@ define(function(require) {
                 }
 
                 // now we have a default value - whatever that default values is. but that default value has to be compatible "as a default value" with the type of the parameter
-                if (!isCompatibleValue(defaultValue, parameterType, parameterAllowUndefined, parameterAllowNull, true)) { throw new Error(formatText($ERR_ARGUEJS_DefaultValueHasIncompatibleType, parameterName)); }
+                if (!isCompatibleValue(defaultValue, parameterType, parameterAllowUndefined, parameterAllowNull, true)) { throw new Error(formatText(ERR_ARGUEJS_DefaultValueHasIncompatibleType, parameterName)); }
 
                 // store the default value into the list of resulting arguments
                 resultingArguments[parameterName] = defaultValue;
@@ -625,7 +634,7 @@ define(function(require) {
         }
 
         // all parameter specifications were processed. are there still remaining arguments?
-        if (argumentIdx < argumentNum) { throw new Error(formatText($ERR_ARGUEJS_GetParameters_TooManyArguments, "there are arguments left but all parameters are processed.")); }
+        if (argumentIdx < argumentNum) { throw new Error(formatText(ERR_ARGUEJS_GetParameters_TooManyArguments, "there are arguments left but all parameters are processed.")); }
 
         // FINISHED!
         return resultingArguments;
@@ -640,15 +649,55 @@ define(function(require) {
      * @for     ArgueJS
      * @method  __export_internals__
      */
-    if (ARGUEJS_EXPORT_INTERNALS)
+    if ((typeof(ARGUEJS_EXPORT_INTERNALS) === "boolean") && ARGUEJS_EXPORT_INTERNALS)
     ArgueJS.__export_internals__ = function(_arguejs) {
-        if ((typeof(_arguejs) !== "undefined") && !(_arguejs instanceof ArgueJS)) { throw new Error($ERR_BADCALL_PREFIX + "_arguejs type mismatch"); }
+        if ((typeof(_arguejs) !== "undefined") && !(_arguejs instanceof ArgueJS)) { throw new Error(ERR_BADCALL_PREFIX + "_arguejs type mismatch"); }
 
-        return {
+        // build the object with internal information
+        var __internals__ = {
 
             // global privates
             $ : {
-                    // Utility functions for handling types
+
+                // Some constant configuration values for this module.
+                defaults : {
+                    DEFAULT_OPTION_VALUE_ALLOWNULL                 : DEFAULT_OPTION_VALUE_ALLOWNULL,
+                    DEFAULT_OPTION_VALUE_ALLOWUNDEFINED            : DEFAULT_OPTION_VALUE_ALLOWUNDEFINED,
+                    DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL : DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL
+                },
+
+                // Error texts
+                errorTexts : {
+                    ERR_BADCALL_PREFIX                                        : ERR_BADCALL_PREFIX,
+                    ERR_BADCALL_InvalidTypeOfArgument                         : ERR_BADCALL_InvalidTypeOfArgument,
+                    ERR_BADCALL_NoArguments                                   : ERR_BADCALL_NoArguments,
+                    ERR_BADCALL_TooManyArguments                              : ERR_BADCALL_TooManyArguments,
+                    ERR_BADCALL_InvalidTypeOfParameter                        : ERR_BADCALL_InvalidTypeOfParameter,
+
+                    ERR_ARGUEJS_PREFIX                                        : ERR_ARGUEJS_PREFIX,
+                    ERR_ARGUEJS_DefaultValueHasIncompatibleType               : ERR_ARGUEJS_DefaultValueHasIncompatibleType,
+                    ERR_ARGUEJS_InvalidTypeOfValue                            : ERR_ARGUEJS_InvalidTypeOfValue,
+                    ERR_ARGUEJS_InvalidValue                                  : ERR_ARGUEJS_InvalidValue,
+                    ERR_ARGUEJS_MissingTypeSpecification                      : ERR_ARGUEJS_MissingTypeSpecification,
+                    ERR_ARGUEJS_ParameterSpecificationWithoutName             : ERR_ARGUEJS_ParameterSpecificationWithoutName,
+                    ERR_ARGUEJS_ParameterWithTooManyElements                  : ERR_ARGUEJS_ParameterWithTooManyElements,
+                    ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction         : ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction,
+                    ERR_ARGUEJS_TailParameterMustBeLastPastparameter          : ERR_ARGUEJS_TailParameterMustBeLastPastparameter,
+                    ERR_ARGUEJS_TypeSpecificationHasTooManyElements           : ERR_ARGUEJS_TypeSpecificationHasTooManyElements,
+                    ERR_ARGUEJS_UnknownTypeSpecificationOption                : ERR_ARGUEJS_UnknownTypeSpecificationOption,
+
+                    ERR_ARGUEJS_GetParameters_PREFIX                          : ERR_ARGUEJS_GetParameters_PREFIX,
+                    ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue  : ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue,
+                    ERR_ARGUEJS_GetParameters_TooManyArguments                : ERR_ARGUEJS_GetParameters_TooManyArguments,
+
+                    asRegExp : {
+                        // object gets filled after building __internals___ by iterating all error texts and creating regular expressions
+                        // that way it is ensured that for all error texts a corresponding regular expression exits.
+                        // the regular expressions have the same name as the corresponding error text.
+                    }
+                },
+
+                // Utility functions for handling types
                 isBoolean               : isBoolean,
                 isArray                 : isArray,
                 isFunction              : isFunction,
@@ -675,6 +724,25 @@ define(function(require) {
                 /* nothing to export at the moment */
             }
         };
+
+        // convert all error texts to regular expressions
+        var errorTextConversionRegExp = /\{[1-9][0-9]?\}/g;
+        var replaceAllDotsRegExp      = /\./g;
+        var errorTexts = __internals__.$.errorTexts;
+        for (var errorTextId in errorTexts) {
+            if (errorTexts.hasOwnProperty(errorTextId) && (errorTextId !== "asRegExp")) {
+                errorTexts.asRegExp[errorTextId] = new RegExp(
+                        "^" +
+                        errorTexts[errorTextId].
+                            replace(replaceAllDotsRegExp, "\\.").
+                            replace(errorTextConversionRegExp, ".*") +
+                        "$"
+                    );
+            }
+        }
+
+        // FINISHED!
+        return __internals__;
     };
 
     /* ###############################################################################################
