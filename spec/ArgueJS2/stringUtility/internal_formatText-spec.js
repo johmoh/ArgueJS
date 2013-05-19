@@ -17,13 +17,13 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
     function runTestsForVariant(arguejs2Name, arguejs2) {
         describe(arguejs2Name + ": internal formatText:", function() {
 
-            var arguejs2_internals = arguejs2.__export_internals__();
-
             // >>> A HACK... JUST FOR INTERNET EXPLORER. REASON: MOCHA USES RECURSION TO HEAVY. BUT THEY DO NOT WANT TO FIX THAT IN MOCHA.
             beforeEach(function(done){
                 setTimeout(done, 0);
             });
             // <<< A HACK... JUST FOR INTERNET EXPLORER. REASON: MOCHA USES RECURSION TO HEAVY. BUT THEY DO NOT WANT TO FIX THAT IN MOCHA.
+
+            var arguejs2_internals = arguejs2.__export_internals__();
 
             it("is a function", function() {
 
