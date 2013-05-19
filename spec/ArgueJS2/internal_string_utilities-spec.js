@@ -21,6 +21,12 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
 
             describe("formatText:", function() {
 
+                // >>> A HACK... JUST FOR INTERNET EXPLORER. REASON: MOCHA USES RECURSION TO HEAVY. BUT THEY DO NOT WANT TO FIX THAT IN MOCHA.
+                beforeEach(function(done){
+                    setTimeout(done, 0);
+                });
+                // <<< A HACK... JUST FOR INTERNET EXPLORER. REASON: MOCHA USES RECURSION TO HEAVY. BUT THEY DO NOT WANT TO FIX THAT IN MOCHA.
+
                 it("is a function", function() {
 
                     expect(arguejs2_internals.$.formatText).to.be.a("function");
