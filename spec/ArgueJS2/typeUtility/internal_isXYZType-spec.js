@@ -15,7 +15,13 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
     }
 
     function runTestsForVariant(arguejs2Name, arguejs2) {
-        describe(arguejs2Name + ": internal type utilities:", function() {
+        describe(arguejs2Name + ": internal \"isXYZType\" functions:", function() {
+
+            // >>> A HACK... JUST FOR INTERNET EXPLORER. REASON: MOCHA USES RECURSION TO HEAVY. BUT THEY DO NOT WANT TO FIX THAT IN MOCHA.
+            beforeEach(function(done){
+                setTimeout(done, 0);
+            });
+            // <<< A HACK... JUST FOR INTERNET EXPLORER. REASON: MOCHA USES RECURSION TO HEAVY. BUT THEY DO NOT WANT TO FIX THAT IN MOCHA.
 
             // >>> A HACK... JUST FOR INTERNET EXPLORER. REASON: MOCHA USES RECURSION TO HEAVY. BUT THEY DO NOT WANT TO FIX THAT IN MOCHA.
             beforeEach(function(done){
@@ -139,127 +145,65 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
                 };
             }
 
-            describe("\"isXYZ\" functions:", function() {
+            function runIsTest(_functionName, _testCasePrepationFunction) {
+                describe(_functionName, function() {
+                    it("is a function", function() {
 
-                // >>> A HACK... JUST FOR INTERNET EXPLORER. REASON: MOCHA USES RECURSION TO HEAVY. BUT THEY DO NOT WANT TO FIX THAT IN MOCHA.
-                beforeEach(function(done){
-                    setTimeout(done, 0);
-                });
-                // <<< A HACK... JUST FOR INTERNET EXPLORER. REASON: MOCHA USES RECURSION TO HEAVY. BUT THEY DO NOT WANT TO FIX THAT IN MOCHA.
-
-                function runIsTest(_functionName, _testCasePrepationFunction) {
-                    describe(_functionName, function() {
-                        it("is a function", function() {
-
-                            expect(arguejs2_internals.$[_functionName]).to.be.a("function");
-                        });
-
-                        var testCaseMap = new TestCaseMap(false);
-                        testCaseMap.visitTestCases(_testCasePrepationFunction);
-
-                        for (var testCaseIdx = 0; testCaseIdx < testCaseMap.testCases.length; ++testCaseIdx) {
-                            var testCase = testCaseMap.testCases[testCaseIdx];
-                            var testCaseDescriptionText = "" +
-                                "expect " + testCase.expectedValue +
-                                " if called with " + testCase.description.replace("{1}", (((testCase.value instanceof Array) && (testCase.value.length === 0)) ? "[]" : testCase.value));
-                            it(testCaseDescriptionText, generateTestFunction(arguejs2_internals.$[_functionName], testCase));
-                        }
+                        expect(arguejs2_internals.$[_functionName]).to.be.a("function");
                     });
+
+                    var testCaseMap = new TestCaseMap(false);
+                    testCaseMap.visitTestCases(_testCasePrepationFunction);
+
+                    for (var testCaseIdx = 0; testCaseIdx < testCaseMap.testCases.length; ++testCaseIdx) {
+                        var testCase = testCaseMap.testCases[testCaseIdx];
+                        var testCaseDescriptionText = "" +
+                            "expect " + testCase.expectedValue +
+                            " if called with " + testCase.description.replace("{1}", (((testCase.value instanceof Array) && (testCase.value.length === 0)) ? "[]" : testCase.value));
+                        it(testCaseDescriptionText, generateTestFunction(arguejs2_internals.$[_functionName], testCase));
+                    }
+                });
+            }
+
+            runIsTest("isBoolean", function(_testCase) {
+                if (_testCase.isValue) {
+                    if ((/^Boolean: /).test(_testCase.description)) {
+                        _testCase.expectedValue = true;
+                    }
                 }
-
-                runIsTest("isBoolean", function(_testCase) {
-                    if (_testCase.isValue) {
-                        if ((/^Boolean: /).test(_testCase.description)) {
-                            _testCase.expectedValue = true;
-                        }
-                    }
-                });
-
-                runIsTest("isArray", function(_testCase) {
-                    if (_testCase.isValue) {
-                        if ((/^Array: /).test(_testCase.description)) {
-                            _testCase.expectedValue = true;
-                        }
-                    }
-                });
-
-                runIsTest("isArguments", function(_testCase) {
-                    if (_testCase.isValue) {
-                        if ((/^Arguments(: .*)?$/).test(_testCase.description)) {
-                            _testCase.expectedValue = true;
-                        }
-                    }
-                });
-
-                runIsTest("isFunction", function(_testCase) {
-                    if (_testCase.isType && _testCase.value) {
-                        _testCase.expectedValue = true;
-                    }
-                    else if ((/(^Function: )|(Function$)|(Method$)/).test(_testCase.description)) {
-                        _testCase.expectedValue = true;
-                    }
-                });
-
-                runIsTest("isObject", function(_testCase) {
-                    if (_testCase.isType && _testCase.value) {
-                        _testCase.expectedValue = true;
-                    }
-                    else if ((/(^(Array|Date|RegExp|Object|Arguments|Function): )|(Function$)|(Method$)|(Object$)/).test(_testCase.description)) {
-                        _testCase.expectedValue = true;
-                    }
-                });
             });
 
-            describe("getType:", function() {
+            runIsTest("isArray", function(_testCase) {
+                if (_testCase.isValue) {
+                    if ((/^Array: /).test(_testCase.description)) {
+                        _testCase.expectedValue = true;
+                    }
+                }
+            });
 
-                it("is a function", function() {
+            runIsTest("isArguments", function(_testCase) {
+                if (_testCase.isValue) {
+                    if ((/^Arguments(: .*)?$/).test(_testCase.description)) {
+                        _testCase.expectedValue = true;
+                    }
+                }
+            });
 
-                    expect(arguejs2_internals.$["getType"]).to.be.a("function");
-                });
+            runIsTest("isFunction", function(_testCase) {
+                if (_testCase.isType && _testCase.value) {
+                    _testCase.expectedValue = true;
+                }
+                else if ((/(^Function: )|(Function$)|(Method$)/).test(_testCase.description)) {
+                    _testCase.expectedValue = true;
+                }
+            });
 
-                var testCaseMap = new TestCaseMap(undefined);
-                testCaseMap.visitTestCases(function(_testCase) {
-
-                    if (_testCase.isType && _testCase.isValue) { _testCase.expectedValue = _testCase.value; }
-                    else if (_testCase.isType) { _testCase.expectedValue = Function; }
-                    else if ((/^Number: /).test(_testCase.description)) {
-                        _testCase.expectedValue = Number;
-                    }
-                    else if ((/^Boolean: /).test(_testCase.description)) {
-                        _testCase.expectedValue = Boolean;
-                    }
-                    else if ((/(^String: )|(Property$)/).test(_testCase.description)) {
-                        _testCase.expectedValue = String;
-                    }
-                    else if ((/^Array: /).test(_testCase.description)) {
-                        _testCase.expectedValue = Array;
-                    }
-                    else if ((/^Date: /).test(_testCase.description)) {
-                        _testCase.expectedValue = Date;
-                    }
-                    else if ((/^RegExp: /).test(_testCase.description)) {
-                        _testCase.expectedValue = RegExp;
-                    }
-                    else if ((/^Arguments(: .*)?$/).test(_testCase.description)) {
-                        _testCase.expectedValue = arguments.constructor;
-                    }
-                    else if ((/(^Function: )|(Function$)|(Method$)/).test(_testCase.description)) {
-                        _testCase.expectedValue = Function;
-                    }
-                    else if ((/^Object: /).test(_testCase.description)) {
-                        _testCase.expectedValue = Object;
-                    }
-                    else if ("MyClass: myObject" === _testCase.description) {
-                        _testCase.expectedValue = MyClass;
-                    }
-                });
-
-                for (var testCaseIdx = 0; testCaseIdx < testCaseMap.testCases.length; ++testCaseIdx) {
-                    var testCase = testCaseMap.testCases[testCaseIdx];
-                    var testCaseDescriptionText = "" +
-                            "expect " + getTestTypeName(testCase.expectedValue) +
-                            " if called with " + (testCase.isType ? testCase.isValue ? "type/value" : "type" : "value") + " " + testCase.description.replace("{1}", (((testCase.value instanceof Array) && (testCase.value.length === 0)) ? "[]" : testCase.value));
-                    it(testCaseDescriptionText, generateTestFunction(arguejs2_internals.$["getType"], testCase));
+            runIsTest("isObject", function(_testCase) {
+                if (_testCase.isType && _testCase.value) {
+                    _testCase.expectedValue = true;
+                }
+                else if ((/(^(Array|Date|RegExp|Object|Arguments|Function): )|(Function$)|(Method$)|(Object$)/).test(_testCase.description)) {
+                    _testCase.expectedValue = true;
                 }
             });
         });
