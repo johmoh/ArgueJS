@@ -6,7 +6,6 @@ var tests = Object.keys(window.__karma__.files).filter(function (file) {
 });
 
 if (typeof(ARGUEJS_EXPORT_INTERNALS) === "undefined") { ARGUEJS_EXPORT_INTERNALS = true; }
-if (typeof(DEBUG) === "undefined")                    { DEBUG = true; }
 
 requirejs.config({
     // Karma serves files from '/base'

@@ -1,4 +1,4 @@
-define(['argue2', 'chai'], function(arguejs2, chai) {
+define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, arguejs2_minified, chai) {
 
     'use strict';
 
@@ -6,18 +6,25 @@ define(['argue2', 'chai'], function(arguejs2, chai) {
     var expect = chai.expect;
 
     // Tests...
-    describe("internal string utilities", function() {
+    var argue2Variants = [  {name: "ArgueJS version 2 (original)",  implementation: arguejs2_original},
+                            {name: "ArgueJS version 2 (minified)",  implementation: arguejs2_minified}
+                        ];
+    for (var argue2VariantIdx = 0; argue2VariantIdx < argue2Variants.length; ++argue2VariantIdx) {
 
-        var arguejs2_internals = arguejs2.__export_internals__();
+        runTestsForVariant(argue2Variants[argue2VariantIdx].name, argue2Variants[argue2VariantIdx].implementation);
+    }
 
-        describe("formatText", function() {
+    function runTestsForVariant(arguejs2Name, arguejs2) {
+        describe(arguejs2Name + ": internal string utilities:", function() {
 
-            it("is a function", function() {
+            var arguejs2_internals = arguejs2.__export_internals__();
 
-                expect(arguejs2_internals.$.formatText).to.be.a("function");
-            });
+            describe("formatText:", function() {
 
-            describe("construct some texts", function() {
+                it("is a function", function() {
+
+                    expect(arguejs2_internals.$.formatText).to.be.a("function");
+                });
 
                 var testCases = [   {formatString: null,                              replacements: null,                             expectedText: null },
                                     {formatString: null,                              replacements: undefined,                        expectedText: null },
@@ -145,5 +152,5 @@ define(['argue2', 'chai'], function(arguejs2, chai) {
                 }
             });
         });
-    });
+    }
 });
