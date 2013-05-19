@@ -1,6 +1,7 @@
 Wishlist for ArgueJS 2:
 
 High priority features
+ ☐ allow "disable type checking" of a parameter type; idea: introducing a new type "WHATEVER". if parameter type is "WHATEVER" then the type of a value will not be checked. "WHATEVER" means "any type including undefined and null". that way "WHATEVER" equals "{type: argue2.ANYTYPE, allowUndefined: true, allowNull: true}"
  ☐ enhancing error text in cases that a default parameter is incompatible with a parameter type (add type information of the default value and the parameter)
  ☐ it should be possible to have a function default value that is lazy evaluated in cases the parameter type is either Function or ANYTYPE
 
