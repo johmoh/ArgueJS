@@ -200,6 +200,18 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
                     _testCase.expectedValue = true;
                 }
             });
+
+            runIsTest("isType", function(_testCase) {
+                if (_testCase.isType) {
+                    if (!_testCase.isValue) {
+                        _testCase.expectedValue = true;
+                    }
+                }
+                // @TODO: that is not, what we want. but at the moment I have no clue, how to distinguish between a function that is a pure function an a class.
+                else if ((/(^Function: )|(Function$)|(Method$)/).test(_testCase.description)) {
+                    _testCase.expectedValue = true;
+                }
+            });
         });
     }
 });
