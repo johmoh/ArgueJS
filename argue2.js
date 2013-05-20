@@ -314,9 +314,9 @@ define(function(require) {
     function isCompatibleValue(_value, _type, _allowUndefined, _allowNull, _asDefaultValue) {
         if (_asDefaultValue) {
 
+            if (_type  === ArgueJS.TAIL) { return isArray(_value); } // only an array is compatible as default value for the tail-parameter of a variadic function
             if (_value === undefined)    { return (_allowUndefined === true); } // value "undefined" is compatible if "undefined" is allowed
             if (_value === null)         { return (_allowNull === true); } // value "null" is compatible if "null" is allowed
-            if (_type  === ArgueJS.TAIL) { return isArray(_value); } // only an array is compatible as default value for the tail-parameter of a variadic function
 
         } else {
 
