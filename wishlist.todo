@@ -12,3 +12,8 @@ Medium priority features
 Low priority features
  ☐ find a good way to use an object containing all arguments as input
  ☐ find a good way to support multi-signature-functions - I think this will be a rarely used feature and I personally think that using such a feature is a sign of breaking the rule "Separation of Concerns" for clean code.
+
+Unresolved Problems:
+ ☐ At the moment it is not clear how to distinguish between a pure function and a type because types are build with functions. Maybe as a starting point (at the moment I do not know, if that information can help...):
+   typeof(Function.prototype) === "function"
+   typeof((function(){}).prototype) = "object"
