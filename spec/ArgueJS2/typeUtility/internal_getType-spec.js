@@ -1,4 +1,4 @@
-define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, arguejs2_minified, chai) {
+define(['argue2', 'argue2.testable.min', 'argue2.testable.production.min', 'chai'], function(arguejs2_original, arguejs2_minified, arguejs2_production_minified, chai) {
 
     'use strict';
 
@@ -8,8 +8,9 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
     // Tests...
     describe("internal getType", function() {
 
-        var argue2Variants = [  {name: "ArgueJS version 2 (original)",  implementation: arguejs2_original},
-                                {name: "ArgueJS version 2 (minified)",  implementation: arguejs2_minified}
+        var argue2Variants = [  {name: "ArgueJS version 2 (original)",                     implementation: arguejs2_original},
+                                {name: "ArgueJS version 2 (minified)",                     implementation: arguejs2_minified},
+                                {name: "ArgueJS version 2 (minified for production use)",  implementation: arguejs2_production_minified}
                             ];
         for (var argue2VariantIdx = 0; argue2VariantIdx < argue2Variants.length; ++argue2VariantIdx) {
 

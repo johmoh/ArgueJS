@@ -1,4 +1,4 @@
-define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, arguejs2_minified, chai) {
+define(['argue2', 'argue2.testable.min', 'argue2.testable.production.min', 'chai'], function(arguejs2_original, arguejs2_minified, arguejs2_production_minified, chai) {
 
     'use strict';
 
@@ -8,8 +8,9 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
     // Tests...
     describe("checking error detection in getArguments", function() {
 
-        var argue2Variants = [  {name: "ArgueJS version 2 (original)",  implementation: arguejs2_original},
-                                {name: "ArgueJS version 2 (minified)",  implementation: arguejs2_minified}
+        var argue2Variants = [  {name: "ArgueJS version 2 (original)",                     implementation: arguejs2_original},
+                                {name: "ArgueJS version 2 (minified)",                     implementation: arguejs2_minified},
+                                {name: "ArgueJS version 2 (minified for production use)",  implementation: arguejs2_production_minified}
                             ];
         for (var argue2VariantIdx = 0; argue2VariantIdx < argue2Variants.length; ++argue2VariantIdx) {
 
@@ -43,6 +44,7 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
 
             // 2. test that getArguments(...) expect to get called correctly
             // ATTENTION: it is important that this test is the 2nd test, because all tests that follow will call getArguments(...) hopefully correctly. whatever "called correctly" means, it is tested here.
+            if ((typeof(arguejs2_internals.config.ARGUEJS_PRODUCTION_READY) !== "boolean") || !arguejs2_internals.config.ARGUEJS_PRODUCTION_READY)
             describe("bad call tests:", function() {
 
                 describe("invalid number of arguments:", function() {
@@ -394,6 +396,7 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
             //            - getArguments(...) exists and is a function (test 1)
             //            - getArguments(...) accepts to be called with a correct number of arguments and types for that arguments (test 2)
             //            - getArguments(...) returns successfully in positive test cases (test 3)
+            if ((typeof(arguejs2_internals.config.ARGUEJS_PRODUCTION_READY) !== "boolean") || !arguejs2_internals.config.ARGUEJS_PRODUCTION_READY)
             describe("detect misconfiguration:", function() {
 
                 describe("its only allowed to specify one parameter per parameter specification:", function() {
