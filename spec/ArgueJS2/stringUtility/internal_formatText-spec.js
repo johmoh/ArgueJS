@@ -6,16 +6,19 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
     var expect = chai.expect;
 
     // Tests...
-    var argue2Variants = [  {name: "ArgueJS version 2 (original)",  implementation: arguejs2_original},
-                            {name: "ArgueJS version 2 (minified)",  implementation: arguejs2_minified}
-                        ];
-    for (var argue2VariantIdx = 0; argue2VariantIdx < argue2Variants.length; ++argue2VariantIdx) {
+    describe("internal formatText", function() {
 
-        runTestsForVariant(argue2Variants[argue2VariantIdx].name, argue2Variants[argue2VariantIdx].implementation);
-    }
+        var argue2Variants = [  {name: "ArgueJS version 2 (original)",  implementation: arguejs2_original},
+                                {name: "ArgueJS version 2 (minified)",  implementation: arguejs2_minified}
+                            ];
+        for (var argue2VariantIdx = 0; argue2VariantIdx < argue2Variants.length; ++argue2VariantIdx) {
+
+            runTestsForVariant(argue2Variants[argue2VariantIdx].name, argue2Variants[argue2VariantIdx].implementation);
+        }
+    });
 
     function runTestsForVariant(arguejs2Name, arguejs2) {
-        describe(arguejs2Name + ": internal formatText:", function() {
+        describe("[" + arguejs2Name + "]:", function() {
 
             // >>> A HACK... JUST FOR INTERNET EXPLORER. REASON: MOCHA USES RECURSION TO HEAVY. BUT THEY DO NOT WANT TO FIX THAT IN MOCHA.
             beforeEach(function(done){
@@ -26,7 +29,6 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
             var arguejs2_internals = arguejs2.__export_internals__();
 
             it("is a function", function() {
-
                 expect(arguejs2_internals.$.formatText).to.be.a("function");
             });
 
