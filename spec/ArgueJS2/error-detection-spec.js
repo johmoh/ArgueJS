@@ -6,16 +6,19 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
     var expect = chai.expect;
 
     // Tests...
-    var argue2Variants = [  {name: "ArgueJS version 2 (original)",  implementation: arguejs2_original},
-                            {name: "ArgueJS version 2 (minified)",  implementation: arguejs2_minified}
-                        ];
-    for (var argue2VariantIdx = 0; argue2VariantIdx < argue2Variants.length; ++argue2VariantIdx) {
+    describe("checking error detection in getArguments", function() {
 
-        runTestsForVariant(argue2Variants[argue2VariantIdx].name, argue2Variants[argue2VariantIdx].implementation);
-    }
+        var argue2Variants = [  {name: "ArgueJS version 2 (original)",  implementation: arguejs2_original},
+                                {name: "ArgueJS version 2 (minified)",  implementation: arguejs2_minified}
+                            ];
+        for (var argue2VariantIdx = 0; argue2VariantIdx < argue2Variants.length; ++argue2VariantIdx) {
+
+            runTestsForVariant(argue2Variants[argue2VariantIdx].name, argue2Variants[argue2VariantIdx].implementation);
+        }
+    });
 
     function runTestsForVariant(arguejs2Name, arguejs2) {
-        describe(arguejs2Name + ": checking error detection in getArguments:", function() {
+        describe("[" + arguejs2Name + "]:", function() {
 
             // >>> A HACK... JUST FOR INTERNET EXPLORER. REASON: MOCHA USES RECURSION TO HEAVY. BUT THEY DO NOT WANT TO FIX THAT IN MOCHA.
             beforeEach(function(done){
@@ -35,7 +38,6 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
             // 1. test that getArguments(...) exists and is a function
             // ATTENTION: it is important that this test is the 1st test, because getArguments is expected to exist as a function in all tests that follow
             it("is a function", function() {
-
                 expect(arguejs2.getArguments).to.be.a("function");
             });
 
@@ -358,7 +360,7 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
                             });
                         });
 
-                        it("a parameter in the middle has no matching compatible argument", function() {
+                        describe("a parameter in the middle has no matching compatible argument", function() {
 
                             describe("parameter has no argument:", function() {
 
@@ -501,6 +503,32 @@ define(['argue2', 'argue2.testable.min', 'chai'], function(arguejs2_original, ar
 
                     it("expect an exception thrown if name is invalid", function() {
                         expect(function(){arguejs2.getArguments([{":hello": [String]}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_InvalidValue);
+                    });
+                });
+
+                describe("parameter name must be unique:", function() {
+
+                    it("expect to accept more than one parameter specification", function() {
+                        expect(function(){arguejs2.getArguments([{hello: [String]}, {"world": [Number]}, {folks: [Boolean]}], []);}).not.to["throw"]();
+                    });
+
+                    describe("expect an exception thrown if name is not unique:", function() {
+
+                        it("two parameter names are identical identifiers", function() {
+                            expect(function(){arguejs2.getArguments([{hello: [String]}, {world: [Number]}, {hello: [Boolean]}, {ladies: [Date]}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterAlreadyDefined);
+                        });
+
+                        it("two parameter names are identical strings", function() {
+                            expect(function(){arguejs2.getArguments([{"hello": [String]}, {world: [Number]}, {"hello": [Boolean]}, {ladies: [Date]}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterAlreadyDefined);
+                        });
+
+                        it("two parameter names are - the first name is an identifier and the second name is a strings", function() {
+                            expect(function(){arguejs2.getArguments([{hello: [String]}, {world: [Number]}, {"hello": [Boolean]}, {ladies: [Date]}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterAlreadyDefined);
+                        });
+
+                        it("two parameter names are - the first name is a string and the second name is an identifier", function() {
+                            expect(function(){arguejs2.getArguments([{"hello": [String]}, {world: [Number]}, {hello: [Boolean]}, {ladies: [Date]}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterAlreadyDefined);
+                        });
                     });
                 });
 
