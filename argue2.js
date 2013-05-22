@@ -97,7 +97,7 @@ define(function(require) {
     /** const */ var ERR_ARGUEJS_InvalidTypeOfValue                             = ERR_ARGUEJS_PREFIX + "value of \"{2}\" has incorrect type (must be {3})";
     /** const */ var ERR_ARGUEJS_InvalidValue                                   = ERR_ARGUEJS_PREFIX + "\"{2}\" is invalid.";
     /** const */ var ERR_ARGUEJS_MissingTypeSpecification                       = ERR_ARGUEJS_PREFIX + "type specification is missing.";
-    /** const */ var ERR_ARGUEJS_ParameterAlreadyDefined                        = ERR_ARGUEJS_PREFIX + "parameter with same name already defined (conflicting position in function specification: #{2})"
+    /** const */ var ERR_ARGUEJS_ParameterAlreadyDefined                        = ERR_ARGUEJS_PREFIX + "parameter with same name already defined (conflicting position in function specification: #{2})";
     /** const */ var ERR_ARGUEJS_ParameterSpecificationWithoutName              = "parameter specification: parameter #{1} has no name";
     /** const */ var ERR_ARGUEJS_ParameterWithTooManyElements                   = ERR_ARGUEJS_PREFIX + "specification contains more than one element.";
     /** const */ var ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction          = ERR_ARGUEJS_PREFIX + "\"{2}\" is {3} allowed for the tail-parameter in a variadic function";
@@ -427,9 +427,11 @@ define(function(require) {
             if (!_arguments || _arguments.length > 0) { throw new Error(formatText(ERR_ARGUEJS_GetParameters_TooManyArguments, "no parameters defined but arguments given")); }
             return {}; // EARLY EXIT: no function specification given (means: no arguments allowed) and no arguments given -> _arguments validated!
         }
-        if (arguments.length != 2) { throw new Error(arguments.length < 1 ? ERR_BADCALL_NoArguments : ERR_BADCALL_TooManyArguments); }
-        if (!isArray(_functionSpecification)) { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfArgument, "_functionSpecification")); }
-        if (!isArguments(_arguments) && !isArray(_arguments)) { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfArgument, "_arguments")); }
+        if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+            if (arguments.length != 2) { throw new Error(arguments.length < 1 ? ERR_BADCALL_NoArguments : ERR_BADCALL_TooManyArguments); }
+            if (!isArray(_functionSpecification)) { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfArgument, "_functionSpecification")); }
+            if (!isArguments(_arguments) && !isArray(_arguments)) { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfArgument, "_arguments")); }
+        }
 
         // safe some parameter
         var parameterNum = _functionSpecification.length;
@@ -455,7 +457,9 @@ define(function(require) {
 
             // get current parameter info
             var parameterSpecification = _functionSpecification[parameterIdx];
-            if (getType(parameterSpecification) !== Object) { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfParameter, parameterIdx)); }
+            if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+                if (getType(parameterSpecification) !== Object) { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfParameter, parameterIdx)); }
+            }
 
             // get parameter specification
             parameterName             = undefined;  // the name of the parameter. that is the name of the property in the resulting list of argument values
@@ -470,11 +474,15 @@ define(function(require) {
                 if (parameterSpecification.hasOwnProperty(parameterId)) {
 
                     // check that not more than one element is in the object because the object (to be exact: the first element in the object) defines the parameter completely
-                    if (parameterName) { throw new Error(formatText(ERR_ARGUEJS_ParameterWithTooManyElements, parameterName)); }
+                    if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+                        if (parameterName) { throw new Error(formatText(ERR_ARGUEJS_ParameterWithTooManyElements, parameterName)); }
+                    }
 
                     // get parameter name
                     parameterName = parameterId;
-                    if (!validateParameterName(parameterName)) { throw new Error(formatText(ERR_ARGUEJS_InvalidValue, parameterName, "name")); }
+                    if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+                        if (!validateParameterName(parameterName)) { throw new Error(formatText(ERR_ARGUEJS_InvalidValue, parameterName, "name")); }
+                    }
 
                     // get data of type specification
                     var parameterTypeData = parameterSpecification[parameterId];
@@ -489,12 +497,16 @@ define(function(require) {
                     // get parameter type specification from simple optional parameter specification (examples: {message: [String]}, {myValue: [Number, 17]})
                     else if (isArray(parameterTypeData)) {
 
-                        if (parameterTypeData.length < 1) { throw new Error(formatText(ERR_ARGUEJS_MissingTypeSpecification, parameterName)); }
+                        if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+                            if (parameterTypeData.length < 1) { throw new Error(formatText(ERR_ARGUEJS_MissingTypeSpecification, parameterName)); }
+                        }
                         parameterIsOptional = true;
                         parameterType       = parameterTypeData[0];
 
                         if (parameterTypeData.length >= 2) {
-                            if (parameterTypeData.length > 2) { throw new Error(formatText(ERR_ARGUEJS_TypeSpecificationHasTooManyElements, parameterName)); }
+                            if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+                                if (parameterTypeData.length > 2) { throw new Error(formatText(ERR_ARGUEJS_TypeSpecificationHasTooManyElements, parameterName)); }
+                            }
                             parameterHasDefaultValue = true;
                             parameterDefaultValue    = parameterTypeData[1];
                         }
@@ -508,8 +520,10 @@ define(function(require) {
                                 switch(key) {
                                     case("type"):
                                         if (isArray(parameterTypeData.type)) {
-                                            if (parameterTypeData.type.length < 1) { throw new Error(formatText(ERR_ARGUEJS_MissingTypeSpecification, parameterName)); }
-                                            if (parameterTypeData.type.length > 2) { throw new Error(formatText(ERR_ARGUEJS_TypeSpecificationHasTooManyElements, parameterName)); }
+                                            if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+                                                if (parameterTypeData.type.length < 1) { throw new Error(formatText(ERR_ARGUEJS_MissingTypeSpecification, parameterName)); }
+                                                if (parameterTypeData.type.length > 2) { throw new Error(formatText(ERR_ARGUEJS_TypeSpecificationHasTooManyElements, parameterName)); }
+                                            }
                                             parameterIsOptional = true;
                                             parameterType       = parameterTypeData.type[0];
                                         }
@@ -525,15 +539,21 @@ define(function(require) {
                                         break;
                                     case("allowUndefined"):
                                         parameterAllowUndefined  = parameterTypeData[key];
-                                        if (!isBoolean(parameterAllowUndefined)) { throw new Error(formatText(ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "allowUndefined", "boolean")); }
+                                        if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+                                            if (!isBoolean(parameterAllowUndefined)) { throw new Error(formatText(ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "allowUndefined", "boolean")); }
+                                        }
                                         break;
                                     case("allowNull"):
                                         parameterAllowNull = parameterTypeData[key];
-                                        if (!isBoolean(parameterAllowNull)) { throw new Error(formatText(ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "allowNull", "boolean")); }
+                                        if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+                                            if (!isBoolean(parameterAllowNull)) { throw new Error(formatText(ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "allowNull", "boolean")); }
+                                        }
                                         break;
                                     case("parenthesizeTail"):
                                         parameterParenthesizeTail = parameterTypeData[key];
-                                        if (!isBoolean(parameterParenthesizeTail)) { throw new Error(formatText(ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "parenthesizeTail", "boolean")); }
+                                        if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+                                            if (!isBoolean(parameterParenthesizeTail)) { throw new Error(formatText(ERR_ARGUEJS_InvalidTypeOfValue, parameterName, "parenthesizeTail", "boolean")); }
+                                        }
                                         break;
                                     default:
                                         throw new Error(formatText(ERR_ARGUEJS_UnknownTypeSpecificationOption, parameterName, key));
@@ -550,19 +570,25 @@ define(function(require) {
             }
 
             // validate parameter name
-            if (!parameterName) { throw new Error(formatText(ERR_ARGUEJS_ParameterSpecificationWithoutName, parameterIdx)); }
+            if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+                if (!parameterName) { throw new Error(formatText(ERR_ARGUEJS_ParameterSpecificationWithoutName, parameterIdx)); }
 
-            if (processedParameterNames.hasOwnProperty(parameterName)) { throw new Error(formatText(ERR_ARGUEJS_ParameterAlreadyDefined, parameterName, parameterIdx)); } // ATTENTION! THIS TWO LINES ARE REALLY EXPENSIVE! @TODO: find a better solution to detect if a parameterName is not unique
-            processedParameterNames[parameterName] = true;                                                                                                                // ATTENTION! THIS TWO LINES ARE REALLY EXPENSIVE! @TODO: find a better solution to detect if a parameterName is not unique
+                if (processedParameterNames.hasOwnProperty(parameterName)) { throw new Error(formatText(ERR_ARGUEJS_ParameterAlreadyDefined, parameterName, parameterIdx)); } // ATTENTION! THIS TWO LINES ARE REALLY EXPENSIVE! @TODO: find a better solution to detect if a parameterName is not unique
+                processedParameterNames[parameterName] = true;                                                                                                                // ATTENTION! THIS TWO LINES ARE REALLY EXPENSIVE! @TODO: find a better solution to detect if a parameterName is not unique
+            }
 
             // validate type
-            if (!isType(parameterType)) { throw new Error(formatText(ERR_ARGUEJS_InvalidValue, parameterName, "type")); }
+            if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+                if (!isType(parameterType)) { throw new Error(formatText(ERR_ARGUEJS_InvalidValue, parameterName, "type")); }
+            }
 
             // validate: special checks for variadic or non-variadic functions
             if (parameterType !== ArgueJS.TAIL) {
 
                 // "parenthesizeTail" can only be used for the tail-parameter in a variadic function
-                if (parameterParenthesizeTail !== undefined) { throw new Error(formatText(ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "parenthesizeTail", "only")); }
+                if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
+                    if (parameterParenthesizeTail !== undefined) { throw new Error(formatText(ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "parenthesizeTail", "only")); }
+                }
 
                 // set default values for allowUndefined and allowNull, if options are undefined
                 if (parameterAllowUndefined === undefined) { parameterAllowUndefined = DEFAULT_OPTION_VALUE_ALLOWUNDEFINED; }
@@ -570,14 +596,17 @@ define(function(require) {
             }
             else {
 
-                // "allowUndefined" cannot be used for the tail-parameter in a variadic function
-                if (parameterAllowUndefined !== undefined) { throw new Error(formatText(ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "allowUndefined", "not")); }
+                if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
 
-                // "allowNull" cannot be used for the tail-parameter in a variadic function
-                if (parameterAllowNull !== undefined) { throw new Error(formatText(ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "allowNull", "not")); }
+                    // "allowUndefined" cannot be used for the tail-parameter in a variadic function
+                    if (parameterAllowUndefined !== undefined) { throw new Error(formatText(ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "allowUndefined", "not")); }
 
-                // we found the tail-parameter of a variadic function. that parameter must be the last parameter in the function specification, because that parameter consumes all remaining values
-                if (parameterIdx != (parameterNum-1)) { throw new Error(ERR_ARGUEJS_TailParameterMustBeLastPastparameter); }
+                    // "allowNull" cannot be used for the tail-parameter in a variadic function
+                    if (parameterAllowNull !== undefined) { throw new Error(formatText(ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "allowNull", "not")); }
+
+                    // we found the tail-parameter of a variadic function. that parameter must be the last parameter in the function specification, because that parameter consumes all remaining values
+                    if (parameterIdx != (parameterNum-1)) { throw new Error(ERR_ARGUEJS_TailParameterMustBeLastPastparameter); }
+                }
 
                 // set default value for parenthesizeTail, if option is undefined
                 if (parameterParenthesizeTail === undefined) { parameterParenthesizeTail = DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL; }
@@ -692,6 +721,11 @@ define(function(require) {
 
         // build the object with internal information
         var __internals__ = {
+
+            // config
+            config: {
+                ARGUEJS_PRODUCTION_READY : ((typeof(ARGUEJS_PRODUCTION_READY) === "boolean") && ARGUEJS_PRODUCTION_READY)
+            },
 
             // global privates
             $ : {
