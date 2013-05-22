@@ -97,6 +97,7 @@ define(function(require) {
     /** const */ var ERR_ARGUEJS_InvalidTypeOfValue                             = ERR_ARGUEJS_PREFIX + "value of \"{2}\" has incorrect type (must be {3})";
     /** const */ var ERR_ARGUEJS_InvalidValue                                   = ERR_ARGUEJS_PREFIX + "\"{2}\" is invalid.";
     /** const */ var ERR_ARGUEJS_MissingTypeSpecification                       = ERR_ARGUEJS_PREFIX + "type specification is missing.";
+    /** const */ var ERR_ARGUEJS_ParameterAlreadyDefined                        = ERR_ARGUEJS_PREFIX + "parameter with same name already defined (conflicting position in function specification: #{2})"
     /** const */ var ERR_ARGUEJS_ParameterSpecificationWithoutName              = "parameter specification: parameter #{1} has no name";
     /** const */ var ERR_ARGUEJS_ParameterWithTooManyElements                   = ERR_ARGUEJS_PREFIX + "specification contains more than one element.";
     /** const */ var ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction          = ERR_ARGUEJS_PREFIX + "\"{2}\" is {3} allowed for the tail-parameter in a variadic function";
@@ -435,6 +436,7 @@ define(function(require) {
 
         // the resulting list with arguments
         var resultingArguments = {};
+        var processedParameterNames = {};
 
         // process all parameters
         var parameterName;              // the name of the parameter. that is the name of the property in the resulting list of argument values
@@ -550,6 +552,9 @@ define(function(require) {
             // validate parameter name
             if (!parameterName) { throw new Error(formatText(ERR_ARGUEJS_ParameterSpecificationWithoutName, parameterIdx)); }
 
+            if (processedParameterNames.hasOwnProperty(parameterName)) { throw new Error(formatText(ERR_ARGUEJS_ParameterAlreadyDefined, parameterName, parameterIdx)); } // ATTENTION! THIS TWO LINES ARE REALLY EXPENSIVE! @TODO: find a better solution to detect if a parameterName is not unique
+            processedParameterNames[parameterName] = true;                                                                                                                // ATTENTION! THIS TWO LINES ARE REALLY EXPENSIVE! @TODO: find a better solution to detect if a parameterName is not unique
+
             // validate type
             if (!isType(parameterType)) { throw new Error(formatText(ERR_ARGUEJS_InvalidValue, parameterName, "type")); }
 
@@ -597,17 +602,17 @@ define(function(require) {
                             do {
                                 tail[tail.length] = _arguments[argumentIdx];
                             } while(++argumentIdx < argumentNum);
-                            resultingArguments[parameterName] = tail; // @TODO: check that does not exist an element with key "parameterName" in resultingArguments (error: parameter with name "XYZ" already defined)
+                            resultingArguments[parameterName] = tail;
                         }
                         else  if (!isArray(argumentValue) || parameterParenthesizeTail) {
 
                             // build a new array for the tail-argument and add that array to the list of resulting argument values
-                            resultingArguments[parameterName] = [argumentValue]; // @TODO: check that does not exist an element with key "parameterName" in resultingArguments (error: parameter with name "XYZ" already defined)
+                            resultingArguments[parameterName] = [argumentValue];
                         }
                         else {
 
                             // the current argument value is the last argument value and it is an array. but we should not parenthesize (nesting) that array in a new array. so the current array argument is the value (array) for the tail-argument.
-                            resultingArguments[parameterName] = argumentValue; // @TODO: check that does not exist an element with key "parameterName" in resultingArguments (error: parameter with name "XYZ" already defined)
+                            resultingArguments[parameterName] = argumentValue;
                         }
 
                         // finish the loop
@@ -618,7 +623,7 @@ define(function(require) {
                     else {
 
                         // store the argument value in the resulting argument list
-                        resultingArguments[parameterName] = argumentValue; // @TODO: check that does not exist an element with key "parameterName" in resultingArguments (error: parameter with name "XYZ" already defined)
+                        resultingArguments[parameterName] = argumentValue;
 
                         // advance to the next argument value if it exists
                         ++argumentIdx;
@@ -661,7 +666,7 @@ define(function(require) {
                 if (!isCompatibleValue(defaultValue, parameterType, parameterAllowUndefined, parameterAllowNull, true)) { throw new Error(formatText(ERR_ARGUEJS_DefaultValueHasIncompatibleType, parameterName)); }
 
                 // store the default value into the list of resulting arguments
-                resultingArguments[parameterName] = defaultValue; // @TODO: check that does not exist an element with key "parameterName" in resultingArguments (error: parameter with name "XYZ" already defined)
+                resultingArguments[parameterName] = defaultValue;
             }
         }
 
@@ -711,6 +716,7 @@ define(function(require) {
                     ERR_ARGUEJS_InvalidTypeOfValue                            : ERR_ARGUEJS_InvalidTypeOfValue,
                     ERR_ARGUEJS_InvalidValue                                  : ERR_ARGUEJS_InvalidValue,
                     ERR_ARGUEJS_MissingTypeSpecification                      : ERR_ARGUEJS_MissingTypeSpecification,
+                    ERR_ARGUEJS_ParameterAlreadyDefined                       : ERR_ARGUEJS_ParameterAlreadyDefined,
                     ERR_ARGUEJS_ParameterSpecificationWithoutName             : ERR_ARGUEJS_ParameterSpecificationWithoutName,
                     ERR_ARGUEJS_ParameterWithTooManyElements                  : ERR_ARGUEJS_ParameterWithTooManyElements,
                     ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction         : ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction,
