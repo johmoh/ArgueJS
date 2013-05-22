@@ -4,7 +4,8 @@ High priority features
  ☐ allow "disable type checking" of a parameter type; idea: introducing a new type "WHATEVER". if parameter type is "WHATEVER" then the type of a value will not be checked. "WHATEVER" means "any type including undefined and null". that way "WHATEVER" equals "{type: argue2.ANYTYPE, allowUndefined: true, allowNull: true}"
  ☐ enhancing error text in cases that a default parameter is incompatible with a parameter type (add type information of the default value and the parameter)
  ☐ it should be possible to have a function default value that is lazy evaluated in cases the parameter type is either Function or ANYTYPE
-
+ ☐ check is a parameter is specified more than once in a function specification (parameter with name "XYZ" already defined)
+ 
 Medium priority features
  ☐ find a good way to support add transformation functions to parameters (validation functions)
  ☐ find a good way to support more constraints to parameters then just checking type/null/undefined (validation functions for arguments)
