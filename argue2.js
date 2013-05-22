@@ -453,7 +453,7 @@ define(function(require) {
 
             // get current parameter info
             var parameterSpecification = _functionSpecification[parameterIdx];
-            if (typeof(parameterSpecification) !== "object") { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfParameter, parameterIdx)); }
+            if (getType(parameterSpecification) !== Object) { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfParameter, parameterIdx)); }
 
             // get parameter specification
             parameterName             = undefined;  // the name of the parameter. that is the name of the property in the resulting list of argument values
@@ -505,8 +505,16 @@ define(function(require) {
                             if (parameterTypeData.hasOwnProperty(key)) {
                                 switch(key) {
                                     case("type"):
-                                        parameterIsOptional = isArray(parameterTypeData.type);
-                                        parameterType       = (parameterIsOptional ? parameterTypeData.type[0] : parameterTypeData.type);
+                                        if (isArray(parameterTypeData.type)) {
+                                            if (parameterTypeData.type.length < 1) { throw new Error(formatText(ERR_ARGUEJS_MissingTypeSpecification, parameterName)); }
+                                            if (parameterTypeData.type.length > 2) { throw new Error(formatText(ERR_ARGUEJS_TypeSpecificationHasTooManyElements, parameterName)); }
+                                            parameterIsOptional = true;
+                                            parameterType       = parameterTypeData.type[0];
+                                        }
+                                        else {
+                                            parameterIsOptional = false;
+                                            parameterType       = parameterTypeData.type;
+                                        }
                                         break;
                                     case("defaultValue"):
                                         parameterHasDefaultValue = true;
@@ -589,17 +597,17 @@ define(function(require) {
                             do {
                                 tail[tail.length] = _arguments[argumentIdx];
                             } while(++argumentIdx < argumentNum);
-                            resultingArguments[parameterName] = tail;
+                            resultingArguments[parameterName] = tail; // @TODO: check that does not exist an element with key "parameterName" in resultingArguments (error: parameter with name "XYZ" already defined)
                         }
                         else  if (!isArray(argumentValue) || parameterParenthesizeTail) {
 
                             // build a new array for the tail-argument and add that array to the list of resulting argument values
-                            resultingArguments[parameterName] = [argumentValue];
+                            resultingArguments[parameterName] = [argumentValue]; // @TODO: check that does not exist an element with key "parameterName" in resultingArguments (error: parameter with name "XYZ" already defined)
                         }
                         else {
 
                             // the current argument value is the last argument value and it is an array. but we should not parenthesize (nesting) that array in a new array. so the current array argument is the value (array) for the tail-argument.
-                            resultingArguments[parameterName] = argumentValue;
+                            resultingArguments[parameterName] = argumentValue; // @TODO: check that does not exist an element with key "parameterName" in resultingArguments (error: parameter with name "XYZ" already defined)
                         }
 
                         // finish the loop
@@ -610,7 +618,7 @@ define(function(require) {
                     else {
 
                         // store the argument value in the resulting argument list
-                        resultingArguments[parameterName] = argumentValue;
+                        resultingArguments[parameterName] = argumentValue; // @TODO: check that does not exist an element with key "parameterName" in resultingArguments (error: parameter with name "XYZ" already defined)
 
                         // advance to the next argument value if it exists
                         ++argumentIdx;
@@ -653,7 +661,7 @@ define(function(require) {
                 if (!isCompatibleValue(defaultValue, parameterType, parameterAllowUndefined, parameterAllowNull, true)) { throw new Error(formatText(ERR_ARGUEJS_DefaultValueHasIncompatibleType, parameterName)); }
 
                 // store the default value into the list of resulting arguments
-                resultingArguments[parameterName] = defaultValue;
+                resultingArguments[parameterName] = defaultValue; // @TODO: check that does not exist an element with key "parameterName" in resultingArguments (error: parameter with name "XYZ" already defined)
             }
         }
 
@@ -750,8 +758,10 @@ define(function(require) {
         };
 
         // convert all error texts to regular expressions
-        var errorTextConversionRegExp = /\{[1-9][0-9]?\}/g;
-        var replaceAllDotsRegExp      = /\./g;
+        var replaceAllDotsRegExp            = (/\./g);
+        var replaceAllOpeningBracketsRegExp = (/\(/g);
+        var replaceAllClosingBracketsRegExp = (/\)/g);
+        var errorTextConversionRegExp       = (/\{[1-9][0-9]?\}/g);
         var errorTexts = __internals__.$.errorTexts;
         for (var errorTextId in errorTexts) {
             if (errorTexts.hasOwnProperty(errorTextId) && (errorTextId !== "asRegExp")) {
@@ -759,6 +769,8 @@ define(function(require) {
                         "^" +
                         errorTexts[errorTextId].
                             replace(replaceAllDotsRegExp, "\\.").
+                            replace(replaceAllOpeningBracketsRegExp, "\\(").
+                            replace(replaceAllClosingBracketsRegExp, "\\)").
                             replace(errorTextConversionRegExp, ".*") +
                         "$"
                     );
