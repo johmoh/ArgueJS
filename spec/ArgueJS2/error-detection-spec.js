@@ -34,8 +34,6 @@ define(['argue2', 'argue2.testable.min', 'argue2.testable.production.min', 'chai
 
             var myObject = new MyClass();
 
-//            var testCases = {   description: "expect an exception thrown if called without any arguments", signature: undefined, argumentValues: undefined,
-
             // 1. test that getArguments(...) exists and is a function
             // ATTENTION: it is important that this test is the 1st test, because getArguments is expected to exist as a function in all tests that follow
             it("is a function", function() {
