@@ -17,6 +17,7 @@ files = [
 
   // Version 1
   {pattern: 'argue.js', included: false},
+  {pattern: 'spec/argue.testable.min.js', included: false},
   {pattern: 'spec/ArgueJS1/**/*Spec.js', included: false},
 
   // RequireJS-config

@@ -23,42 +23,11 @@
 /** @license MIT (http://opensource.org/licenses/MIT) */
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// [[>>> make module available in node.js and the web (AMD - RequireJS)]]
+// >>> make module available in node.js and the web (AMD - RequireJS) >>>
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
-
-/* ARGUEJS_PRODUCTION_READY
- *
- * Should unnecessary tests in the library be removed because the library will alway be used correctly? true/false
- *
- * True: Removes all test in the library that are not necessary if the library is always used correctly. That means:
- * - getArguments(...) is called with the right number of arguments
- * - getArguments(...) is called with arguments of the correct type
- * - if getArguments(...) is called with a function specification then that function specification has a valid structure (is an array contining zero or more objects - the parameter specifications)
- * - if getArguments(...) is called with a function specification containing parameter specifications then that parameter specifications have a correct structure and satisfy all rules (for instance
- *   parenthesizeTail is only allowed for the tail parameter of a variadic function)
- *
- * for production   : set ARGUEJS_PRODUCTION_READY to true
- * for development  : do not define ARGUEJS_PRODUCTION_READY or set value to false
- * for minification : set ARGUEJS_PRODUCTION_READY to true; special note for minification with UglifyJS: add --define "ARGUEJS_PRODUCTION_READY=true" to command line options
- * for unittesting  : do not define ARGUEJS_PRODUCTION_READY or set value to false if all unit test should run. set ARGUEJS_PRODUCTION_READY to true if all tests that are compatible with removed
- *                    tests inside the library should run. In that case all tests that tests specific errors which are not detected by the library anymore (because these tests in the library are
- *                    removed now) are deactivated in unit tests.
- */
-// /** const */ var ARGUEJS_PRODUCTION_READY = false;
-
-/* ARGUEJS_EXPORT_INTERNALS
- *
- * Exporting internals for debugging and testing? true/false @see ArgueJS.__export_internals__
- *
- * for production   : do not define ARGUEJS_EXPORT_INTERNALS or set value to false
- * for development  : do not define ARGUEJS_EXPORT_INTERNALS or set value to false
- * for minification : do not define ARGUEJS_EXPORT_INTERNALS or set value to false; special note for minification with UglifyJS: add --define "ARGUEJS_EXPORT_INTERNALS=false" to command line options
- * for unittesting  : unit tests of this library require "ARGUEJS_EXPORT_INTERNALS = true" because some tests test internal functionality of that library or need internal functions/variables to work
- */
-// /** const */ var ARGUEJS_EXPORT_INTERNALS = false;
 
 define(function(require) {
 
@@ -75,8 +44,37 @@ define(function(require) {
         /* define variables for some static configuration values here */
     ) {
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-// [[<<< make module available in node.js and the web (AMD - RequireJS)]]
+// <<< make module available in node.js and the web (AMD - RequireJS) <<<
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    /* ARGUEJS_PRODUCTION_READY
+     *
+     * Should unnecessary tests in the library be removed because the library will alway be used correctly? true/false
+     *
+     * True: Removes all test in the library that are not necessary if the library is always used correctly. That means:
+     * - getArguments(...) is called with the right number of arguments
+     * - getArguments(...) is called with arguments of the correct type
+     * - if getArguments(...) is called with a function specification then that function specification has a valid structure (is an array contining zero or more objects - the parameter specifications)
+     * - if getArguments(...) is called with a function specification containing parameter specifications then that parameter specifications have a correct structure and satisfy all rules (for instance
+     *   parenthesizeTail is only allowed for the tail parameter of a variadic function)
+     *
+     * for production   : set ARGUEJS_PRODUCTION_READY to true
+     * for development  : do not define ARGUEJS_PRODUCTION_READY or set value to false
+     * for minification : set ARGUEJS_PRODUCTION_READY to true; special note for minification with UglifyJS: add --define "ARGUEJS_PRODUCTION_READY=true" to command line options
+     * for unit testing : do not define ARGUEJS_PRODUCTION_READY or set value to false.
+     */
+    // /** const */ var ARGUEJS_PRODUCTION_READY = false;
+
+    /* ARGUEJS_EXPORT_INTERNALS
+     *
+     * Exporting internals for debugging and testing? true/false @see ArgueJS.__export_internals__
+     *
+     * for production   : do not define ARGUEJS_EXPORT_INTERNALS or set value to false
+     * for development  : do not define ARGUEJS_EXPORT_INTERNALS or set value to false
+     * for minification : do not define ARGUEJS_EXPORT_INTERNALS or set value to false; special note for minification with UglifyJS: add --define "ARGUEJS_EXPORT_INTERNALS=false" to command line options
+     * for unittesting  : unit tests of this library require "ARGUEJS_EXPORT_INTERNALS = true" because some tests test internal functionality of that library or need internal functions/variables to work
+     */
+    // /** const */ var ARGUEJS_EXPORT_INTERNALS = false;
 
     /**
      * Module ArgueJS
@@ -854,10 +852,10 @@ define(function(require) {
     return ArgueJS;
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// [[>>> make module available in node.js and the web (AMD - RequireJS)]]
+// >>> make module available in node.js and the web (AMD - RequireJS) >>>
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     });
 });
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-// [[<<< make module available in node.js and the web (AMD - RequireJS)]]
+// <<< make module available in node.js and the web (AMD - RequireJS) <<<
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

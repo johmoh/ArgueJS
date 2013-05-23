@@ -13,7 +13,14 @@ requirejs.config({
     baseUrl: '/base',
 
     paths: {
-      'chai': 'lib/chai'
+      'chai':                           'lib/chai',
+
+      'argue':                          'argue',
+      'argue.testable.min':             'spec/argue.testable.min',
+
+      'argue2':                         'argue2',
+      'argue2.testable.min':            'spec/argue2.testable.min',
+      'argue2.testable.production.min': 'spec/argue2.testable.production.min'
     },
 
     shim: {

@@ -17,12 +17,13 @@ files = [
 
   // Version 1
   {pattern: 'argue.js', included: false},
+  {pattern: 'spec/argue.testable.min.js', included: false},
   {pattern: 'spec/ArgueJS1/**/*Spec.js', included: false},
 
   // Version 2
   {pattern: 'argue2.js', included: false},
-  {pattern: 'argue2.testable.min.js', included: false},
-  {pattern: 'argue2.testable.production.min.js', included: false},
+  {pattern: 'spec/argue2.testable.min.js', included: false},
+  {pattern: 'spec/argue2.testable.production.min.js', included: false},
   {pattern: 'spec/ArgueJS2/**/*-spec.js', included: false},
 
   // RequireJS-config
