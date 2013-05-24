@@ -451,7 +451,7 @@ define(function(require) {
             if (!isArguments(_arguments) && !isArray(_arguments)) { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfArgument, "_arguments")); }
         }
 
-        // safe some parameter
+        // save some parameter
         var parameterNum = _functionSpecification.length;
 
         // the resulting list with arguments
@@ -727,8 +727,8 @@ define(function(require) {
     /**
      * THIS FUNCTION EXPORTS INTERNAL INFORMATION ABOUT THE LIBRARY. THAT IS USEFUL FOR TESTING THE LIBRARY. TESTING ALL PARTS OF THE LIBRARY IS THE ONLY INTENTION FOR THIS FUNCTION.
      *
-     * DO NOT USE THAT FUNCTION TO ACCESS SOME TO ACCESS INTERNAL STUFF. CHANGES IN THE SPECIFICATION OF THIS FUNTION ARE NOT REPORTED AND MAY OCCUR AT ANY TIME WITHOUT ANY WARNING!
-     * THESE CHANGES ARE NO BUGS AND WILL NOT GET THREATED AS BUGS. THESE CHANGES ARE PART OF IMPROVING THE FUNCTIONAL TESTS OF THIS LIBRARY!
+     * DO NOT USE THAT FUNCTION TO ACCESS INTERNAL STUFF. CHANGES IN THE SPECIFICATION OF THIS FUNCTION ARE NOT REPORTED AND MAY OCCUR AT ANY TIME WITHOUT ANY WARNING!
+     * THESE CHANGES ARE NO BUGS AND WILL NOT GET THREATED AS BUGS!
      *
      * @for     ArgueJS
      * @method  __export_internals__
