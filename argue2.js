@@ -1,3 +1,6 @@
+/*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, noempty:true, quotmark:double, smarttabs:true, strict:true, trailing:true, undef:true, unused:true, maxparams:10, maxdepth:10, maxstatements:200, browser:true, node:true */
+/*global define:true,ARGUEJS_PRODUCTION_READY:false,ARGUEJS_EXPORT_INTERNALS:true*/
+
 /* The MIT License (MIT)
  *
  * Copyright (c) 2013 Martin Lühring (https://github.com/johmoh)
@@ -25,24 +28,18 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // >>> make module available in node.js and the web (AMD - RequireJS) >>>
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
+if (typeof define !== "function") {
+    var define = require("amdefine")(module);
 }
 
-define(function(require) {
+define(function () {
 
     "use strict";
 
     // initialize and return module
-    return function(module_exports_factory){
-        return module_exports_factory(
-            /* put some static configuration values here */
-        );
-    }(
-
-    function(
-        /* define variables for some static configuration values here */
-    ) {
+    return (function (module_exports_factory) {
+        return module_exports_factory();
+    }(function () {
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 // <<< make module available in node.js and the web (AMD - RequireJS) <<<
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -147,7 +144,7 @@ define(function(require) {
      * @return {boolean}  True, if the value is a Boolean. False, otherwise.
      */
     function isBoolean(_value) {
-        return (typeof(_value) === 'boolean');
+        return (typeof(_value) === "boolean");
     }
 
     /**
@@ -175,7 +172,7 @@ define(function(require) {
      * @return {boolean}  True, if the value is a Function. False, otherwise.
      */
     function isFunction(_value) {
-        return (typeof(_value) === 'function');
+        return (typeof(_value) === "function");
     }
 
     /**
@@ -202,12 +199,12 @@ define(function(require) {
      *
      * @return {boolean}  True, if the value is an Arguments object. False, otherwise.
      */
-    var isArguments = function() {
+    var isArguments = (function() {
         var argumentsDetectionText = Object.prototype.toString.call(arguments);
-        return function(_value) {
+        return function (_value) {
             return (Object.prototype.toString.call(_value) === argumentsDetectionText);
         };
-    }();
+    }());
 
     /**
      * Tests, if a value is a "Type". This function summarizes logic for detecting, if a value is a type. In JavaScript does not exist anything like a "Type"-type.
@@ -308,12 +305,12 @@ define(function(require) {
      *
      * @return {boolean}  True, if the
      */
-    var validateParameterName = function() {
+    var validateParameterName = (function() {
         var regExp = /^[_a-z$]{1}[_a-z0-9$]*$/i;
-        return function(_parameterName) {
+        return function (_parameterName) {
             return (_parameterName ? regExp.test(_parameterName) : false);
         };
-    }();
+    }());
 
     /**
      * Tests, if a value is compatible to a type and some options and if the value can be used as a default value or as a normal argument value.
@@ -446,7 +443,7 @@ define(function(require) {
             return {}; // EARLY EXIT: no function specification given (means: no arguments allowed) and no arguments given -> _arguments validated!
         }
         if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
-            if (arguments.length != 2) { throw new Error(arguments.length < 1 ? ERR_BADCALL_NoArguments : ERR_BADCALL_TooManyArguments); }
+            if (arguments.length !== 2) { throw new Error(arguments.length < 1 ? ERR_BADCALL_NoArguments : ERR_BADCALL_TooManyArguments); }
             if (!isArray(_functionSpecification)) { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfArgument, "_functionSpecification")); }
             if (!isArguments(_arguments) && !isArray(_arguments)) { throw new Error(formatText(ERR_BADCALL_InvalidTypeOfArgument, "_arguments")); }
         }
@@ -623,7 +620,7 @@ define(function(require) {
                     if (parameterAllowNull !== undefined) { throw new Error(formatText(ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "allowNull", "not")); }
 
                     // we found the tail-parameter of a variadic function. that parameter must be the last parameter in the function specification, because that parameter consumes all remaining values
-                    if (parameterIdx != (parameterNum-1)) { throw new Error(ERR_ARGUEJS_TailParameterMustBeLastPastparameter); }
+                    if (parameterIdx !== (parameterNum-1)) { throw new Error(ERR_ARGUEJS_TailParameterMustBeLastPastparameter); }
                 }
 
                 // set default value for parenthesizeTail, if option is undefined
@@ -733,111 +730,112 @@ define(function(require) {
      * @for     ArgueJS
      * @method  __export_internals__
      */
-    if ((typeof(ARGUEJS_EXPORT_INTERNALS) === "boolean") && ARGUEJS_EXPORT_INTERNALS)
-    ArgueJS.__export_internals__ = function(_arguejs) {
-        if ((typeof(_arguejs) !== "undefined") && !(_arguejs instanceof ArgueJS)) { throw new Error(ERR_BADCALL_PREFIX + "_arguejs type mismatch"); }
+    if ((typeof(ARGUEJS_EXPORT_INTERNALS) === "boolean") && ARGUEJS_EXPORT_INTERNALS) {
+        ArgueJS.__export_internals__ = function(_arguejs) {
+            if ((typeof(_arguejs) !== "undefined") && !(_arguejs instanceof ArgueJS)) { throw new Error(ERR_BADCALL_PREFIX + "_arguejs type mismatch"); }
 
-        // build the object with internal information
-        var __internals__ = {
+            // build the object with internal information
+            var __internals__ = {
 
-            // config
-            config: {
-                ARGUEJS_PRODUCTION_READY : ((typeof(ARGUEJS_PRODUCTION_READY) === "boolean") && ARGUEJS_PRODUCTION_READY)
-            },
-
-            // global privates
-            $ : {
-
-                // Some constant configuration values for this module.
-                defaults : {
-                    DEFAULT_OPTION_VALUE_ALLOWNULL                 : DEFAULT_OPTION_VALUE_ALLOWNULL,
-                    DEFAULT_OPTION_VALUE_ALLOWUNDEFINED            : DEFAULT_OPTION_VALUE_ALLOWUNDEFINED,
-                    DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL : DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL
+                // config
+                config: {
+                    ARGUEJS_PRODUCTION_READY : ((typeof(ARGUEJS_PRODUCTION_READY) === "boolean") && ARGUEJS_PRODUCTION_READY)
                 },
 
-                // Error texts
-                errorTexts : {
-                    ERR_BADCALL_PREFIX                                        : ERR_BADCALL_PREFIX,
-                    ERR_BADCALL_InvalidTypeOfArgument                         : ERR_BADCALL_InvalidTypeOfArgument,
-                    ERR_BADCALL_NoArguments                                   : ERR_BADCALL_NoArguments,
-                    ERR_BADCALL_TooManyArguments                              : ERR_BADCALL_TooManyArguments,
-                    ERR_BADCALL_InvalidTypeOfParameter                        : ERR_BADCALL_InvalidTypeOfParameter,
+                // global privates
+                $ : {
 
-                    ERR_ARGUEJS_PREFIX                                        : ERR_ARGUEJS_PREFIX,
-                    ERR_ARGUEJS_DefaultValueHasIncompatibleType               : ERR_ARGUEJS_DefaultValueHasIncompatibleType,
-                    ERR_ARGUEJS_InvalidTypeOfValue                            : ERR_ARGUEJS_InvalidTypeOfValue,
-                    ERR_ARGUEJS_InvalidValue                                  : ERR_ARGUEJS_InvalidValue,
-                    ERR_ARGUEJS_MissingTypeSpecification                      : ERR_ARGUEJS_MissingTypeSpecification,
-                    ERR_ARGUEJS_ParameterAlreadyDefined                       : ERR_ARGUEJS_ParameterAlreadyDefined,
-                    ERR_ARGUEJS_ParameterSpecificationWithoutName             : ERR_ARGUEJS_ParameterSpecificationWithoutName,
-                    ERR_ARGUEJS_ParameterWithTooManyElements                  : ERR_ARGUEJS_ParameterWithTooManyElements,
-                    ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction         : ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction,
-                    ERR_ARGUEJS_TailParameterMustBeLastPastparameter          : ERR_ARGUEJS_TailParameterMustBeLastPastparameter,
-                    ERR_ARGUEJS_TypeSpecificationHasTooManyElements           : ERR_ARGUEJS_TypeSpecificationHasTooManyElements,
-                    ERR_ARGUEJS_UnknownTypeSpecificationOption                : ERR_ARGUEJS_UnknownTypeSpecificationOption,
+                    // Some constant configuration values for this module.
+                    defaults : {
+                        DEFAULT_OPTION_VALUE_ALLOWNULL                 : DEFAULT_OPTION_VALUE_ALLOWNULL,
+                        DEFAULT_OPTION_VALUE_ALLOWUNDEFINED            : DEFAULT_OPTION_VALUE_ALLOWUNDEFINED,
+                        DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL : DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL
+                    },
 
-                    ERR_ARGUEJS_GetParameters_PREFIX                          : ERR_ARGUEJS_GetParameters_PREFIX,
-                    ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue  : ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue,
-                    ERR_ARGUEJS_GetParameters_TooManyArguments                : ERR_ARGUEJS_GetParameters_TooManyArguments,
+                    // Error texts
+                    errorTexts : {
+                        ERR_BADCALL_PREFIX                                        : ERR_BADCALL_PREFIX,
+                        ERR_BADCALL_InvalidTypeOfArgument                         : ERR_BADCALL_InvalidTypeOfArgument,
+                        ERR_BADCALL_NoArguments                                   : ERR_BADCALL_NoArguments,
+                        ERR_BADCALL_TooManyArguments                              : ERR_BADCALL_TooManyArguments,
+                        ERR_BADCALL_InvalidTypeOfParameter                        : ERR_BADCALL_InvalidTypeOfParameter,
 
-                    asRegExp : {
-                        // object gets filled after building __internals___ by iterating all error texts and creating regular expressions
-                        // that way it is ensured that for all error texts a corresponding regular expression exits.
-                        // the regular expressions have the same name as the corresponding error text.
-                    }
+                        ERR_ARGUEJS_PREFIX                                        : ERR_ARGUEJS_PREFIX,
+                        ERR_ARGUEJS_DefaultValueHasIncompatibleType               : ERR_ARGUEJS_DefaultValueHasIncompatibleType,
+                        ERR_ARGUEJS_InvalidTypeOfValue                            : ERR_ARGUEJS_InvalidTypeOfValue,
+                        ERR_ARGUEJS_InvalidValue                                  : ERR_ARGUEJS_InvalidValue,
+                        ERR_ARGUEJS_MissingTypeSpecification                      : ERR_ARGUEJS_MissingTypeSpecification,
+                        ERR_ARGUEJS_ParameterAlreadyDefined                       : ERR_ARGUEJS_ParameterAlreadyDefined,
+                        ERR_ARGUEJS_ParameterSpecificationWithoutName             : ERR_ARGUEJS_ParameterSpecificationWithoutName,
+                        ERR_ARGUEJS_ParameterWithTooManyElements                  : ERR_ARGUEJS_ParameterWithTooManyElements,
+                        ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction         : ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction,
+                        ERR_ARGUEJS_TailParameterMustBeLastPastparameter          : ERR_ARGUEJS_TailParameterMustBeLastPastparameter,
+                        ERR_ARGUEJS_TypeSpecificationHasTooManyElements           : ERR_ARGUEJS_TypeSpecificationHasTooManyElements,
+                        ERR_ARGUEJS_UnknownTypeSpecificationOption                : ERR_ARGUEJS_UnknownTypeSpecificationOption,
+
+                        ERR_ARGUEJS_GetParameters_PREFIX                          : ERR_ARGUEJS_GetParameters_PREFIX,
+                        ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue  : ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue,
+                        ERR_ARGUEJS_GetParameters_TooManyArguments                : ERR_ARGUEJS_GetParameters_TooManyArguments,
+
+                        asRegExp : {
+                            // object gets filled after building __internals___ by iterating all error texts and creating regular expressions
+                            // that way it is ensured that for all error texts a corresponding regular expression exits.
+                            // the regular expressions have the same name as the corresponding error text.
+                        }
+                    },
+
+                    // Utility functions for handling types
+                    isBoolean               : isBoolean,
+                    isArray                 : isArray,
+                    isFunction              : isFunction,
+                    isObject                : isObject,
+                    isArguments             : isArguments,
+                    isType                  : isType,
+                    getType                 : getType,
+
+                    // Utility functions for generating error messages
+                    formatText              : formatText,
+
+                    // Utility functions for validating data
+                    validateParameterName   : validateParameterName,
+                    isCompatibleValue       : isCompatibleValue
                 },
 
-                // Utility functions for handling types
-                isBoolean               : isBoolean,
-                isArray                 : isArray,
-                isFunction              : isFunction,
-                isObject                : isObject,
-                isArguments             : isArguments,
-                isType                  : isType,
-                getType                 : getType,
+                // Class: ArgueJS
+                ArgueJS: {
+                    /* nothing to export at the moment */
+                },
 
-                // Utility functions for generating error messages
-                formatText              : formatText,
+                // current object _arguejs
+                _arguejs: _arguejs ? undefined : {
+                    /* nothing to export at the moment */
+                }
+            };
 
-                // Utility functions for validating data
-                validateParameterName   : validateParameterName,
-                isCompatibleValue       : isCompatibleValue
-            },
-
-            // Class: ArgueJS
-            ArgueJS: {
-                /* nothing to export at the moment */
-            },
-
-            // current object _arguejs
-            _arguejs: _arguejs ? undefined : {
-                /* nothing to export at the moment */
+            // convert all error texts to regular expressions
+            var replaceAllDotsRegExp            = (/\./g);
+            var replaceAllOpeningBracketsRegExp = (/\(/g);
+            var replaceAllClosingBracketsRegExp = (/\)/g);
+            var errorTextConversionRegExp       = (/\{[1-9][0-9]?\}/g);
+            var errorTexts = __internals__.$.errorTexts;
+            for (var errorTextId in errorTexts) {
+                if (errorTexts.hasOwnProperty(errorTextId) && (errorTextId !== "asRegExp")) {
+                    errorTexts.asRegExp[errorTextId] = new RegExp(
+                            "^" +
+                            errorTexts[errorTextId].
+                                replace(replaceAllDotsRegExp, "\\.").
+                                replace(replaceAllOpeningBracketsRegExp, "\\(").
+                                replace(replaceAllClosingBracketsRegExp, "\\)").
+                                replace(errorTextConversionRegExp, ".*") +
+                            "$"
+                        );
+                }
             }
+
+            // FINISHED!
+            return __internals__;
         };
-
-        // convert all error texts to regular expressions
-        var replaceAllDotsRegExp            = (/\./g);
-        var replaceAllOpeningBracketsRegExp = (/\(/g);
-        var replaceAllClosingBracketsRegExp = (/\)/g);
-        var errorTextConversionRegExp       = (/\{[1-9][0-9]?\}/g);
-        var errorTexts = __internals__.$.errorTexts;
-        for (var errorTextId in errorTexts) {
-            if (errorTexts.hasOwnProperty(errorTextId) && (errorTextId !== "asRegExp")) {
-                errorTexts.asRegExp[errorTextId] = new RegExp(
-                        "^" +
-                        errorTexts[errorTextId].
-                            replace(replaceAllDotsRegExp, "\\.").
-                            replace(replaceAllOpeningBracketsRegExp, "\\(").
-                            replace(replaceAllClosingBracketsRegExp, "\\)").
-                            replace(errorTextConversionRegExp, ".*") +
-                        "$"
-                    );
-            }
-        }
-
-        // FINISHED!
-        return __internals__;
-    };
+    }
 
     /* ###############################################################################################
      *
@@ -854,7 +852,7 @@ define(function(require) {
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // >>> make module available in node.js and the web (AMD - RequireJS) >>>
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    });
+    }));
 });
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 // <<< make module available in node.js and the web (AMD - RequireJS) <<<
