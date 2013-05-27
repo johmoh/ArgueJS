@@ -51,13 +51,16 @@ define(function () {
      * True: Removes all test in the library that are not necessary if the library is always used correctly. That means:
      * - getArguments(...) is called with the right number of arguments
      * - getArguments(...) is called with arguments of the correct type
-     * - if getArguments(...) is called with a function specification then that function specification has a valid structure (is an array contining zero or more objects - the parameter specifications)
-     * - if getArguments(...) is called with a function specification containing parameter specifications then that parameter specifications have a correct structure and satisfy all rules (for instance
+     * - if getArguments(...) is called with a function specification then that function specification has a valid
+     *   structure (is an array contining zero or more objects - the parameter specifications)
+     * - if getArguments(...) is called with a function specification containing parameter specifications then that
+     *   parameter specifications have a correct structure and satisfy all rules (for instance
      *   parenthesizeTail is only allowed for the tail parameter of a variadic function)
      *
      * for production   : set ARGUEJS_PRODUCTION_READY to true
      * for development  : do not define ARGUEJS_PRODUCTION_READY or set value to false
-     * for minification : set ARGUEJS_PRODUCTION_READY to true; special note for minification with UglifyJS: add --define "ARGUEJS_PRODUCTION_READY=true" to command line options
+     * for minimization : set ARGUEJS_PRODUCTION_READY to true; special note for minimization with UglifyJS: add
+     *                    --define "ARGUEJS_PRODUCTION_READY=true" to command line options
      * for unit testing : do not define ARGUEJS_PRODUCTION_READY or set value to false.
      */
     // /** const */ var ARGUEJS_PRODUCTION_READY = false;
@@ -68,8 +71,10 @@ define(function () {
      *
      * for production   : do not define ARGUEJS_EXPORT_INTERNALS or set value to false
      * for development  : do not define ARGUEJS_EXPORT_INTERNALS or set value to false
-     * for minification : do not define ARGUEJS_EXPORT_INTERNALS or set value to false; special note for minification with UglifyJS: add --define "ARGUEJS_EXPORT_INTERNALS=false" to command line options
-     * for unittesting  : unit tests of this library require "ARGUEJS_EXPORT_INTERNALS = true" because some tests test internal functionality of that library or need internal functions/variables to work
+     * for minimization : do not define ARGUEJS_EXPORT_INTERNALS or set value to false; special note for minimization
+     *                    with UglifyJS: add --define "ARGUEJS_EXPORT_INTERNALS=false" to command line options
+     * for unittesting  : unit tests of this library require "ARGUEJS_EXPORT_INTERNALS = true" because some tests test
+     *                    internal functionality of that library or need internal functions/variables to work
      */
     // /** const */ var ARGUEJS_EXPORT_INTERNALS = false;
 
@@ -207,8 +212,9 @@ define(function () {
     }());
 
     /**
-     * Tests, if a value is a "Type". This function summarizes logic for detecting, if a value is a type. In JavaScript does not exist anything like a "Type"-type.
-     * So, some logic is needed to distinguish between a value/object/function and a type.
+     * Tests, if a value is a "Type". This function summarizes logic for detecting, if a value is a type. In JavaScript
+     * does not exist anything like a "Type"-type. So, some logic is needed to distinguish between a type and a
+     * value/object/function.
      *
      * @for       module-arguejs
      * @function  isType
@@ -229,7 +235,8 @@ define(function () {
      *
      * @param  {*}  _value  A value.
      *
-     * @return {Type}  The type of _value. It is not a string representation. It is the type. For "text" it returns String, and so on...
+     * @return {Type}  The type of _value. It is not a string representation. It is the type. For "text" it returns
+     *                 String, and so on...
      *
      * @example
      *
@@ -259,14 +266,16 @@ define(function () {
     /**
      * Formats a string and returns the result.
      *
-     * This is a variadic function. Placeholders are delivered as normal arguments after the _formatString argument. In the _formatString occurrences of "{X}" - where "X" is
-     * a number beginning with 1 - are replaced by the argument at position "X".
+     * This is a variadic function. Placeholders are delivered as normal arguments after the _formatString argument. In
+     * the _formatString occurrences of "{X}" - where "X" is a number beginning with 1 - are replaced by the argument
+     * at position "X".
      *
      * @for       module-arguejs
      * @function  formatText
      *
      * @param {string}  _formatString  Format string containing placeholders.
-     * @param {...*}    _replacements  Optional: Arguments: Arguments to use in this variadic function. These arguments are used to fill in placeholder in the format string.
+     * @param {...*}    _replacements  Optional: Arguments: Arguments to use in this variadic function. These arguments
+     *                                 are used to fill in placeholder in the format string.
      *
      * @return {string}  Resulting, formatted text.
      *
@@ -313,33 +322,43 @@ define(function () {
     }());
 
     /**
-     * Tests, if a value is compatible to a type and some options and if the value can be used as a default value or as a normal argument value.
+     * Tests, if a value is compatible to a type and some options and if the value can be used as an argument value.
      *
      * @for       module-arguejs
-     * @function  isCompatibleValue
+     * @function  isCompatibleArgumentValue
      *
      * @param  {*}        _value           A value.
      * @param  {Type}     _type            A type the value should be compatible with.
-     * @param  {boolean}  _allowUndefined  True, if an undefined value can be treated compatible. False, otherwise.
-     * @param  {boolean}  _allowNull       True, if a null value can be treated compatible. False, otherwise.
-     * @param  {boolean}  _asDefaultValue  True, if the test is for testing a default value. False, otherwise. The reason for this parameter is simple: A value of any type
-     *                                     can be part of the tail-parameter of a variadic function. But that parameter is an array. So only an array can be a default parameter.
+     * @param  {boolean}  _allowUndefined  True, if an undefined value can be treated as compatible. False, otherwise.
+     * @param  {boolean}  _allowNull       True, if a null value can be treated as compatible. False, otherwise.
      *
      * @return {boolean}  True, if a value is compatible to a type and some options. False, otherwise.
      */
-    function isCompatibleValue(_value, _type, _allowUndefined, _allowNull, _asDefaultValue) {
-        if (_asDefaultValue) {
+    function isCompatibleArgumentValue(_value, _type, _allowUndefined, _allowNull) {
+        if (_type  === ArgueJS.TAIL)    { return true; } // any value is compatible as non-default value for the tail-parameter of a variadic function
+        if (_value === undefined)       { return (_allowUndefined === true); } // value "undefined" is compatible if "undefined" is allowed
+        if (_value === null)            { return (_allowNull === true); } // value "null" is compatible if "null" is allowed
+        if (_type  === ArgueJS.ANYTYPE) { return true; } // any value is compatible with ANYTYPE
+        return (getType(_value) === _type) || (_value instanceof _type);
+    }
 
-            if (_type  === ArgueJS.TAIL) { return isArray(_value); } // only an array is compatible as default value for the tail-parameter of a variadic function
-            if (_value === undefined)    { return (_allowUndefined === true); } // value "undefined" is compatible if "undefined" is allowed
-            if (_value === null)         { return (_allowNull === true); } // value "null" is compatible if "null" is allowed
-
-        } else {
-
-            if (_type  === ArgueJS.TAIL) { return true; } // any value is compatible as non-default value for the tail-parameter of a variadic function
-            if (_value === undefined)    { return (_allowUndefined === true); } // value "undefined" is compatible if "undefined" is allowed
-            if (_value === null)         { return (_allowNull === true); } // value "null" is compatible if "null" is allowed
-        }
+    /**
+     * Tests, if a value is compatible to a type and some options and if the value can be used as a default value.
+     *
+     * @for       module-arguejs
+     * @function  isCompatibleDefaultValue
+     *
+     * @param  {*}        _value           A value.
+     * @param  {Type}     _type            A type the value should be compatible with.
+     * @param  {boolean}  _allowUndefined  True, if an undefined value can be treated as compatible. False, otherwise.
+     * @param  {boolean}  _allowNull       True, if a null value can be treated as compatible. False, otherwise.
+     *
+     * @return {boolean}  True, if a value is compatible to a type and some options. False, otherwise.
+     */
+    function isCompatibleDefaultValue(_value, _type, _allowUndefined, _allowNull) {
+        if (_type  === ArgueJS.TAIL)    { return isArray(_value); } // only an array is compatible as default value for the tail-parameter of a variadic function
+        if (_value === undefined)       { return (_allowUndefined === true); } // value "undefined" is compatible if "undefined" is allowed
+        if (_value === null)            { return (_allowNull === true); } // value "null" is compatible if "null" is allowed
         if (_type  === ArgueJS.ANYTYPE) { return true; } // any value is compatible with ANYTYPE
         return (getType(_value) === _type) || (_value instanceof _type);
     }
@@ -367,11 +386,13 @@ define(function () {
     }
 
     /**
-     * Constructor of class ANYTYPE. That type is used to mark a parameter as "any type execpt undefined and null allowed".
+     * Constructor of class ANYTYPE. That type is used to mark a parameter as "any type execpt undefined and null
+     * allowed".
      *
-     * ANYTYPE is a special type for marking an parameter type as "any type". That means any type is allowed for that parameter - but of course, "undefined" and "null" are not allowed.
-     * If you want to specify an parameter that accepts values of any type and "undefined" and "null" you can do that. In such a case speficy "allowUndefind: true" and "allowNull: true"
-     * in the specification of the parameter.
+     * ANYTYPE is a special type for marking an parameter type as "any type". That means any type is allowed for that
+     * parameter - but of course, "undefined" and "null" are not allowed. If you want to specify an parameter that
+     * accepts values of any type and "undefined" and "null" you can do that. In such a case speficy
+     * "allowUndefind: true" and "allowNull: true" in the specification of the parameter.
      *
      * @example
      * var arguejs = require('arguejs');
@@ -397,9 +418,11 @@ define(function () {
     ArgueJS.ANYTYPE = function() {};
 
     /**
-     * Constructor of class TAIL. That type is used to mark a parameter as "containing all remaining arguments of a variadic function".
+     * Constructor of class TAIL. That type is used to mark a parameter as "containing all remaining arguments of a
+     * variadic function".
      *
-     * TAIL is a special type for marking an parameter as "array of remaining arguments". TAIL is used to specify an parameter containing all remaining arguments in a variadic function.
+     * TAIL is a special type for marking an parameter as "array of remaining arguments". TAIL is used to specify an
+     * parameter containing all remaining arguments in a variadic function.
      *
      * @example
      * var arguejs = require('arguejs');
@@ -408,12 +431,12 @@ define(function () {
      *     var specification = [{obligatoryValue: Number}, {myTail: arguejs.TAIL}];
      *     var _args = arguejs.getArguments(specification, arguments);
      *     console.log("number=" + _args.Number);
-     *     console.log("tail is " + (_args.myTail === undefined ? "undefined" : "defined and contains " + _args.myTail));
+     *     console.log("tail is " + (_args.myTail === undefined ? "undefined" : "defined and contains "+_args.myTail));
      * }
      *
      * example(17); // myTail is undefined
-     * example(1, "Hallo world!"); // myTail = ["Hello world!"]
-     * example(39, 3, 1, 5, new MyClass(), false, true, [27,9,3,1]); // myTail = [3, 1, 5, new MyClass(), false, true, [27,9,3,1]]
+     * example(1, "Hello world!"); // myTail = ["Hello world!"]
+     * example(39, 3, 1, 5, new MyClass(), true, [27,9,3,1]); // myTail = [3, 1, 5, new MyClass(), true, [27,9,3,1]]
      *
      * @for    ArgueJS
      * @class  TAIL
@@ -477,14 +500,14 @@ define(function () {
             }
 
             // get parameter specification
-            parameterName             = undefined;  // the name of the parameter. that is the name of the property in the resulting list of argument values
-            parameterType             = undefined;  // the type of the parameter
-            parameterIsOptional       = undefined;  // undefined|false means "non-optional parameter"; true means "optional parameter"
-            parameterHasDefaultValue  = undefined;  // undefined|false means "has no default value"; true means "has default value"
-            parameterDefaultValue     = undefined;  // if parameterHasDefaultValue is true then the value of that variable is the default value - whatever that value is (undefined, null, a string, a function, an object, ...)
-            parameterAllowUndefined   = undefined;  // undefined means "default behavior or option forbidden (because parameter is tail-parameter)"; false means "explicitly not allowed"; true means "explicit allowed"
-            parameterAllowNull        = undefined;  // undefined means "default behavior or option forbidden (because parameter is tail-parameter)"; false means "explicitly not allowed"; true means "explicit allowed"
-            parameterParenthesizeTail = undefined;  // undefined means "default behavior or option forbidden (because parameter is no tail-parameter)"; false means "explicitly do no parenthesize"; true means "explicitly do no parenthesize"
+            parameterName             = undefined;  // it is important to "reset" that variable because we start with a new parameter
+            parameterType             = undefined;  // it is important to "reset" that variable because we start with a new parameter
+            parameterIsOptional       = undefined;  // it is important to "reset" that variable because we start with a new parameter
+            parameterHasDefaultValue  = undefined;  // it is important to "reset" that variable because we start with a new parameter
+            parameterDefaultValue     = undefined;  // it is important to "reset" that variable because we start with a new parameter
+            parameterAllowUndefined   = undefined;  // it is important to "reset" that variable because we start with a new parameter
+            parameterAllowNull        = undefined;  // it is important to "reset" that variable because we start with a new parameter
+            parameterParenthesizeTail = undefined;  // it is important to "reset" that variable because we start with a new parameter
             for(var parameterId in parameterSpecification) {
                 if (parameterSpecification.hasOwnProperty(parameterId)) {
 
@@ -502,14 +525,16 @@ define(function () {
                     // get data of type specification
                     var parameterTypeData = parameterSpecification[parameterId];
 
-                    // get parameter type specification from simple mandatory parameter specification (examples: {message: String})
+                    // get parameter type specification from simple mandatory parameter specification
+                    // example: {message: String}
                     if (isFunction(parameterTypeData)) {
 
                         parameterIsOptional = false;
                         parameterType       = parameterTypeData;
                     }
 
-                    // get parameter type specification from simple optional parameter specification (examples: {message: [String]}, {myValue: [Number, 17]})
+                    // get parameter type specification from simple optional parameter specification
+                    // example: {message: [String]}
                     else if (isArray(parameterTypeData)) {
 
                         if ((typeof(ARGUEJS_PRODUCTION_READY) !== "boolean") || !ARGUEJS_PRODUCTION_READY) {
@@ -527,7 +552,8 @@ define(function () {
                         }
                     }
 
-                    // get parameter type specification from complex parameter specification (examples: { message: {type: [String], defaultValue: "Hallo Welt!", allowUndefined: false, allowNull: false}})
+                    // get parameter type specification from complex parameter specification
+                    // example: {message: {type: [String], defaultValue: "nothing to say"}}
                     else if (isObject(parameterTypeData)) { // @TODO: This test should be improved because of types Array, Date, RegExp, Function - these are definitve not the kind of objects we want
 
                         for (var key in parameterTypeData) {
@@ -578,7 +604,8 @@ define(function () {
                     }
                     else {
 
-                        // it is a type or a value; however we do not accept the parameter type specification (examples: 17, "hello", false, undefined, null)
+                        // it is a type or a value; however we do not accept the parameter type specification
+                        // examples: 17, "hello", false, undefined, null
                         throw new Error(formatText(ERR_ARGUEJS_InvalidValue, parameterName, "type"));
                     }
                 }
@@ -606,8 +633,13 @@ define(function () {
                 }
 
                 // set default values for allowUndefined and allowNull, if options are undefined
-                if (parameterAllowUndefined === undefined) { parameterAllowUndefined = DEFAULT_OPTION_VALUE_ALLOWUNDEFINED; }
-                if (parameterAllowNull      === undefined) { parameterAllowNull      = DEFAULT_OPTION_VALUE_ALLOWNULL; }
+                if (parameterAllowUndefined === undefined) {
+                    parameterAllowUndefined = DEFAULT_OPTION_VALUE_ALLOWUNDEFINED;
+                }
+
+                if (parameterAllowNull === undefined) {
+                    parameterAllowNull = DEFAULT_OPTION_VALUE_ALLOWNULL;
+                }
             }
             else {
 
@@ -619,29 +651,34 @@ define(function () {
                     // "allowNull" cannot be used for the tail-parameter in a variadic function
                     if (parameterAllowNull !== undefined) { throw new Error(formatText(ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction, parameterName, "allowNull", "not")); }
 
-                    // we found the tail-parameter of a variadic function. that parameter must be the last parameter in the function specification, because that parameter consumes all remaining values
+                    // we found the tail-parameter of a variadic function. that parameter must be the last parameter in
+                    // the function specification, because that parameter consumes all remaining values
                     if (parameterIdx !== (parameterNum-1)) { throw new Error(ERR_ARGUEJS_TailParameterMustBeLastPastparameter); }
                 }
 
                 // set default value for parenthesizeTail, if option is undefined
-                if (parameterParenthesizeTail === undefined) { parameterParenthesizeTail = DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL; }
+                if (parameterParenthesizeTail === undefined) {
+                    parameterParenthesizeTail = DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL;
+                }
             }
 
             // are there remaining arguments?
             if (argumentIdx < argumentNum) {
 
                 // yes, there is at least one argument that was not consumed.
-                // ATTENTION! if there is at least one argument that is unprocessed (and that is the case here) then the value of the current argument to process is already stored in argumentValue!
+                // ATTENTION! if there is at least one argument that is unprocessed (and that is the case here) then
+                //            the value of the current argument to process is already stored in argumentValue!
 
                 // is the current argument value compatible to the current parameter specification?
-                if (isCompatibleValue(argumentValue, parameterType, parameterAllowUndefined, parameterAllowNull, false)) {
+                if (isCompatibleArgumentValue(argumentValue, parameterType, parameterAllowUndefined, parameterAllowNull)) {
 
                     if (parameterType === ArgueJS.TAIL) {
 
                         // is the current argument not the last one? are there more remaining arguments?
                         if (++argumentIdx < argumentNum) {
 
-                            // add a copy of remaining argument values (including the current argument value) to the list of resulting argument values
+                            // add a copy of remaining argument values (including the current argument value) to the
+                            // list of resulting argument values
                             var tail = [argumentValue];
                             do {
                                 tail[tail.length] = _arguments[argumentIdx];
@@ -650,17 +687,22 @@ define(function () {
                         }
                         else  if (!isArray(argumentValue) || parameterParenthesizeTail) {
 
-                            // build a new array for the tail-argument and add that array to the list of resulting argument values
+                            // build a new array for the tail-argument and add that array to the list of resulting
+                            // argument values
                             resultingArguments[parameterName] = [argumentValue];
                         }
                         else {
 
-                            // the current argument value is the last argument value and it is an array. but we should not parenthesize (nesting) that array in a new array. so the current array argument is the value (array) for the tail-argument.
+                            // the current argument value is the last argument value and it is an array. but we should
+                            // not parenthesize (nesting) that array in a new array. so the current array argument is
+                            // the value (array) for the tail-argument.
                             resultingArguments[parameterName] = argumentValue;
                         }
 
                         // finish the loop
-                        // here we could also do an "return resultingArguments" but I am a friend of "one function one exit point" - except for early exits, exceptions and simple switch-case-like mapping functions
+                        // here we could also do an "return resultingArguments" but I am a friend of "one function one
+                        // exit point" - except for early exits, exceptions and simple switch-case-like mapping
+                        // functions
                         argumentIdx = argumentNum;
                         break;
                     }
@@ -676,12 +718,14 @@ define(function () {
                         }
                     }
 
-                    // because the current parameter specification is processed we advance to the next parameter specification
+                    // because the current parameter specification is processed we advance to the next parameter
+                    // specification
                     continue;
                 }
             }
 
-            // no, all arguments are already processed. no arguments are remaing otherwise we would never reach this line of code
+            // no, all arguments are already processed. no arguments are remaing otherwise we would never reach this
+            // line of code
 
             // if the current parameter is not optional then there were too less arguments given in the function call
             if (!parameterIsOptional) { throw new Error(formatText(ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue, parameterName)); }
@@ -693,21 +737,27 @@ define(function () {
                 var defaultValue;
 
                 // get the default value
-                if ((parameterType === Function) || (parameterType === ArgueJS.ANYTYPE) || !isFunction(parameterDefaultValue)) {
+                if ((parameterType === Function) ||
+                    (parameterType === ArgueJS.ANYTYPE) ||
+                    !isFunction(parameterDefaultValue)) {
 
-                    // the default value of the parameter is no function OR the default value is a function and the type of the parameter is "Function" too
-                    // in both cases we can directy try to use that value directly
+                    // the default value of the parameter is no function OR the default value is a function and the type
+                    // of the parameter is "Function" too. in both cases we can directy try to use that value directly.
                     defaultValue = parameterDefaultValue;
                 }
                 else {
 
                     // the default value of the parameter is a function but the type of the parameter is not "Function"
-                    // then we the function specified in the default value to get the true default value for that parameter
+                    // then we call the function specified as "default value" to get the true default value for that
+                    // parameter.
                     defaultValue = parameterDefaultValue();
                 }
 
-                // now we have a default value - whatever that default values is. but that default value has to be compatible "as a default value" with the type of the parameter
-                if (!isCompatibleValue(defaultValue, parameterType, parameterAllowUndefined, parameterAllowNull, true)) { throw new Error(formatText(ERR_ARGUEJS_DefaultValueHasIncompatibleType, parameterName)); }
+                // now we have a default value - whatever that default values is. but that default value has to be
+                // compatible "as a default value" with the type of the parameter
+                if (!isCompatibleDefaultValue(defaultValue, parameterType, parameterAllowUndefined, parameterAllowNull)) {
+                    throw new Error(formatText(ERR_ARGUEJS_DefaultValueHasIncompatibleType, parameterName));
+                }
 
                 // store the default value into the list of resulting arguments
                 resultingArguments[parameterName] = defaultValue;
@@ -722,10 +772,11 @@ define(function () {
     };
 
     /**
-     * THIS FUNCTION EXPORTS INTERNAL INFORMATION ABOUT THE LIBRARY. THAT IS USEFUL FOR TESTING THE LIBRARY. TESTING ALL PARTS OF THE LIBRARY IS THE ONLY INTENTION FOR THIS FUNCTION.
+     * THIS FUNCTION EXPORTS INTERNAL INFORMATION ABOUT THE LIBRARY. THAT IS USEFUL FOR TESTING THE LIBRARY. TESTING ALL
+     * PARTS OF THE LIBRARY IS THE ONLY INTENTION FOR THIS FUNCTION.
      *
-     * DO NOT USE THAT FUNCTION TO ACCESS INTERNAL STUFF. CHANGES IN THE SPECIFICATION OF THIS FUNCTION ARE NOT REPORTED AND MAY OCCUR AT ANY TIME WITHOUT ANY WARNING!
-     * THESE CHANGES ARE NO BUGS AND WILL NOT GET THREATED AS BUGS!
+     * DO NOT USE THAT FUNCTION TO ACCESS INTERNAL STUFF. CHANGES IN THE SPECIFICATION OF THIS FUNCTION ARE NOT REPORTED
+     * AND MAY OCCUR AT ANY TIME WITHOUT ANY WARNING! THESE CHANGES ARE NO BUGS AND WILL NOT GET THREATED AS BUGS!
      *
      * @for     ArgueJS
      * @method  __export_internals__
@@ -785,20 +836,21 @@ define(function () {
                     },
 
                     // Utility functions for handling types
-                    isBoolean               : isBoolean,
-                    isArray                 : isArray,
-                    isFunction              : isFunction,
-                    isObject                : isObject,
-                    isArguments             : isArguments,
-                    isType                  : isType,
-                    getType                 : getType,
+                    isBoolean                   : isBoolean,
+                    isArray                     : isArray,
+                    isFunction                  : isFunction,
+                    isObject                    : isObject,
+                    isArguments                 : isArguments,
+                    isType                      : isType,
+                    getType                     : getType,
 
                     // Utility functions for generating error messages
-                    formatText              : formatText,
+                    formatText                  : formatText,
 
                     // Utility functions for validating data
-                    validateParameterName   : validateParameterName,
-                    isCompatibleValue       : isCompatibleValue
+                    validateParameterName       : validateParameterName,
+                    isCompatibleArgumentValue   : isCompatibleArgumentValue,
+                    isCompatibleDefaultValue    : isCompatibleDefaultValue
                 },
 
                 // Class: ArgueJS
