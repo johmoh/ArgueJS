@@ -1,5 +1,5 @@
-/*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, noempty:true, quotmark:double, smarttabs:true, strict:true, trailing:true, undef:true, unused:true, maxparams:10, maxdepth:10, maxstatements:200, browser:true, node:true */
-/*global define:true,ARGUEJS_PRODUCTION_READY:false,ARGUEJS_EXPORT_INTERNALS:true*/
+/*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, noempty:true, quotmark:double, smarttabs:true, strict:true, trailing:true, undef:true, unused:true, maxparams:10, maxdepth:10, maxstatements:200, browser:true, devel:false */
+/*global define:true,require:true,module:true,ARGUEJS_PRODUCTION_READY:false,ARGUEJS_EXPORT_INTERNALS:true*/
 
 /* The MIT License (MIT)
  *
@@ -93,9 +93,9 @@ define(function () {
      * ###############################################################################################
      */
 
-    /** const */ var DEFAULT_OPTION_VALUE_ALLOWNULL                     = false;
-    /** const */ var DEFAULT_OPTION_VALUE_ALLOWUNDEFINED                = false;
-    /** const */ var DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL     = true;
+    /** const */ var DEFAULT_VALUE_FOR_ALLOWNULL        = false;
+    /** const */ var DEFAULT_VALUE_FOR_ALLOWUNDEFINED   = false;
+    /** const */ var DEFAULT_VALUE_FOR_PARENTHESIZETAIL = true;
 
     /* ###############################################################################################
      *
@@ -361,6 +361,26 @@ define(function () {
         if (_value === null)            { return (_allowNull === true); } // value "null" is compatible if "null" is allowed
         if (_type  === ArgueJS.ANYTYPE) { return true; } // any value is compatible with ANYTYPE
         return (getType(_value) === _type) || (_value instanceof _type);
+    }
+
+    /* ###############################################################################################
+     *
+     * Functions just to reduce code complexity in getArguments(...)
+     *
+     * These functions are private to the module.
+     *
+     * ###############################################################################################
+     */
+
+    function getDefaultValue(_type, _defaultValue) {
+
+        if (!isFunction(_defaultValue)) { return _defaultValue; } // _defaultValue is no function, so that value can be used directly
+        if (_type === Function)         { return _defaultValue; } // parameter type is function, so _defaultValue must be used directly, because that value is the default value itself
+        if (_type === ArgueJS.ANYTYPE)  { return _defaultValue; } // parameter type is ArgueJS.ANYTYPE, so _defaultValue must be used directly, because a function is allowed as ArgueJS.ANYTYPE
+
+        // _defaultValue is a function, but _type is neither function nor ArgueJS.ANYTYPE. That means _defaultValue is
+        // a function that returns the default value to use. So we execute that function now.
+        return _defaultValue();
     }
 
     /* ###############################################################################################
@@ -634,11 +654,11 @@ define(function () {
 
                 // set default values for allowUndefined and allowNull, if options are undefined
                 if (parameterAllowUndefined === undefined) {
-                    parameterAllowUndefined = DEFAULT_OPTION_VALUE_ALLOWUNDEFINED;
+                    parameterAllowUndefined = DEFAULT_VALUE_FOR_ALLOWUNDEFINED;
                 }
 
                 if (parameterAllowNull === undefined) {
-                    parameterAllowNull = DEFAULT_OPTION_VALUE_ALLOWNULL;
+                    parameterAllowNull = DEFAULT_VALUE_FOR_ALLOWNULL;
                 }
             }
             else {
@@ -658,7 +678,7 @@ define(function () {
 
                 // set default value for parenthesizeTail, if option is undefined
                 if (parameterParenthesizeTail === undefined) {
-                    parameterParenthesizeTail = DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL;
+                    parameterParenthesizeTail = DEFAULT_VALUE_FOR_PARENTHESIZETAIL;
                 }
             }
 
@@ -734,24 +754,7 @@ define(function () {
             if (parameterHasDefaultValue) {
 
                 // that is the value we will add later to the list of resulting arguments
-                var defaultValue;
-
-                // get the default value
-                if ((parameterType === Function) ||
-                    (parameterType === ArgueJS.ANYTYPE) ||
-                    !isFunction(parameterDefaultValue)) {
-
-                    // the default value of the parameter is no function OR the default value is a function and the type
-                    // of the parameter is "Function" too. in both cases we can directy try to use that value directly.
-                    defaultValue = parameterDefaultValue;
-                }
-                else {
-
-                    // the default value of the parameter is a function but the type of the parameter is not "Function"
-                    // then we call the function specified as "default value" to get the true default value for that
-                    // parameter.
-                    defaultValue = parameterDefaultValue();
-                }
+                var defaultValue = getDefaultValue(parameterType, parameterDefaultValue);
 
                 // now we have a default value - whatever that default values is. but that default value has to be
                 // compatible "as a default value" with the type of the parameter
@@ -798,9 +801,9 @@ define(function () {
 
                     // Some constant configuration values for this module.
                     defaults : {
-                        DEFAULT_OPTION_VALUE_ALLOWNULL                 : DEFAULT_OPTION_VALUE_ALLOWNULL,
-                        DEFAULT_OPTION_VALUE_ALLOWUNDEFINED            : DEFAULT_OPTION_VALUE_ALLOWUNDEFINED,
-                        DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL : DEFAULT_OPTION_VALUE_PARAMETERPARENTHESIZETAIL
+                        DEFAULT_VALUE_FOR_ALLOWNULL         : DEFAULT_VALUE_FOR_ALLOWNULL,
+                        DEFAULT_VALUE_FOR_ALLOWUNDEFINED    : DEFAULT_VALUE_FOR_ALLOWUNDEFINED,
+                        DEFAULT_VALUE_FOR_PARENTHESIZETAIL  : DEFAULT_VALUE_FOR_PARENTHESIZETAIL
                     },
 
                     // Error texts
@@ -850,7 +853,10 @@ define(function () {
                     // Utility functions for validating data
                     validateParameterName       : validateParameterName,
                     isCompatibleArgumentValue   : isCompatibleArgumentValue,
-                    isCompatibleDefaultValue    : isCompatibleDefaultValue
+                    isCompatibleDefaultValue    : isCompatibleDefaultValue,
+
+                    // Functions just to reduce code complexity in getArguments(...)
+                    getDefaultValue             : getDefaultValue
                 },
 
                 // Class: ArgueJS
