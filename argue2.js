@@ -372,6 +372,18 @@ define(function () {
      * ###############################################################################################
      */
 
+    /**
+     * Returns the default value. If _defaultValue is a function but _type is not Function and not ArgueJS.ANYTYPE then
+     * then the function is called and the returned value is the default value. In any other case _defaultValue is
+     * returned.
+     *
+     * @for       module-arguejs
+     * @function  getDefaultValue
+     *
+     * @param  {*}  _type          The type of a parameter
+     * @param  {*}  _defaultValue  The defined default value of a parameter (or a function returning the default value)
+     * @return {*}  The default value to use for a parameter
+     */
     function getDefaultValue(_type, _defaultValue) {
 
         if (!isFunction(_defaultValue)) { return _defaultValue; } // _defaultValue is no function, so that value can be used directly
