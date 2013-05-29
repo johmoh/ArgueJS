@@ -414,7 +414,7 @@ define(['argue2', 'argue2.testable.min', 'argue2.testable.production.min', 'chai
                         expect(function(){arguejs2.getArguments([{a: {type: [String], defaultValue: "hello"}}], []);}).not.to["throw"]();
                     });
 
-                    // @TODO: test that internal function isCompatibleValue(...) with argument "true" for parameter "_asDefaultValue" is called to validate default value (SinonJS; there might be a good chance that such a test is not possible because the internal method is not directly accessable)
+                    // @TODO: test that internal function isCompatibleDefaultValue(...) is called to validate default value (SinonJS; there might be a good chance that such a test is not possible because the internal method is not directly accessable)
 
                     it("expect an exception thrown if default value is incompatible to parameter type", function() {
                         expect(function(){arguejs2.getArguments([{a: {type: [String], defaultValue: 17}}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_DefaultValueHasIncompatibleType);
