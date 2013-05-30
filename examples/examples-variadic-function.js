@@ -7,11 +7,6 @@ function formatText_TailDefault() {
     var signature = [{ formatString: String }, { replacements: arguejs2.TAIL }]; // "replacements" are marked as "mandatory" because do not want to call formatText without replacements here
     var _args = arguejs2.getArguments(signature, arguments);
 
-    if (_args.replacements === null)            { throw new Error("ArgueJS has a bug (case: null). This line should never be reached!"); }
-    if (_args.replacements === undefined)       { throw new Error("ArgueJS has a bug (case: undefined). This line should never be reached!"); }
-    if (!(_args.replacements instanceof Array)) { throw new Error("ArgueJS has a bug (case: no array). This line should never be reached!"); }
-    if (_args.replacements.length <= 0)         { throw new Error("ArgueJS has a bug (case: empty array). This line should never be reached!"); }
-
     var resultingText = _args.formatString;
     for (var i = 0; i < _args.replacements.length; ++i) {
         resultingText = resultingText.replace("{" + (i+1) + "}", _args.replacements[i]);
@@ -23,11 +18,6 @@ function formatText_TailDefault() {
 function formatText_TailWithParenthesizeTail() {
     var signature = [{ formatString: String }, { replacements: {type: arguejs2.TAIL, parenthesizeTail: true}}]; // same same formatText_TailDefault but now, "parenthesizeTail" is explicitly set to "true"
     var _args = arguejs2.getArguments(signature, arguments);
-
-    if (_args.replacements === null)            { throw new Error("ArgueJS has a bug (case: null). This line should never be reached!"); }
-    if (_args.replacements === undefined)       { throw new Error("ArgueJS has a bug (case: undefined). This line should never be reached!"); }
-    if (!(_args.replacements instanceof Array)) { throw new Error("ArgueJS has a bug (case: no array). This line should never be reached!"); }
-    if (_args.replacements.length <= 0)         { throw new Error("ArgueJS has a bug (case: empty array). This line should never be reached!"); }
 
     var resultingText = _args.formatString;
     for (var i = 0; i < _args.replacements.length; ++i) {
@@ -41,11 +31,6 @@ function formatText_TailWithParenthesizeTail() {
 function formatText_TailWithoutParenthesizeTail() {
     var signature = [{ formatString: String }, { replacements: {type: arguejs2.TAIL, parenthesizeTail: false}}]; // same same formatText_TailDefault but now "parenthesizeTail" is explicitly set to "false"
     var _args = arguejs2.getArguments(signature, arguments);
-
-    if (_args.replacements === null)            { throw new Error("ArgueJS has a bug (case: null). This line should never be reached!"); }
-    if (_args.replacements === undefined)       { throw new Error("ArgueJS has a bug (case: undefined). This line should never be reached!"); }
-    if (!(_args.replacements instanceof Array)) { throw new Error("ArgueJS has a bug (case: no array). This line should never be reached!"); }
-    if (_args.replacements.length <= 0)         { throw new Error("ArgueJS has a bug (case: empty array). This line should never be reached!"); }
 
     var resultingText = _args.formatString;
     for (var i = 0; i < _args.replacements.length; ++i) {
@@ -73,4 +58,4 @@ catch(_ex) {
 }
 
 console.log();
-console.log(formatText_TailDefault("Values for the tail argument can be of any type including undefined and null, of course: {1} - {2}", undefined, null)); // OUTPUT: Values for the tail argument can be of any type including undefined and null, of course: undefined - null
+console.log(formatText_TailDefault("Values for the tail argument can be of any type including {1} and {2}, of course", undefined, null)); // OUTPUT: Values for the tail argument can be of any type including undefined and null, of course
