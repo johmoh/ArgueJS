@@ -1,6 +1,3 @@
-/*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, noempty:true, quotmark:double, smarttabs:true, strict:true, trailing:true, undef:true, unused:true, maxparams:10, maxdepth:10, maxstatements:200, browser:true, devel:false */
-/*global define:true,require:true,module:true,ARGUEJS_PRODUCTION_READY:false,ARGUEJS_EXPORT_INTERNALS:true*/
-
 /* The MIT License (MIT)
  *
  * Copyright (c) 2013 Martin Lühring (https://github.com/johmoh)
@@ -28,21 +25,33 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // >>> make module available in node.js and the web (AMD - RequireJS) >>>
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-if (typeof define !== "function") {
-    var define = require("amdefine")(module);
-}
+(function(_name, _context, _moduleDefinition) {
 
-define(function () {
+    // AMD?
+    if ((typeof(define) === "function") && (typeof(define.amd) === "object")) {
+        define(_moduleDefinition);
+    }
+    // Node.js?
+    else if ((typeof(require) === "function") && (typeof(exports) === "object") && (typeof(module) === "object")) {
+        module.exports = _moduleDefinition();
+    }
+    // Fallback: Export in current namespace
+    else {
+        if (_context[_name] !== undefined) { throw new Error("cannot export module \"" + _name + "\" in current namespace. name already in use."); }
+        _context[_name] = _moduleDefinition();
+    }
 
-    "use strict";
-
-    // initialize and return module
-    return (function (module_exports_factory) {
-        return module_exports_factory();
-    }(function () {
+}("arguejs", this, function() {
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 // <<< make module available in node.js and the web (AMD - RequireJS) <<<
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true,
+             noempty:true, quotmark:double, smarttabs:true, strict:true, trailing:true, undef:true, unused:true,
+             maxcomplexity:25, maxdepth:10, maxparams:10, maxstatements:200,
+             browser:true, devel:false*/
+    /*global ARGUEJS_PRODUCTION_READY:false,ARGUEJS_EXPORT_INTERNALS:true*/
+
+    "use strict";
 
     /* ARGUEJS_PRODUCTION_READY
      *
@@ -1118,8 +1127,8 @@ define(function () {
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // >>> make module available in node.js and the web (AMD - RequireJS) >>>
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    }));
-});
+    })
+);
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 // <<< make module available in node.js and the web (AMD - RequireJS) <<<
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

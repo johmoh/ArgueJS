@@ -77,7 +77,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "argue2.js",
-            "line": 809,
+            "line": 818,
             "description": "Module ArgueJS"
         }
     },
@@ -104,7 +104,7 @@
             "module": "module-arguejs",
             "namespace": "",
             "file": "argue2.js",
-            "line": 761,
+            "line": 770,
             "description": "Constructor of class ArgueJS. At the moment it does not make any sense to create an object from that class.\n\nThis class is exported by the module.",
             "is_constructor": 1,
             "access": "private",
@@ -122,7 +122,7 @@
             "module": "module-arguejs",
             "namespace": "",
             "file": "argue2.js",
-            "line": 775,
+            "line": 784,
             "description": "Constructor of class ANYTYPE. That type is used to mark a parameter as \"any type execpt undefined and null\nallowed\".\n\nANYTYPE is a special type for marking an parameter type as \"any type\". That means any type is allowed for that\nparameter - but of course, \"undefined\" and \"null\" are not allowed. If you want to specify an parameter that\naccepts values of any type and \"undefined\" and \"null\" you can do that. In such a case speficy\n\"allowUndefind: true\" and \"allowNull: true\" in the specification of the parameter.",
             "example": [
                 "\nvar arguejs = require('arguejs');\n\nfunction example() {\n    var specification = [{canBeAnyTypeOrUndefinedOrNull: {type: arguejs.ANYTYPE, allowUndefined: true, allowNull: true}}];\n    var _args = arguejs.getArguments(specification, arguments);\n    return _args.canBeAnyTypeOrUndefinedOrNull;\n}\n\nexample(17);\nexample(\"Hello world!\");\nexample(true);\nexample(/^[a-z]*$/i);\nexample(new MyClass());"
@@ -145,7 +145,7 @@
             "module": "module-arguejs",
             "namespace": "",
             "file": "argue2.js",
-            "line": 809,
+            "line": 818,
             "description": "Constructor of class TAIL. That type is used to mark a parameter as \"containing all remaining arguments of a\nvariadic function\".\n\nTAIL is a special type for marking an parameter as \"array of remaining arguments\". TAIL is used to specify an\nparameter containing all remaining arguments in a variadic function.",
             "example": [
                 "\nvar arguejs = require('arguejs');\n\nfunction example() {\n    var specification = [{obligatoryValue: Number}, {myTail: arguejs.TAIL}];\n    var _args = arguejs.getArguments(specification, arguments);\n    console.log(\"number=\" + _args.Number);\n    console.log(\"tail is \" + (_args.myTail === undefined ? \"undefined\" : \"defined and contains \"+_args.myTail));\n}\n\nexample(17); // myTail is undefined\nexample(1, \"Hello world!\"); // myTail = [\"Hello world!\"]\nexample(39, 3, 1, 5, new MyClass(), true, [27,9,3,1]); // myTail = [3, 1, 5, new MyClass(), true, [27,9,3,1]]"
@@ -2564,26 +2564,26 @@
         },
         {
             "file": "argue2.js",
-            "line": 26,
+            "line": 23,
             "class": "module-arguejs"
         },
         {
             "file": "argue2.js",
-            "line": 96,
+            "line": 105,
             "description": "/** @const */ var DEFAULT_VALUE_FOR_ALLOWUNDEFINED   = false;\n/** @const */ var DEFAULT_VALUE_FOR_PARENTHESIZETAIL = true;\n\n/* ###############################################################################################\n *\n * Error texts\n *\n * These texts are private to this module.\n *\n * ###############################################################################################",
             "class": "module-arguejs",
             "module": "module-arguejs"
         },
         {
             "file": "argue2.js",
-            "line": 109,
+            "line": 118,
             "description": "/** @const */ var ERR_BADCALL_InvalidTypeOfArgument                         = ERR_BADCALL_PREFIX + \"type of \\\"{1}\\\" is invalid.\";\n/** @const */ var ERR_BADCALL_NoArguments                                   = ERR_BADCALL_PREFIX + \"no arguments. function call is not compatible with function specification.\";\n/** @const */ var ERR_BADCALL_TooManyArguments                              = ERR_BADCALL_PREFIX + \"too many arguments. function call is not compatible with function specification.\";\n/** @const */ var ERR_BADCALL_InvalidTypeOfParameter                        = ERR_BADCALL_PREFIX + \"parameter specification #{1} is not an object structure.\";\n\n/** @const */ var ERR_ARGUEJS_PREFIX                                        = \"parameter specification \\\"{1}\\\": \";\n/** @const */ var ERR_ARGUEJS_DefaultValueHasIncompatibleType               = ERR_ARGUEJS_PREFIX + \"default value is not compatible to parameter type\";\n/** @const */ var ERR_ARGUEJS_InvalidTypeOfValue                            = ERR_ARGUEJS_PREFIX + \"value of \\\"{2}\\\" has incorrect type (must be {3})\";\n/** @const */ var ERR_ARGUEJS_InvalidValue                                  = ERR_ARGUEJS_PREFIX + \"\\\"{2}\\\" is invalid.\";\n/** @const */ var ERR_ARGUEJS_MissingTypeSpecification                      = ERR_ARGUEJS_PREFIX + \"type specification is missing.\";\n/** @const */ var ERR_ARGUEJS_ParameterAlreadyDefined                       = ERR_ARGUEJS_PREFIX + \"parameter with same name already defined (conflicting position in function specification: #{2})\";\n/** @const */ var ERR_ARGUEJS_ParameterSpecificationWithoutName             = \"parameter specification: parameter #{1} has no name\";\n/** @const */ var ERR_ARGUEJS_ParameterWithTooManyElements                  = ERR_ARGUEJS_PREFIX + \"specification contains more than one element.\";\n/** @const */ var ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction         = ERR_ARGUEJS_PREFIX + \"\\\"{2}\\\" is {3} allowed for the tail-parameter in a variadic function\";\n/** @const */ var ERR_ARGUEJS_TailParameterMustBeLastPastparameter          = \"in a variadic function the tail-parameter must be the last parameter in the function specification.\";\n/** @const */ var ERR_ARGUEJS_TypeSpecificationHasTooManyElements           = ERR_ARGUEJS_PREFIX + \"type specification has too many elements.\";\n/** @const */ var ERR_ARGUEJS_UnknownTypeSpecificationOption                = ERR_ARGUEJS_PREFIX + \"type specification contains unknown option \\\"{2}\\\".\";\n\n/** @const */ var ERR_ARGUEJS_GetParameters_PREFIX                          = \"Incompatible function call: \";\n/** @const */ var ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue  = ERR_ARGUEJS_GetParameters_PREFIX + \"mandatory argument \\\"{1}\\\" has no value.\";\n/** @const */ var ERR_ARGUEJS_GetParameters_TooManyArguments                = ERR_ARGUEJS_GetParameters_PREFIX + \"too many arguments. {1}\";\n\n/* ###############################################################################################\n *\n * Utility functions for handling types\n *\n * These functions are private to the module.\n *\n * ###############################################################################################",
             "class": "module-arguejs",
             "module": "module-arguejs"
         },
         {
             "file": "argue2.js",
-            "line": 141,
+            "line": 150,
             "description": "Tests, if a value is a Boolean.",
             "itemtype": "method",
             "name": "isBoolean",
@@ -2606,7 +2606,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 157,
+            "line": 166,
             "description": "Tests, if a value is a Array.",
             "itemtype": "method",
             "name": "isArray",
@@ -2629,7 +2629,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 173,
+            "line": 182,
             "description": "Tests, if a value is a Function.",
             "itemtype": "method",
             "name": "isFunction",
@@ -2652,7 +2652,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 189,
+            "line": 198,
             "description": "Tests, if a value is a Object.",
             "itemtype": "method",
             "name": "isObject",
@@ -2675,7 +2675,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 205,
+            "line": 214,
             "description": "Tests, if a value is an Arguments-object.",
             "itemtype": "method",
             "name": "isArguments",
@@ -2698,7 +2698,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 224,
+            "line": 233,
             "description": "Tests, if a value is a \"Type\". This function summarizes logic for detecting, if a value is a type. In JavaScript\ndoes not exist anything like a \"Type\"-type. So, some logic is needed to distinguish between a type and a\nvalue/object/function.",
             "itemtype": "method",
             "name": "isType",
@@ -2721,7 +2721,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 242,
+            "line": 251,
             "description": "Returns the type of a value.",
             "itemtype": "method",
             "name": "getType",
@@ -2747,7 +2747,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 280,
+            "line": 289,
             "description": "Formats a string and returns the result.\n\nThis is a variadic function. Placeholders are delivered as normal arguments after the _formatString argument. In\nthe _formatString occurrences of \"{X}\" - where \"X\" is a number beginning with 1 - are replaced by the argument\nat position \"X\".",
             "itemtype": "method",
             "name": "formatText",
@@ -2778,7 +2778,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 323,
+            "line": 332,
             "description": "Validates a parameter name.",
             "itemtype": "method",
             "name": "validateParameterName",
@@ -2801,7 +2801,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 342,
+            "line": 351,
             "description": "Tests, if a value is compatible to a type and some options and if the value can be used as an argument value.",
             "itemtype": "method",
             "name": "isCompatibleArgumentValue",
@@ -2829,7 +2829,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 363,
+            "line": 372,
             "description": "Tests, if a value is compatible to a type and some options and if the value can be used as a default value.",
             "itemtype": "method",
             "name": "isCompatibleDefaultValue",
@@ -2857,7 +2857,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 393,
+            "line": 402,
             "description": "Tests if a parameter type specification is for a simple mandatory parameter.",
             "itemtype": "method",
             "name": "isSimpleMandatoryTypeSpecification",
@@ -2883,7 +2883,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 413,
+            "line": 422,
             "description": "Tests if a parameter type specification is for a simple optional parameter.",
             "itemtype": "method",
             "name": "isSimpleOptionalTypeSpecification",
@@ -2909,7 +2909,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 433,
+            "line": 442,
             "description": "Tests if a parameter type specification is a complex a complex type specification.",
             "itemtype": "method",
             "name": "isSimpleOptionalTypeSpecification",
@@ -2935,7 +2935,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 453,
+            "line": 462,
             "description": "Makes sure that some important attributes exist in a parameter. That is imporant for getArguments(...) because\nthat function relies on the fact that these attributes exist and their value is a default value if not\nspecified otherwise.\n\nThat attributes are:\n- \"parenthesizeTail\" if the type of the parameter is ArgueJS.TAIL\n- \"allowNull\" if the type of the parameter is not ArgueJS.TAIL\n- \"allowUndefined\" if the type of the parameter is not ArgueJS.TAIL",
             "itemtype": "method",
             "name": "ensureSomeParameterDefaultValues",
@@ -2958,7 +2958,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 488,
+            "line": 497,
             "description": "Creates a new parameter object from a simple mandatory parameter type specification.",
             "itemtype": "method",
             "name": "createSimpleMandatoryParameter",
@@ -2991,7 +2991,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 513,
+            "line": 522,
             "description": "Creates a new parameter object from a simple optional parameter type specification.",
             "itemtype": "method",
             "name": "createSimpleOptionalParameter",
@@ -3024,7 +3024,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 554,
+            "line": 563,
             "description": "Creates a new parameter object from a complex parameter type specification.",
             "itemtype": "method",
             "name": "createComplexParameter",
@@ -3057,7 +3057,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 622,
+            "line": 631,
             "description": "Creates a new parameter object from a parameter specification.",
             "itemtype": "method",
             "name": "createParameter",
@@ -3085,7 +3085,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 675,
+            "line": 684,
             "description": "Validates a parameter object. If this function returns normally then the parameter object is valid. Otherwise,\nthis function throws an exception.",
             "itemtype": "method",
             "name": "validateParameter",
@@ -3113,7 +3113,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 724,
+            "line": 733,
             "description": "Returns the default value. If _defaultValue is a function but _type is not Function and not ArgueJS.ANYTYPE then\nthe function is called and the returned value is the default value. In any other case _defaultValue is\nreturned.",
             "itemtype": "method",
             "name": "getDefaultValue",
@@ -3136,7 +3136,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 840,
+            "line": 849,
             "description": "Gets all arguments based on a programmatic function specification an a list of argument values.",
             "itemtype": "method",
             "name": "getArguments",
@@ -3166,7 +3166,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 972,
+            "line": 981,
             "description": "THIS FUNCTION EXPORTS INTERNAL INFORMATION ABOUT THE LIBRARY. THAT IS USEFUL FOR TESTING THE LIBRARY. TESTING ALL\nPARTS OF THE LIBRARY IS THE ONLY INTENTION FOR THIS FUNCTION.\n\nDO NOT USE THAT FUNCTION TO ACCESS INTERNAL STUFF. CHANGES IN THE SPECIFICATION OF THIS FUNCTION ARE NOT REPORTED\nAND MAY OCCUR AT ANY TIME WITHOUT ANY WARNING! THESE CHANGES ARE NO BUGS AND WILL NOT GET THREATED AS BUGS!",
             "itemtype": "method",
             "name": "__export_internals__",
@@ -3176,7 +3176,7 @@
         },
         {
             "file": "argue2.js",
-            "line": 1113,
+            "line": 1122,
             "exports": "{ArgueJS}  Export the class.",
             "class": "ArgueJS",
             "module": "module-arguejs"
@@ -4073,107 +4073,107 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:141"
+            "line": " argue2.js:150"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:157"
+            "line": " argue2.js:166"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:173"
+            "line": " argue2.js:182"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:189"
+            "line": " argue2.js:198"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:205"
+            "line": " argue2.js:214"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:224"
+            "line": " argue2.js:233"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:242"
+            "line": " argue2.js:251"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:280"
+            "line": " argue2.js:289"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:323"
+            "line": " argue2.js:332"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:342"
+            "line": " argue2.js:351"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:363"
+            "line": " argue2.js:372"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:393"
+            "line": " argue2.js:402"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:413"
+            "line": " argue2.js:422"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:433"
+            "line": " argue2.js:442"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:453"
+            "line": " argue2.js:462"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:488"
+            "line": " argue2.js:497"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:513"
+            "line": " argue2.js:522"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:554"
+            "line": " argue2.js:563"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:622"
+            "line": " argue2.js:631"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:675"
+            "line": " argue2.js:684"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " argue2.js:724"
+            "line": " argue2.js:733"
         },
         {
             "message": "unknown tag: expose",
-            "line": " argue2.js:775"
+            "line": " argue2.js:784"
         },
         {
             "message": "unknown tag: expose",
-            "line": " argue2.js:809"
+            "line": " argue2.js:818"
         },
         {
             "message": "unknown tag: expose",
-            "line": " argue2.js:840"
+            "line": " argue2.js:849"
         },
         {
             "message": "unknown tag: expose",
-            "line": " argue2.js:972"
+            "line": " argue2.js:981"
         },
         {
             "message": "unknown tag: exports",
-            "line": " argue2.js:1113"
+            "line": " argue2.js:1122"
         },
         {
             "message": "Missing item type",
@@ -4701,19 +4701,19 @@
         },
         {
             "message": "Missing item type",
-            "line": " argue2.js:26"
+            "line": " argue2.js:23"
         },
         {
             "message": "Missing item type\n/** @const */ var DEFAULT_VALUE_FOR_ALLOWUNDEFINED   = false;\n/** @const */ var DEFAULT_VALUE_FOR_PARENTHESIZETAIL = true;\n\n/* ###############################################################################################\n *\n * Error texts\n *\n * These texts are private to this module.\n *\n * ###############################################################################################",
-            "line": " argue2.js:96"
+            "line": " argue2.js:105"
         },
         {
             "message": "Missing item type\n/** @const */ var ERR_BADCALL_InvalidTypeOfArgument                         = ERR_BADCALL_PREFIX + \"type of \\\"{1}\\\" is invalid.\";\n/** @const */ var ERR_BADCALL_NoArguments                                   = ERR_BADCALL_PREFIX + \"no arguments. function call is not compatible with function specification.\";\n/** @const */ var ERR_BADCALL_TooManyArguments                              = ERR_BADCALL_PREFIX + \"too many arguments. function call is not compatible with function specification.\";\n/** @const */ var ERR_BADCALL_InvalidTypeOfParameter                        = ERR_BADCALL_PREFIX + \"parameter specification #{1} is not an object structure.\";\n\n/** @const */ var ERR_ARGUEJS_PREFIX                                        = \"parameter specification \\\"{1}\\\": \";\n/** @const */ var ERR_ARGUEJS_DefaultValueHasIncompatibleType               = ERR_ARGUEJS_PREFIX + \"default value is not compatible to parameter type\";\n/** @const */ var ERR_ARGUEJS_InvalidTypeOfValue                            = ERR_ARGUEJS_PREFIX + \"value of \\\"{2}\\\" has incorrect type (must be {3})\";\n/** @const */ var ERR_ARGUEJS_InvalidValue                                  = ERR_ARGUEJS_PREFIX + \"\\\"{2}\\\" is invalid.\";\n/** @const */ var ERR_ARGUEJS_MissingTypeSpecification                      = ERR_ARGUEJS_PREFIX + \"type specification is missing.\";\n/** @const */ var ERR_ARGUEJS_ParameterAlreadyDefined                       = ERR_ARGUEJS_PREFIX + \"parameter with same name already defined (conflicting position in function specification: #{2})\";\n/** @const */ var ERR_ARGUEJS_ParameterSpecificationWithoutName             = \"parameter specification: parameter #{1} has no name\";\n/** @const */ var ERR_ARGUEJS_ParameterWithTooManyElements                  = ERR_ARGUEJS_PREFIX + \"specification contains more than one element.\";\n/** @const */ var ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction         = ERR_ARGUEJS_PREFIX + \"\\\"{2}\\\" is {3} allowed for the tail-parameter in a variadic function\";\n/** @const */ var ERR_ARGUEJS_TailParameterMustBeLastPastparameter          = \"in a variadic function the tail-parameter must be the last parameter in the function specification.\";\n/** @const */ var ERR_ARGUEJS_TypeSpecificationHasTooManyElements           = ERR_ARGUEJS_PREFIX + \"type specification has too many elements.\";\n/** @const */ var ERR_ARGUEJS_UnknownTypeSpecificationOption                = ERR_ARGUEJS_PREFIX + \"type specification contains unknown option \\\"{2}\\\".\";\n\n/** @const */ var ERR_ARGUEJS_GetParameters_PREFIX                          = \"Incompatible function call: \";\n/** @const */ var ERR_ARGUEJS_GetParameters_MandatoryParameterWithoutValue  = ERR_ARGUEJS_GetParameters_PREFIX + \"mandatory argument \\\"{1}\\\" has no value.\";\n/** @const */ var ERR_ARGUEJS_GetParameters_TooManyArguments                = ERR_ARGUEJS_GetParameters_PREFIX + \"too many arguments. {1}\";\n\n/* ###############################################################################################\n *\n * Utility functions for handling types\n *\n * These functions are private to the module.\n *\n * ###############################################################################################",
-            "line": " argue2.js:109"
+            "line": " argue2.js:118"
         },
         {
             "message": "Missing item type",
-            "line": " argue2.js:1113"
+            "line": " argue2.js:1122"
         },
         {
             "message": "Missing item type",

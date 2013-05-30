@@ -94,9 +94,6 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
-/*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true, noempty:true, quotmark:double, smarttabs:true, strict:true, trailing:true, undef:true, unused:true, maxparams:10, maxdepth:10, maxstatements:200, browser:true, devel:false */
-/*global define:true,require:true,module:true,ARGUEJS_PRODUCTION_READY:false,ARGUEJS_EXPORT_INTERNALS:true*/
-
 /* The MIT License (MIT)
  *
  * Copyright (c) 2013 Martin Lühring (https://github.com/johmoh)
@@ -124,21 +121,33 @@
 // &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
 // &gt;&gt;&gt; make module available in node.js and the web (AMD - RequireJS) &gt;&gt;&gt;
 // &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
-if (typeof define !== &quot;function&quot;) {
-    var define = require(&quot;amdefine&quot;)(module);
-}
+(function(_name, _context, _moduleDefinition) {
 
-define(function () {
+    // AMD?
+    if ((typeof(define) === &quot;function&quot;) &amp;&amp; (typeof(define.amd) === &quot;object&quot;)) {
+        define(_moduleDefinition);
+    }
+    // Node.js?
+    else if ((typeof(require) === &quot;function&quot;) &amp;&amp; (typeof(exports) === &quot;object&quot;) &amp;&amp; (typeof(module) === &quot;object&quot;)) {
+        module.exports = _moduleDefinition();
+    }
+    // Fallback: Export in current namespace
+    else {
+        if (_context[_name] !== undefined) { throw new Error(&quot;cannot export module \&quot;&quot; + _name + &quot;\&quot; in current namespace. name already in use.&quot;); }
+        _context[_name] = _moduleDefinition();
+    }
 
-    &quot;use strict&quot;;
-
-    // initialize and return module
-    return (function (module_exports_factory) {
-        return module_exports_factory();
-    }(function () {
+}(&quot;arguejs&quot;, this, function() {
 // &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
 // &lt;&lt;&lt; make module available in node.js and the web (AMD - RequireJS) &lt;&lt;&lt;
 // &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+    /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, immed:true, latedef:true, newcap:true, noarg:true,
+             noempty:true, quotmark:double, smarttabs:true, strict:true, trailing:true, undef:true, unused:true,
+             maxcomplexity:25, maxdepth:10, maxparams:10, maxstatements:200,
+             browser:true, devel:false*/
+    /*global ARGUEJS_PRODUCTION_READY:false,ARGUEJS_EXPORT_INTERNALS:true*/
+
+    &quot;use strict&quot;;
 
     /* ARGUEJS_PRODUCTION_READY
      *
@@ -1214,8 +1223,8 @@ define(function () {
 // &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
 // &gt;&gt;&gt; make module available in node.js and the web (AMD - RequireJS) &gt;&gt;&gt;
 // &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
-    }));
-});
+    })
+);
 // &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
 // &lt;&lt;&lt; make module available in node.js and the web (AMD - RequireJS) &lt;&lt;&lt;
 // &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
