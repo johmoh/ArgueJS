@@ -144,7 +144,11 @@ define(['argue2', 'argue2.testable.min', 'argue2.testable.production.min', 'chai
                         " and the parameter default value is " + defaultValueText;
 
                 it(description, function() {
-                    var result = arguejs2_internals.$.getDefaultValue(_testCase.type, _testCase.defaultValue);
+                    var parameter = {
+                        type:           _testCase.type,
+                        defaultValue:   _testCase.defaultValue
+                    };
+                    var result = arguejs2_internals.$.getDefaultValue(parameter);
                     expect(result).to.deep.equal(_testCase.expectedDefaultValue);
                 });
 

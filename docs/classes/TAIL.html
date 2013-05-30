@@ -98,7 +98,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/argue2.js.html#l383"><code>argue2.js:383</code></a>
+            Defined in: <a href="../files/argue2.js.html#l809"><code>argue2.js:809</code></a>
         </div>
     
 
@@ -114,15 +114,17 @@
 
 
 <div class="box intro">
-    <p>Constructor of class TAIL. That type is used to mark a parameter as "containing all remaining arguments of a variadic function".</p>
+    <p>Constructor of class TAIL. That type is used to mark a parameter as "containing all remaining arguments of a
+variadic function".</p>
 
-<p>TAIL is a special type for marking an parameter as "array of remaining arguments". TAIL is used to specify an parameter containing all remaining arguments in a variadic function.</p>
+<p>TAIL is a special type for marking an parameter as "array of remaining arguments". TAIL is used to specify an
+parameter containing all remaining arguments in a variadic function.</p>
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_TAIL" class="method item">
+        <div id="method_TAIL" class="method item public">
     <h3 class="name"><code>TAIL</code></h3>
 
     
@@ -133,6 +135,8 @@
 
     
 
+    
+        <span class="flag public">public</span>
     
 
     
@@ -158,7 +162,7 @@
             
         
         
-        <a href="../files/argue2.js.html#l383"><code>argue2.js:383</code></a>
+        <a href="../files/argue2.js.html#l809"><code>argue2.js:809</code></a>
         
         </p>
 
@@ -187,12 +191,12 @@
     var specification = [{obligatoryValue: Number}, {myTail: arguejs.TAIL}];
     var <em>args = arguejs.getArguments(specification, arguments);
     console.log("number=" + _args.Number);
-    console.log("tail is " + (</em>args.myTail === undefined ? "undefined" : "defined and contains " + _args.myTail));
+    console.log("tail is " + (</em>args.myTail === undefined ? "undefined" : "defined and contains "+_args.myTail));
 }</p>
 
 <p>example(17); // myTail is undefined
-example(1, "Hallo world!"); // myTail = ["Hello world!"]
-example(39, 3, 1, 5, new MyClass(), false, true, [27,9,3,1]); // myTail = [3, 1, 5, new MyClass(), false, true, [27,9,3,1]]</p>
+example(1, "Hello world!"); // myTail = ["Hello world!"]
+example(39, 3, 1, 5, new MyClass(), true, [27,9,3,1]); // myTail = [3, 1, 5, new MyClass(), true, [27,9,3,1]]</p>
             </div>
         </div>
     

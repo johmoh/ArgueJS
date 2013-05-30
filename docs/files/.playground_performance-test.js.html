@@ -94,7 +94,8 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
-var arguejs2 = require(&quot;../argue2&quot;);
+var arguejs2 = require(&quot;../argue2.js&quot;);
+//var arguejs2 = require(&quot;../argue2.production.min.js&quot;);
 
 // ######################################################################################################
 
@@ -169,21 +170,20 @@ function test() {
         {funky: [MyClass]},
         {myAny3: Boolean},
         {myAny2: [String]},
-        {myTail: [Array]}
+        {myTail: [arguejs2.TAIL]}
     ];
     var _args = arguejs2.getArguments(specification, arguments);
     //console.log(_args);
 }
 
+/*
 test(17, new MyClass(), true, &quot;Hallo Welt!&quot;);
 test(17, new MyClass(), true, &quot;Hallo Welt!&quot;, [1,2,3,4]);
 test(&quot;juhu&quot;, 18, 20, new MyClass(), false);
 test(&quot;juhu&quot;, 18, 20, new MyClass(), false, [&quot;a&quot;, 1, 2, &quot;b&quot;]);
 test(19, false);
 test(&quot;hello world&quot;, 19, 100, new MyClass(), true, &quot;Jippi!&quot;, [[&quot;Hallo Welt!&quot;, 31], [], &quot;ja&quot;]);
-
-
-
+*/
 
 /**/
 var start = Date.now();

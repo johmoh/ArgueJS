@@ -56,29 +56,6 @@ define(['argue2', 'argue2.testable.min', 'argue2.testable.production.min', 'chai
                     });
                 });
 
-                describe("getArguments(...) is called with two arguments (_functionSpecification and _arguments):", function() {
-
-                    it("expect to accept an array as _functionSpecification", function() {
-                        expect(function(){arguejs2.getArguments([], arguments);}).not.to["throw"]();
-                    });
-
-                    it("expect an exception thrown if _functionSpecification is not an array", function() {
-                        expect(function(){arguejs2.getArguments({}, arguments);}).to["throw"](Error, errorTexts.asRegExp.ERR_BADCALL_InvalidTypeOfArgument);
-                    });
-
-                    it("expect to accept an array as _arguments", function() {
-                        expect(function(){arguejs2.getArguments([], []);}).not.to["throw"]();
-                    });
-
-                    it("expect to accept an Arguments object as _arguments", function() {
-                        expect(function(){arguejs2.getArguments([], arguments);}).not.to["throw"]();
-                    });
-
-                    it("expect an exception thrown if _arguments is not an array or an Arguments object", function() {
-                        expect(function(){arguejs2.getArguments({}, {});}).to["throw"](Error, errorTexts.asRegExp.ERR_BADCALL_InvalidTypeOfArgument);
-                    });
-                });
-
                 describe("getArguments(...) is called with one argument (_arguments):", function() {
 
                     it("expect to accept an array as _arguments", function() {
@@ -90,22 +67,48 @@ define(['argue2', 'argue2.testable.min', 'argue2.testable.production.min', 'chai
                     });
                 });
 
-                describe("getArguments(...) is called with function signature:", function () {
+                describe("getArguments(...) is called with two arguments (_functionSpecification and _arguments):", function() {
 
-                    it("expect to accept one parameter specification as an object in _functionSpecification", function() {
-                        expect(function(){arguejs2.getArguments([{a:[String]}], arguments);}).not.to["throw"]();
+                    describe("function specification is empty", function() {
+
+                        it("expect to accept an array as _functionSpecification", function() {
+                            expect(function(){arguejs2.getArguments([], arguments);}).not.to["throw"]();
+                        });
+
+                        it("expect an exception thrown if _functionSpecification is not an array", function() {
+                            expect(function(){arguejs2.getArguments({}, arguments);}).to["throw"](Error, errorTexts.asRegExp.ERR_BADCALL_InvalidTypeOfArgument);
+                        });
+
+                        it("expect to accept an array as _arguments", function() {
+                            expect(function(){arguejs2.getArguments([], []);}).not.to["throw"]();
+                        });
+
+                        it("expect to accept an Arguments object as _arguments", function() {
+                            expect(function(){arguejs2.getArguments([], arguments);}).not.to["throw"]();
+                        });
+
+                        it("expect an exception thrown if _arguments is not an array or an Arguments object", function() {
+                            expect(function(){arguejs2.getArguments({}, {});}).to["throw"](Error, errorTexts.asRegExp.ERR_BADCALL_InvalidTypeOfArgument);
+                        });
                     });
 
-                    it("expect to accept two parameter specifications as an objects in _functionSpecification", function() {
-                        expect(function(){arguejs2.getArguments([{a:[String]}, {b:[String]}], arguments);}).not.to["throw"]();
-                    });
+                    describe("function specification is not empty", function() {
 
-                    it("expect to accept three parameter specifications as an objects in _functionSpecification", function() {
-                        expect(function(){arguejs2.getArguments([{a:[String]}, {b:[String]}, {c:[String]}], arguments);}).not.to["throw"]();
-                    });
+                        it("expect to accept one parameter specification as an object in _functionSpecification", function() {
+                            expect(function(){arguejs2.getArguments([{a:[String]}], arguments);}).not.to["throw"]();
+                        });
 
-                    it("expect an exception thrown if a parameter specification in _functionSpecification is not an object", function() {
-                        expect(function(){arguejs2.getArguments([{a:[String]}, [], {c:[String]}], arguments);}).to["throw"](Error, errorTexts.asRegExp.ERR_BADCALL_InvalidTypeOfParameter);
+                        it("expect to accept two parameter specifications as an objects in _functionSpecification", function() {
+                            expect(function(){arguejs2.getArguments([{a:[String]}, {b:[String]}], arguments);}).not.to["throw"]();
+                        });
+
+                        it("expect to accept three parameter specifications as an objects in _functionSpecification", function() {
+                            expect(function(){arguejs2.getArguments([{a:[String]}, {b:[String]}, {c:[String]}], arguments);}).not.to["throw"]();
+                        });
+
+                        it("expect an exception thrown if a parameter specification in _functionSpecification is not an object", function() {
+                            expect(function(){arguejs2.getArguments([{a:[String]}, [], {c:[String]}], arguments);}).to["throw"](Error, errorTexts.asRegExp.ERR_BADCALL_InvalidTypeOfParameter);
+                        });
                     });
                 });
             });
@@ -523,7 +526,7 @@ define(['argue2', 'argue2.testable.min', 'argue2.testable.production.min', 'chai
                             expect(function(){arguejs2.getArguments([{"hello": [String]}, {world: [Number]}, {"hello": [Boolean]}, {ladies: [Date]}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterAlreadyDefined);
                         });
 
-                        it("two parameter names are - the first name is an identifier and the second name is a strings", function() {
+                        it("two parameter names are - the first name is an identifier and the second name is a string", function() {
                             expect(function(){arguejs2.getArguments([{hello: [String]}, {world: [Number]}, {"hello": [Boolean]}, {ladies: [Date]}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterAlreadyDefined);
                         });
 
@@ -588,10 +591,6 @@ define(['argue2', 'argue2.testable.min', 'argue2.testable.production.min', 'chai
 
                             it("expect an exception thrown if parameter type is not a type", function() {
                                 expect(function(){arguejs2.getArguments([{a: ["String"]}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_InvalidValue);
-                            });
-
-                            it("expect an exception thrown if parameter type specification is missing", function() {
-                                expect(function(){arguejs2.getArguments([{a: []}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_MissingTypeSpecification);
                             });
 
                             it("expect an exception thrown if parameter type specification has too many elements", function() {
@@ -711,32 +710,29 @@ define(['argue2', 'argue2.testable.min', 'argue2.testable.production.min', 'chai
                         });
                     });
 
-                    describe("special cases for variadic functions:", function() {
+                    it("expect to accept a tail parameter specification with valid parameter type specification options", function() {
+                        expect(function(){arguejs2.getArguments([{a: {type: arguejs2.TAIL, defaultValue: [], parenthesizeTail: false}}], []);}).not.to["throw"]();
+                    });
 
-                        it("expect to accept a tail parameter specification with valid parameter type specification options", function() {
-                            expect(function(){arguejs2.getArguments([{a: {type: arguejs2.TAIL, defaultValue: [], parenthesizeTail: false}}], []);}).not.to["throw"]();
+                    describe("expect an exception thrown if a tail parameter specifiction contains parameter type specification option allowNull", function() {
+
+                        it("that is set to true", function() {
+                            expect(function(){arguejs2.getArguments([{a: {type: arguejs2.TAIL, defaultValue: [], parenthesizeTail: false, allowNull: true}}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction);
                         });
 
-                        describe("expect an exception thrown if a tail parameter specifiction contains parameter type specification option allowNull", function() {
+                        it("that is set to false", function() {
+                            expect(function(){arguejs2.getArguments([{a: {type: arguejs2.TAIL, defaultValue: [], parenthesizeTail: false, allowNull: false}}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction);
+                        });
+                    });
 
-                            it("that is set to true", function() {
-                                expect(function(){arguejs2.getArguments([{a: {type: arguejs2.TAIL, defaultValue: [], parenthesizeTail: false, allowNull: true}}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction);
-                            });
+                    describe("expect an exception thrown if a tail parameter specifiction contains parameter type specification option allowUndefined", function() {
 
-                            it("that is set to false", function() {
-                                expect(function(){arguejs2.getArguments([{a: {type: arguejs2.TAIL, defaultValue: [], parenthesizeTail: false, allowNull: false}}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction);
-                            });
+                        it("that is set to true", function() {
+                            expect(function(){arguejs2.getArguments([{a: {type: arguejs2.TAIL, defaultValue: [], parenthesizeTail: false, allowUndefined: true}}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction);
                         });
 
-                        describe("expect an exception thrown if a tail parameter specifiction contains parameter type specification option allowUndefined", function() {
-
-                            it("that is set to true", function() {
-                                expect(function(){arguejs2.getArguments([{a: {type: arguejs2.TAIL, defaultValue: [], parenthesizeTail: false, allowUndefined: true}}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction);
-                            });
-
-                            it("that is set to false", function() {
-                                expect(function(){arguejs2.getArguments([{a: {type: arguejs2.TAIL, defaultValue: [], parenthesizeTail: false, allowUndefined: false}}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction);
-                            });
+                        it("that is set to false", function() {
+                            expect(function(){arguejs2.getArguments([{a: {type: arguejs2.TAIL, defaultValue: [], parenthesizeTail: false, allowUndefined: false}}], []);}).to["throw"](Error, errorTexts.asRegExp.ERR_ARGUEJS_ParameterXYZAllowedInVariadicFunction);
                         });
                     });
                 });

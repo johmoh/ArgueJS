@@ -199,12 +199,17 @@ define(['argue2', 'argue2.testable.min', 'argue2.testable.production.min', 'chai
             function generateItFunctionCallback(_testCase) {
                 return function() {
                     var result;
+                    var parameter = {
+                        type            : _testCase.parameterType,
+                        allowUndefined  : _testCase.allowUndefined,
+                        allowNull       : _testCase.allowNull
+                    };
                     if (_testCase.asDefaultValue) {
 
-                        result = arguejs2_internals.$.isCompatibleDefaultValue(_testCase.value, _testCase.parameterType, _testCase.allowUndefined, _testCase.allowNull);
+                        result = arguejs2_internals.$.isCompatibleDefaultValue(_testCase.value, parameter);
                     }
                     else {
-                        result = arguejs2_internals.$.isCompatibleArgumentValue(_testCase.value, _testCase.parameterType, _testCase.allowUndefined, _testCase.allowNull);
+                        result = arguejs2_internals.$.isCompatibleArgumentValue(_testCase.value, parameter);
                     }
                     expect(result).to.equal(_testCase.expectedResult);
                 };
